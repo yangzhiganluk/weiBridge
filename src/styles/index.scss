@@ -1,0 +1,345 @@
+@import './element-ui.scss';
+@import './mixin.scss';
+@import './sidebar.scss';
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #app {
+  //后来添加
+  width: 100%;
+  font-size: 14px;
+  height:100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  font-size:14px;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+//vue router transition css
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .2s ease
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+//main-container全局样式
+.app-main {
+  min-height: 100%
+}
+
+.app-container {
+  padding: 20px;
+}
+
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.space_bg_white{
+  background: #fff;
+}
+.space_bg_dark{
+  background: #f5f5f5;
+}
+.space_10{
+  height:10px;
+}
+.space_20{
+  height: 20px;
+}
+.space_30 {
+  height:30px;
+  text-align: center;
+}
+.space_50 {
+  height:50px;
+  text-align: center;
+}
+.space_80{
+  height:80px;
+  text-align: center;
+}
+/*展示警告的样式开始*/
+.showAlarm{
+  width:16px;
+  height:16px;
+  background: url("assets/images/Sigh.png") no-repeat;
+  display: inline-block;
+  float:right;
+}
+
+.cellBox {
+  .weui-cells__title{
+    font-weight:600;
+    font-size:16px;
+    color:#000;
+  }
+}
+
+/*顶部导航栏*/
+.vux-header{
+  /*background: url("assets/images/head_bg.jpg");*/
+  /*  background: -moz-linear-gradient(top, #000000 0%, #ffffff 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000000), color-stop(100%,#ffffff));
+    background: -webkit-linear-gradient(top, #000000 0%,#ffffff 100%);
+    background: -o-linear-gradient(top, #000000 0%,#ffffff 100%);
+    background: -ms-linear-gradient(top, #000000 0%,#ffffff 100%);*/
+  /*background: linear-gradient(to right, #3DA8B9 0%,#2FC3BC 50%, #2ACDBC 100%);*/
+  /*background: url("assets/images/header_bg.jpg");*/
+  /*background-size:100% 100%;*/
+  background: #5BCBC9 !important;
+  font-size:16px;
+  display: none;
+}
+.vux-header .vux-header-left .left-arrow:before{
+  border:1px solid #fff !important;
+  border-width: 1px 0 0 1px !important;
+
+}
+/*BridgeManage 页面*/
+.cellBox .weui-cells{
+  margin-top: 0 !important;
+  width:90%;
+  margin: 0 auto;
+  border:none;
+  border-radius: 10px;
+}
+.cellBox .weui-cells:before{
+  border:none;
+}
+.cellBox .weui-cells:after{
+  border:none;
+}
+.cellBox .weui-cell{
+  padding: 15px 15px;
+}
+
+/*工作状态页面*/
+.vux-tab-wrap .vux-tab-container{
+  border-top: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0px 5px 5px #ccc;
+  height:50px;
+}
+
+.workStateInfo{
+  width:100%;
+  height:100%;
+  .vux-tab{
+    height:50px;
+  }
+  .vux-tab-bar-inner{
+    background-color:#17E2C8 !important;
+  }
+  .vux-tab .vux-tab-item.vux-tab-selected{
+    color:#666;
+  }
+}
+
+/*通用cell头部*/
+.cellTop{
+  color:#8a8c96;
+  clear: both;
+  width:90%;
+  margin: 20px auto;
+  font-size:14px;
+  font-weight: 200;
+  padding-left: 15px;
+}
+
+.cellBox{
+  .weui-cell_access.vux-cell-box{
+    font-size:16px;
+    color:#1c2c63;
+  }
+  .weui-cells{
+    margin-top: 0;
+  }
+
+}
+
+/*通用cell*/
+.commonCell{
+  width:90%;
+  margin: 0 auto;
+  border-radius: 10px;
+  .vux-no-group-title{
+    margin-top: 0;
+  }
+}
+
+
+
+/*图表信息开始*/
+.myChartData{
+  height:250px;
+  width:90%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+ padding: 10px 10px;
+  &>div:last-child{
+    width:100%;
+    height:80%;
+   &>div:first-child{
+    width:100% !important;
+    height:100% !important;
+    canvas{
+      width:100% !important;
+      height:100% !important;
+    }
+  }
+  }
+}
+/*图表信息结束*/
+
+/*传感器信息开始*/
+.sensorInfo{
+  width:90%;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 20px 20px;
+  .vux-flexbox-item{
+    color:#3A4972;
+    font-weight: 600;
+    font-size:15px;
+    font-family: 'MicrosoftYaHei Regular';
+    min-height:30px;
+    line-height: 30px;
+    opacity: 0.9;
+  }
+}
+/*sensorInfo样式*/
+.sensorCell{
+  .weui-cells{
+    margin-top: 0;
+    border-radius: 10px;
+    color:#3A4972;
+    font-size: 15px;
+    font-family: 'MicrosoftYaHei Regular';
+    font-weight:600;
+  }
+  .vux-datetime{
+    color:#3A4972;
+  }
+  .vux-cell-value{
+    color:#3A4972;
+  }
+  .weui-cell:before{
+    border:none;
+  }
+  .weui-cells:before{
+    border: none;
+  }
+  .weui-cell{
+    padding: 10px 20px;
+  }
+}
+
+.dateStyle {
+  .el-input__icon + .el-input__inner{
+    text-align: center;
+  }
+  .el-input__inner{
+    padding: 3px 0;
+    text-align: center;
+  }
+  .el-input__prefix, .el-input__suffix{
+    display: none;
+  }
+}
+/*传感器信息结束*/
+
+/*下拉框的样式开始*/
+.selectOption{
+  .el-select{
+    .el-input__inner{
+      height:30px;
+      line-height: 30px;
+      padding-right: 0px;
+    }
+  }
+}
+
+/*下拉框的样式结束*/
+
+.alarmList{
+  .weui-cells{
+    margin-top: 0px;
+    height:100%;
+  }
+}
+
+/*告警内容样式结束*/
+
+
+/*统计的样式开始*/
+.panelList{
+  .weui-cell__bd{
+    padding-left: 10px;
+  }
+}
+
+.selectOption{
+  .dateStyle{
+    width:184px;
+    .el-input__inner{
+      height:30px;
+      line-height: 30px;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 0px;
+      box-sizing: border-box;
+    }
+  }
+}
+
+
+
+/*统计的样式结束*/
