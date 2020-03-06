@@ -1,0 +1,95 @@
+.myContainer {
+    width:100%;
+    height:100%;
+    background: url("../../assets/images/login_bg.jpg");
+    background-size:cover;
+    padding-bottom: 30px;
+    .flex-photo {
+      text-align: center;
+      .avatar {
+        width:150px;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    /*登录框的内容开始*/
+    .loginInput {
+      font-size: 14px;
+    }
+    .longin-boder{
+      width: 75%;
+      height: 40px;
+      margin: 20px auto;
+      line-height: 40px;
+      text-align: center;
+      border-bottom: 1px solid #BDBFD1;
+      .image{
+        width: 10%;
+        margin-top: 2px;
+        float: left;
+        text-align: right;
+        img{
+          width:15px;
+        }
+      }
+      .input{
+        width: 80%;
+        float: left;
+        margin-left: 5%;
+        height: 37px;
+        line-height: 37px;
+        border:0px;
+        color: #ffffff;
+        font-size: 16px;
+        background: transparent;
+        font-family: '微软雅黑 Regular';
+        outline: none;
+      }
+      .input:focus{
+        border:none;
+      }
+      .input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #fff;
+        font-family: '微软雅黑 Regular';
+      }
+      .input:-moz-placeholder, textarea:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #fff;
+        font-family: '微软雅黑 Regular';
+      }
+      .input::-moz-placeholder, textarea::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #fff;
+        font-family: '微软雅黑 Regular';
+      }
+      .input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #fff;
+        font-family: '微软雅黑 Regular';
+      }
+    }
+
+
+    .button{
+      height: 50px;
+      width: 80%;
+      line-height: 50px;
+      text-align: center;
+      color:#60598d;
+      margin: 0 auto;
+      margin-top: 20px;
+      font-size: 18px;
+      font-family: "微软雅黑";
+      font-weight: bold;
+      border-radius: 50px;
+      background: #ffffff;
+
+    }
+
+    .button:active {
+      background-color:#BDBFD1;
+    }
+    /*登录框的内容结束*/
+
+  }

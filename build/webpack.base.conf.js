@@ -35,6 +35,7 @@ let webpackConfig = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'assets': resolve('src/assets'),
       'jquery':'jquery'
     }
   },
@@ -61,7 +62,7 @@ let webpackConfig = {
         include: [resolve('src'), resolve('test')]
       },{
         test:/\.scss$/,
-        loaders:['style','css','scss']
+        loaders: ["style", "css", "sass"]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

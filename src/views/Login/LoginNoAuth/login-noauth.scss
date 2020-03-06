@@ -1,0 +1,55 @@
+body{
+    background-color: red;
+  }
+  .myContainer {
+    .flex-photo{
+      text-align: center;
+      .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width:100px;
+        height:100px;
+        line-height: 100px;
+        text-align: center;
+        border:1px solid #ddd;
+        border-radius: 50%;
+      }
+      .avatar {
+        width:100px;
+        height:100px;
+        line-height: 100px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    .flex-demo {
+      text-align: center;
+      color: #fff;
+      background-color: #20b907;
+      border-radius: 4px;
+      background-clip: padding-box;
+    }
+    .loginInput {
+      font-size:16px;
+      .weui-cell{
+        font-size:16px;
+      }
+      .weui-input{
+        font-size:16px;
+      }
+    }
+    .weui-btn{
+      font-size:16px;
+    }
+  }

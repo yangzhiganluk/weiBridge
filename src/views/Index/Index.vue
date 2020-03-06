@@ -92,13 +92,11 @@
       }
     },
     computed: {
-      // ...mapGetters(['username']),
       ...mapGetters(['count', 'moreBridgePageUrl', 'imgUrl']),
     },
     beforeCreate() {
       this.$store.dispatch('initcount')
     },
-    components: {},
     created() {
       /*加载桥梁列表*/
       // this.getList();
@@ -120,11 +118,6 @@
         }else{
           this.$router.push("Oauth")
         }
-
-        $('form').on('submit', function(e){
-          this.loginSubmit();
-          return false;
-        });
       },
 
       /*=============通用组件开始================*/

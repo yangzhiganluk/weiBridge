@@ -16,28 +16,20 @@ import '../theme/index.css'
 import axios from 'axios'
 //vuex
 import store from './store/index.js'
-import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Tab, TabItem } from 'vux'
-import { XInput } from 'vux'
-import { XButton } from 'vux'
-import { Panel } from 'vux'
-import  { ToastPlugin } from 'vux'
-import  { LoadingPlugin } from 'vux'
-import { XTextarea } from 'vux'
-import  { ConfirmPlugin } from 'vux'
-import { CellBox } from 'vux'
-import { VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector} from 'vux'
-import { Checker, CheckerItem } from 'vux'
-import { Datetime } from 'vux'
-import { XHeader } from 'vux'
-import {PopupPicker} from  'vux'
-import  { AlertPlugin } from 'vux'
-import { Scroller,LoadMore,Loading  } from 'vux'
+import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
+  XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
+  VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
+  Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
+  CheckIcon
+} from 'vux'
+
 
 
 //引入iview
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
-Vue.use(iView);
+import ViewUI from 'view-design';
+// import style
+import 'view-design/dist/styles/iview.css';
+Vue.use(ViewUI);
 
 
 var management_url='http://www.qiaohaoba.net/platform_management';
@@ -55,8 +47,8 @@ Vue.use(ElementUI);
 Vue.component('flexbox', Flexbox)
 Vue.component('flexbox-item', FlexboxItem)
 Vue.component('cell', Cell)
+Vue.component('cell-box', CellBox)
 Vue.component('group', Group)
-Vue.component('cell', ButtonTab)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 Vue.component('tab', Tab)
@@ -69,7 +61,6 @@ Vue.use(ToastPlugin, {position: 'middle'})
 Vue.use(LoadingPlugin)
 Vue.component('x-textarea', XTextarea)
 Vue.use(ConfirmPlugin)
-Vue.component('cell-box', CellBox)
 
 Vue.component('v-chart', VChart)
 Vue.component('v-line', VLine)
@@ -95,13 +86,8 @@ Vue.component('loading', Loading)
 Vue.use(AlertPlugin)
 
 Vue.component('datetime', Datetime)
+Vue.component('check-icon', CheckIcon)
 
-
-
-
-function refresh(){
-
-}
 
 //给它设置一个timeout = 8000
 axios.defaults.timeout =  8000;
@@ -110,24 +96,29 @@ axios.defaults.timeout =  8000;
 axios.interceptors.request.use(
   function(config) {
     /*判断当前是否在登录页。在登录页的时候，肯定是取不到accessToken的，需要排除*/
-    if(router.match(location).hash!='#/'&&router.match(location).hash!='#/Oauth'&&router.match(location).hash!='#/LoginNoAuth'){
+    if(router.match(location).hash!='#/' && 
+      router.match(location).hash!='#/Oauth' && 
+      router.match(location).hash!='#/LoginNoAuth' &&
+      router.match(location).hash!='#/Register'
+    ) {
       let accessToken = getCookie('accessToken');
-      let refreshToken=getCookie('refreshToken');
-      let loginInfo=localStorage.getItem("loginInfo")?JSON.parse(localStorage.getItem("loginInfo")):"";
+      let refreshToken = getCookie('refreshToken');
+      let loginInfo = localStorage.getItem("loginInfo")?JSON.parse(localStorage.getItem("loginInfo")):"";
       if (accessToken&&loginInfo) {  // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
         config.headers.accessToken  = accessToken;
       }else if(refreshToken&&loginInfo&&loginInfo!=""){
         var scope=this;
+        /**
+         * @description 刷新请求接口accessToken
+         */
         Vue.prototype.$http.get(management_url+'/user/signInByRefresh ', {
           headers: {
             accessToken: scope.accessToken
           },
           params:{
-            refreshToken:refreshToken
+            refreshToken: refreshToken
           }
-
         }).then((res) => {
-
           var resData = res.data;
           if (res.data.resultCode == 1) {
             /*判断是否有结构物，是否存在多桥和单桥*/
@@ -135,6 +126,7 @@ axios.interceptors.request.use(
               delCookie("accessToken");
               delCookie("refreshToken");
               clearAllCookie();
+
               setCookie("accessToken",resData.data.accessToken,Infinity);
               setCookie("refreshToken",resData.data.refreshToken,Infinity);
 
@@ -189,6 +181,19 @@ axios.interceptors.response.use(
     return Promise.reject(error.response.data)
   });
 
+/**
+ * 点击延迟
+ */
+const FastClick = require('fastclick')
+FastClick.attach(document.body)
+
+/**
+ * 微信 jssdk
+ */
+import { WechatPlugin } from 'vux'
+Vue.use(WechatPlugin)
+
+console.log(Vue.wechat) // 可以直接访问 wx 对象。
 
 new Vue({
   el: '#app',

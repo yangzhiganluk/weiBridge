@@ -62,11 +62,9 @@ const actions = {
   },
   Appid: ({commit}, Appid) => {
     commit('APPID', Appid)
-
   },
   Secret: ({commit}, Secret) => {
     commit('SECRET', Secret)
-
   }
 
 }

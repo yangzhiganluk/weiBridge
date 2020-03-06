@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/views/Login/Login'  //登录页面
-import LoginNoAuth from '@/views/Login/LoginNoAuth'  //登录页面无须授权
+import Login from '@/views/Login/Login.vue'  //登录页面
+import LoginNoAuth from '@/views/Login/LoginNoAuth/login-noauth'  //登录页面无须授权
+import Register from '@/views/Register/register.vue'  //注册页面
+import UserAgreement from '@/views/Register/user-agreement'  //用户协议
 import Oauth from '@/views/Oauth/Oauth'  //授权页
 import Index from '@/views/Index/Index'  //首页-桥梁
 import IndexAlarm from '@/views/Index/IndexAlarm'  //首页-告警列表
@@ -44,6 +46,16 @@ export default new Router({
       name: 'LoginNoAuth',
       component: LoginNoAuth,
       hidden:true
+    },
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register
+    },
+    {
+      path: '/UserAgreement',
+      name: 'UserAgreement',
+      component: UserAgreement
     },
     {
       path: "/Oauth",

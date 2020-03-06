@@ -52,10 +52,6 @@
 
 <script>
   import {setCookie, getCookie, delCookie} from '../../assets/js/cookie.js'
-  var publicapi = require('../../assets/js/publicapi.js')
-  var api = publicapi.proxy.monitoring_url;
-  var acquisition_url = publicapi.proxy.acquisition_url;  //
-  var management_url = publicapi.proxy.management_url;
   import {mapGetters} from 'vuex'
   export default {
     data() {
@@ -64,18 +60,14 @@
       }
     },
     computed: {
-      // ...mapGetters(['username']),
       ...mapGetters(['Appid', 'Secret']),
-    },
-    beforeCreate() {
-
     },
     created() {
        this.getCode();
     },
     methods: {
       getCode() {
-         window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96143db2d3a1a789&redirect_uri=http://www.qiaohaoba.net/mobileMonitor&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+         window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96143db2d3a1a789&redirect_uri=http%3A%2F%2Fwww.qiaohaoba.net%2FmobileMonitor&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
       }
     }
   }
