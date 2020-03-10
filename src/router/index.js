@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/views/Login/Login.vue'  //登录页面
-import LoginNoAuth from '@/views/Login/LoginNoAuth/login-noauth'  //登录页面无须授权
+import Login from '@/views/Login/login-page/login.vue'  //登录页面
+import LoginNoAuth from '@/views/Login/login-noauth-page/login-noauth'  //登录页面无须授权
+import ChangePwd from '@/views/Login/change-pwd-page/change-pwd.vue' //修改密码页面
 import Register from '@/views/Register/register.vue'  //注册页面
 import UserAgreement from '@/views/Register/user-agreement'  //用户协议
 import Oauth from '@/views/Oauth/Oauth'  //授权页
-import Index from '@/views/Index/Index'  //首页-桥梁
+
+import Index from '@/views/Index/index-page/index.vue'  //首页-桥梁
 import IndexAlarm from '@/views/Index/IndexAlarm'  //首页-告警列表
 import IndexStatistics from '@/views/Index/IndexStatistics'  //首页-统计
 
@@ -46,6 +48,11 @@ export default new Router({
       name: 'LoginNoAuth',
       component: LoginNoAuth,
       hidden:true
+    },
+    {
+      path: '/ChangePwd',
+      name: 'ChangePwd',
+      component: ChangePwd,
     },
     {
       path: '/Register',

@@ -32,7 +32,7 @@ import 'view-design/dist/styles/iview.css';
 Vue.use(ViewUI);
 
 
-var management_url='http://www.qiaohaoba.net/platform_management';
+let management_url='http://www.qiaohaoba.net/platform_management';
 import {setCookie, getCookie, delCookie,clearAllCookie} from './assets/js/cookie.js'
 Vue.prototype.$getCookie = getCookie;
 Vue.prototype.$setCookie = setCookie;
@@ -186,6 +186,19 @@ axios.interceptors.response.use(
  */
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
+
+/**
+ * 全局变量或全局方法
+ */
+import custom from './utils/custom'
+console.log(custom.setCookie)
+Vue.use({
+  install(Vue, options) {
+    for(let key in custom) {
+      Vue.prototype['$$' + key] = custom[key]
+    }
+  }
+})
 
 /**
  * 微信 jssdk

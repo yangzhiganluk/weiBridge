@@ -71,16 +71,12 @@
         account:'',   //登录用户名
         user_password:'', //登录密码
         accessToken:'',//鉴权码
-        openid: Date.parse(new Date()),//用户的唯一标识
+        openid: ''
       }
     },
-    computed: {
-    },
-    beforeCreate() {
-
-    },
-    created() {
-
+    mounted() {
+      this.openid = Date.parse(new Date()) //用户的唯一标识
+      localStorage.setItem("openid", this.openid);
     },
     methods: {
 
@@ -106,7 +102,7 @@
         scope.$http.post(management_url + '/user/signInByWeChat ',params, {
         }).then((res) => {
           var resData = res.data;
-          if (res.data.resultCode == 1) {
+          if (resData.resultCode == 1) {
             /*判断是否有结构物，是否存在多桥和单桥*/
             if (resData.data) {
               localStorage.setItem("loginInfo",JSON.stringify(resData.data));

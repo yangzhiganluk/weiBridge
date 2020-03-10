@@ -8,7 +8,7 @@ export default {
         return {
             username: '',
             password: '',
-            level: 0, //定义一个变量用于存放密码强度
+            // level: 0, //定义一个变量用于存放密码强度
             repwd: '',
             phone: '',
             authcode: '',
@@ -32,13 +32,6 @@ export default {
                     msg: '密码必须由6-20个英文字母，数字或符号（除空格），且字母、数字和标点符号至少包含两种'
                 }
             },
-            phoneValid: function(value) {
-                let reg = /^[1][1,2,3,4,5,6,7,8,9,0][0-9]{9}$/;
-                return {
-                    valid: reg.test(value),
-                    msg: "请输入11位手机号（仅数字有效）"
-                }
-            },
             authcodeValid: function(value) {
                 let reg = /^\d{6}$/
                 return {
@@ -47,18 +40,6 @@ export default {
                 }
             },
         };
-    },
-    computed: {
-
-    },
-    created() {
-        
-    },
-    mounted() {
-
-    },
-    watch: {
-        
     },
     methods: {
        
@@ -191,7 +172,5 @@ export default {
         })
        },
     },
-    components: {
-
-    },
+    
 };

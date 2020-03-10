@@ -185,7 +185,6 @@
     beforeCreate() {
       this.$store.dispatch('initcount')
     },
-    components: {},
     created() {
       sessionStorage.removeItem("scanData");
 

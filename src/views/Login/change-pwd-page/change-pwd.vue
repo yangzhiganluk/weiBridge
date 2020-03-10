@@ -1,27 +1,26 @@
 <template>
     <div class="myContainer">
-        <!-- 注册部分开始 -->
-        <group class="register-box">
+        <group class="changepwd-box">
             <x-input 
-                title="用户名" 
+                title="当前密码" 
                 :min="6" 
                 :max="20" 
-                v-model="username" 
-                :is-type="usernameValid" 
-                ref="usernameRef"
-                placeholder="请输入用户名" 
+                type="password" 
+                v-model="oldpwd" 
+                ref="oldpwdRef"
+                placeholder="请输入当前密码" 
                 placeholder-align="right"
                 required
             ></x-input>
             <x-input 
-                title="设置密码" 
+                title="新密码" 
                 :min="6" 
                 :max="20" 
                 type="password" 
-                v-model="password" 
-                :is-type="passwordValid" 
-                ref="passwordRef"
-                placeholder="请输入密码" 
+                v-model="newpwd" 
+                :is-type="newpwdValid" 
+                ref="newpwdRef"
+                placeholder="请输入新密码" 
                 placeholder-align="right"
                 required
             ></x-input>
@@ -30,14 +29,14 @@
                 :min="6" 
                 :max="20" 
                 type="password" 
-                v-model="repwd" 
-                :equal-with="password"
-                ref="repwdRef"
-                placeholder="请再次输入密码" 
+                v-model="renewpwd" 
+                :equal-with="newpwd"
+                ref="renewpwdRef"
+                placeholder="请输入新密码" 
                 placeholder-align="right"
                 required
             ></x-input>
-            <x-input 
+             <x-input 
                 title="手机号" 
                 :max="13" 
                 mask="999 9999 9999" 
@@ -68,42 +67,24 @@
                     @click.native="getAuthcode"
                 >{{authcodeText}}</x-button>
             </x-input>
-            <cell-box class="agree-input">
-                <check-icon 
-                    :value.sync="isagree"
-                    ref="isagreeRef"
-                >
-                    请阅读并同意<router-link to="/UserAgreement">《桥好吧监测云平台注册协议》</router-link>
-                </check-icon>
-            </cell-box>
         </group>
-
         <!--显示间隔开始-->
         <div class="space_80" ></div>
         <!--显示间隔结束-->
 
         <!--注册按钮-->
         <x-button 
-            :show-loading="isLoading"
             :gradients="['#1D62F0', '#19D5FD']"
-            @click.native="checkSignup"
-        >注册</x-button>
+            @click.native="checkChange"
+        >确认修改</x-button>
         <!-- 注册部分结束 -->
     </div>
 </template>
 
 <script>
-    import register from './register.js';
-    export default register; 
+import changepwd from './change-pwd.js'
+export default changepwd
 </script>
 
 <style scoped lang="scss">
-   .agree-input {
-        display: flex;
-        a {
-            color: red;
-            text-decoration: underline;
-        }
-    }
 </style>
-

@@ -119,9 +119,7 @@
      methods: {
  
      },
-     components: {
- 
-     },
+     
  };
  </script>
  

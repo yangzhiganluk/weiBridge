@@ -1,6 +1,6 @@
-import {setCookie, getCookie, delCookie} from '../../assets/js/cookie.js'
+import {setCookie, getCookie, delCookie} from 'assets/js/cookie.js'
 import $ from 'jquery'
-var publicapi = require('../../assets/js/publicapi.js')
+var publicapi = require('assets/js/publicapi.js')
 var management_url = publicapi.proxy.management_url;
 import {mapGetters} from 'vuex'
 
@@ -23,9 +23,7 @@ export default {
   created() {
       this.judgeLogin();  //判断是否需要登录
   },
-  mounted(){
-
-  },
+  
   methods: {
     /*授权规则，验证accesstoken和loginInfo*/
     judgeLogin(){
@@ -37,7 +35,7 @@ export default {
     },
     //测试账号
     getOpenId() {
-      console.log('开始获取参数')
+      
       /*获取地址栏参数*/
       function GetQueryString(name) {
         let reg = new RegExp('(^|&)'+name+'=[^&](&|$)*');

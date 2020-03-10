@@ -108,7 +108,6 @@
     beforeCreate() {
       this.$store.dispatch('initcount')
     },
-    components: {},
     created() {
       /*加载桥梁列表*/
       // this.getList();
