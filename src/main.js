@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css'
 //样式重置
 import 'font-awesome/css/font-awesome.css'
+
 //字体引入
 import $ from 'jquery'
 import echarts from 'echarts'
@@ -20,7 +21,7 @@ import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Ta
   XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
   VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
   Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
-  CheckIcon
+  CheckIcon, Grid, GridItem
 } from 'vux'
 
 
@@ -61,7 +62,6 @@ Vue.use(ToastPlugin, {position: 'middle'})
 Vue.use(LoadingPlugin)
 Vue.component('x-textarea', XTextarea)
 Vue.use(ConfirmPlugin)
-
 Vue.component('v-chart', VChart)
 Vue.component('v-line', VLine)
 Vue.component('v-area', VArea)
@@ -73,7 +73,6 @@ Vue.component('v-axis', VAxis)
 Vue.component('v-guide', VGuide)
 Vue.component('v-tooltip', VTooltip)
 Vue.component('v-legend', VLegend)
-
 Vue.component('checker', Checker)
 Vue.component('checker-item', CheckerItem)
 Vue.component('datetime', Datetime)
@@ -84,9 +83,10 @@ Vue.component('scroller', Scroller)
 Vue.component('load-more', LoadMore)
 Vue.component('loading', Loading)
 Vue.use(AlertPlugin)
-
 Vue.component('datetime', Datetime)
 Vue.component('check-icon', CheckIcon)
+Vue.component('grid', Grid)
+Vue.component('grid-item', GridItem)
 
 
 //给它设置一个timeout = 8000
@@ -191,7 +191,6 @@ FastClick.attach(document.body)
  * 全局变量或全局方法
  */
 import custom from './utils/custom'
-console.log(custom.setCookie)
 Vue.use({
   install(Vue, options) {
     for(let key in custom) {
@@ -199,6 +198,10 @@ Vue.use({
     }
   }
 })
+
+//自定义长按指令引入
+import longpress  from'@/utils/longpress.js'
+Vue.use(longpress)
 
 /**
  * 微信 jssdk

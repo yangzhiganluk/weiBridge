@@ -7,7 +7,7 @@ const state = {
   acquisitionSystemUrl: 'http://www.qiaohaoba.net/acquisition/#/',  //服务器上
   healthSystemUrl: 'http://www.qiaohaoba.net/health/#/homePage',     // 服务器上   http://www.qiaohaoba.net/experts
   moreBridgePageUrl: 'http://www.qiaohaoba.net/health/#/moreBridgePage',  //多桥页面的路由
-  imgUrl: 'http://www.qiaohaoba.net/data_acquisition/file/get/',
+  imgUrl: 'http://www.qiaohaoba.net/data_acquisition/file/get/', //桥梁图片路由
   // analyseSystemUrl:'http://localhost:8091/#/',
   // healthSystemUrl:'http://localhost:8082/#/',     //本地测试
   // acquisitionSystemUrl:'http://localhost:8090/#/' ,     //本地测试

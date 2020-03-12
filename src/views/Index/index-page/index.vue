@@ -1,6 +1,7 @@
 <template>
   <div class="myContainer">
     <x-header :left-options="{showBack: false}">桥梁健康监测云平台</x-header>
+    <!-- 通用头部 -->
     <div class="top">
       <img src="~assets/images/scan.png" @click="scan()" class="scanStyle"/>
 
@@ -11,13 +12,9 @@
       <!--显示头像-->
       <flexbox class="flexTop">
         <div>
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <img src="~assets/images/newlogo.png" class="avatar">
         </div>
         <div>
-          <!-- <div class="topInfo" @click="signOut">
-            <p>{{loginInfo.company}}</p>
-            <span >{{loginInfo.nickname}}</span>
-          </div> -->
           <Dropdown trigger="click">
               <a href="javascript:void(0)" >
                 <div class="topInfo">
@@ -35,40 +32,60 @@
           </Dropdown>
         </div>
       </flexbox>
-      
-      <flexbox>
-        <flexbox-item style="text-align: center;padding-top: 10px;border:none"></flexbox-item>
-      </flexbox>
       <!--显示头像-->
-
-
-      <!--显示tab切换开始-->
-      <!-- <tab :line-width="1" custom-bar-width="60px" active-color="#169BD5" class="indexTab">
-         <tab-item selected >桥梁<span style="margin-left: 5px">{{bridgeList.length}}</span></tab-item>
-         <tab-item @click.native="selectTab('alarm')">告警<span style="margin-left:5px;">{{alarmCount}}</span></tab-item>
-         <tab-item disabled>处置</tab-item>
-       </tab>-->
-      <flexbox class="indexTab">
-        <flexbox-item @click.native="selectTab('bridge')" :span="1/3"><span><img :src="iconBridge"/></span><span style="color:#6DDDD1">桥梁</span></flexbox-item>
-        <flexbox-item @click.native="selectTab('alarm')" :span="1/3"><span><img :src="iconAlarm"/><!--<i>{{alarmCount}}</i>--></span><span>告警</span></flexbox-item>
-        <flexbox-item @click.native="selectTab('statistics')" :span="1/3"><span><img :src="iconDeal"/></span><span>统计</span></flexbox-item>
-      </flexbox>
-      <!--显示tab切换结束-->
     </div>
-
 
     <!--桥梁列表的内容开始-->
-    <div class="bridgeList" :class="{active: showPannel == 'bridgeList',setdisplay:showPannel=='alarm'}"  >
-
-
-      <!--<div id="allmap" ref="allmap" style="height:100%"></div>-->
-
-
-      <panel header="桥梁列表" :list="bridgeList" :type="type" @on-click-item="onClickItem" class="panelList"></panel>
-
-    </div>
+    <group title="桥梁列表">
+        <div class="bridge-box"
+          v-for="(item, index) in bridgeList"
+          :key="index"
+        >
+        <cell-box 
+          v-longpress="showToggleBrief(item)"
+        >
+          <div class="bridge-box-hd">
+            <img :src="imgUrl + item.pcode" alt="">
+          </div>
+          <div class="bridge-box-bd">
+            <div class="title">{{item.project_name}}</div>
+            
+            <grid :show-lr-borders="false" :show-vertical-dividers="false">
+              <grid-item @on-item-click="toAlarm" v-if="item.alarmFlag">
+                <img slot="icon" src="~assets/images/alarm.png">
+                <!-- <span slot="label">告警</span> -->
+              </grid-item>
+              <grid-item @on-item-click="toFault" v-if="item.faultFlag">
+                <img slot="icon" src="~assets/images/fault.png">
+                <!-- <span slot="label">故障</span> -->
+              </grid-item>
+            </grid>
+            <div class="icon-link"  @click.stop="toBridgeState"></div>
+          </div>
+          
+        </cell-box>
+        <transition name="fade" mode="out-in" appear>
+          <div 
+            class="bridge-brief"
+            v-show="item.code == briefId"
+          >
+            <flexbox>
+              <flexbox-item><div>桥梁编码：<span>{{item.code}}</span></div></flexbox-item>
+              <flexbox-item><div>桥梁编码：<span>{{item.tpye}}</span></div></flexbox-item>
+            </flexbox>
+            <flexbox>
+              <flexbox-item><div>桥梁编码：<span>{{item.address}}</span></div></flexbox-item>
+            </flexbox>
+            <flexbox>
+              <flexbox-item><div>经度：<span>{{item.lat}}</span></div></flexbox-item>
+              <flexbox-item><div>纬度：<span>{{item.lng}}</span></div></flexbox-item>
+            </flexbox>
+          </div>
+        </transition>
+      </div>
+    </group>
+      
     <!--桥梁列表的内容结束-->
-
 
   </div>
 </template>
@@ -76,18 +93,6 @@
   import index from './index.js'
   export default index
 </script>
-<style lang="scss">
-  .panelList{
-    margin: 20px 0;
-    .weui-media-box__title{
-      font-size:14px;
-      color: #343F65;
-    }
-    .weui-media-box_appmsg .weui-media-box__thumb{
-      vertical-align: middle;
-    }
-  }
-</style>
 <style lang="scss" scoped>
  @import './index.scss'
 </style>

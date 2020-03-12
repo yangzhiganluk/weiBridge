@@ -122,25 +122,26 @@ export default {
        /**修改密码 */
        toChangePwd() {
         let scope = this
-        let phoneNumber = scope.phone.replace(/\s+/g,"");
         if(!scope.codeFlag) {
             scope.$vux.toast.text('验证码输入错误')
             return
         }
-        scope.$http.get(`${api.management_url}/user/modifyAccountPasswordByPhone`, {
+        scope.$http.get(`${api.management_url}/user/modifyAccountPassword`, {
             headers: {
                 accessToken: scope.accessToken,
             },
             params: {
-                phoneNumber,
-                authCode: scope.authcode,
-                password: scope.newpwd
+                userName: scope.userName,
+                oldPassword: scope.oldpwd,
+                newPassword: scope.newpwd
             }
         }).then(res=> {
             let resData = res.data;
             if(resData.resultCode == 1) {
                 scope.$$clearAllCookie();
-
+                localStorage.clear();
+                scope.$vux.toast.text(resData.msg)
+                scope.$router.push('/Oauth')
             } else {
                 scope.$vux.toast.text(resData.msg)
             }

@@ -1,0 +1,136 @@
+
+  .myContainer {
+    height: 100%;
+    background: #F4F4FA;
+
+    /*顶部内容开始*/
+    .top {
+      background: url("~assets/images/index_top.jpg") no-repeat;
+      background-size: 100% 100%;
+      height: 160px;
+      position: relative;
+      margin-bottom: 40px;
+      .flexTop {
+        width:90%;
+        margin: 0 auto;
+        &>div{
+          float: left;
+        }
+        &>div:last-child{
+         /* width:50%;*/
+        }
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: block;
+          float: left;
+        }
+      }
+      .topInfo {
+        padding-left: 5px;
+        box-sizing: border-box;
+        p {
+          font-size: 18px;
+          color: #fff;
+          display: inline-block;
+          margin-right: 10px;
+        }
+        span {
+          background: #7BBDCE;
+          border-radius: 50px;
+          width: auto;
+          text-align: center;
+          color: #fff;
+          font-size: 14px;
+          padding: 3px 15px;
+          margin-top: 5px;
+          margin-left: -5px;
+          font-weight: 200;
+        }
+      }
+    }
+
+    /*顶部内容结束*/
+
+    /*tab切换的内容开始*/
+    .indexTab {
+      width: 90%;
+      margin: 0 auto;
+      height: 80px;
+      border-radius: 20px;
+      position: absolute;
+      margin-left: 5%;
+      z-index: 1;
+      bottom: -25px;
+      background: #fff;
+      .vux-flexbox-item {
+        text-align: center;
+        margin-left: 0 !important;
+        span{
+          display: inline-block;
+          text-align: center;
+          width: 100%;
+          color:#555555;
+          img{
+            width:26px;
+            height:26px;
+          }
+        }
+        span:first-child{
+          position: relative;
+          height:30px;
+          margin-top: 10px;
+          i{
+            position: absolute;
+            top:0px;
+            display: inline-block;
+            text-align: center;
+            background: #f74c31;
+            color: #fff;
+            font-size: 12px;
+            height: 16px;
+            line-height: 16px;
+            border-radius: 8px;
+            padding: 0 6px;
+            background-clip: padding-box;
+            vertical-align: middle;
+          }
+        }
+      }
+
+
+    }
+
+    /*tab切换的内容结束*/
+
+
+
+    /*桥梁内容展示*/
+    .bridgeList{
+      height:calc(100% - 160px);
+      width:90%;
+      margin: 0 auto;
+      opacity: 1
+    }
+
+
+    .active{
+      opacity: 1 !important;
+      display: block;
+    }
+    .setdisplay{
+      opacity: 0 !important;
+      display: none;
+    }
+    /*告警内容样式结束*/
+  }
+
+
+  /*扫一扫的样式*/
+  .scanStyle{
+    position: absolute;
+    right: 20px;
+    width: 32px;
+    top: 10px;
+  }

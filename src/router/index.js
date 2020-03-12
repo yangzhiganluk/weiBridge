@@ -8,6 +8,7 @@ import UserAgreement from '@/views/Register/user-agreement'  //用户协议
 import Oauth from '@/views/Oauth/Oauth'  //授权页
 
 import Index from '@/views/Index/index-page/index.vue'  //首页-桥梁
+import BridgeState from '@/views/Index/bridge-state-page/bridge-state.vue' //桥梁状态页面
 import IndexAlarm from '@/views/Index/IndexAlarm'  //首页-告警列表
 import IndexStatistics from '@/views/Index/IndexStatistics'  //首页-统计
 
@@ -73,6 +74,11 @@ export default new Router({
       path: "/Index",
       name: 'Index',
       component: Index,
+    },
+    {
+      path: '/BridgeState',
+      name: "BridgeState",
+      component: BridgeState
     },
     {
       path:'/BridgeManage',
