@@ -80,16 +80,16 @@ a:hover {
   fill: currentColor;
   overflow: hidden;
 }
-.space_bg_white{
+.space_bg_white {
   background: #fff;
 }
-.space_bg_dark{
+.space_bg_dark {
   background: #f5f5f5;
 }
-.space_10{
+.space_10 {
   height:10px;
 }
-.space_20{
+.space_20 {
   height: 20px;
 }
 .space_30 {
@@ -100,17 +100,17 @@ a:hover {
   height:50px;
   text-align: center;
 }
-.space_80{
+.space_80 {
   height:80px;
   text-align: center;
 }
 /*展示警告的样式开始*/
-.showAlarm{
-  width:16px;
-  height:16px;
+.showAlarm {
+  width: 16px;
+  height: 16px;
   background: url("assets/images/Sigh.png") no-repeat;
   display: inline-block;
-  float:right;
+  float: right;
 }
 
 .cellBox {
@@ -239,7 +239,7 @@ a:hover {
 /*图表信息结束*/
 
 /*传感器信息开始*/
-.sensorInfo{
+.sensorInfo {
   width:90%;
   background-color: #fff;
   border-radius: 10px;
@@ -343,3 +343,8 @@ a:hover {
 
 
 /*统计的样式结束*/
+
+/*状态页 故障页 告警页*/
+.panel-content {
+  background-color: #fff;
+}

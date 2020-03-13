@@ -1,5 +1,5 @@
 import {mapGetters} from 'vuex'
-import signout from '@/components/mixins/signout';
+import signout from '@/mixins/signout';
 import api  from '@/api'
 export default {
   mixins: [signout],
@@ -22,6 +22,8 @@ export default {
   created() {
     this.judgeLogin();  //获取登录状态
     sessionStorage.removeItem("scanData");
+  },
+  mounted() {
     this.loadSign();
   },
   methods: {
@@ -61,12 +63,6 @@ export default {
         this.$vux.loading.hide()
       });
     },
-   
-    /*点击桥梁列表事件时触发*/
-    onClickItem(item, $event) {
-      localStorage.setItem("bridgeInfo", JSON.stringify(item.bridgeInfo));
-      this.$router.push("/BridgeManage")
-    },
 
     /**
      * @decription 打开桥梁简介
@@ -92,7 +88,9 @@ export default {
      /**
       * @description 进入桥梁状态页面
       */
-     toBridgeState() {
+     toBridgeState(item) {
+       console.log(item)
+      localStorage.setItem("bridgeInfo", JSON.stringify(item));
       this.$router.push('/BridgeState')
      },
     /*================桥梁列表组件结束=============*/

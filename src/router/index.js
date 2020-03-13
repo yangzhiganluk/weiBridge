@@ -8,7 +8,6 @@ import UserAgreement from '@/views/Register/user-agreement'  //用户协议
 import Oauth from '@/views/Oauth/Oauth'  //授权页
 
 import Index from '@/views/Index/index-page/index.vue'  //首页-桥梁
-import BridgeState from '@/views/Index/bridge-state-page/bridge-state.vue' //桥梁状态页面
 import IndexAlarm from '@/views/Index/IndexAlarm'  //首页-告警列表
 import IndexStatistics from '@/views/Index/IndexStatistics'  //首页-统计
 
@@ -29,7 +28,9 @@ import SensorInfo from '@/views/SubPage/SensorInfo'  //传感器编辑的页面
 
 import SensorInfoView from '@/views/SubPage/SensorInfoView'  //传感器查看的页面
 
-
+import BridgeState from '@/views/SubPage/bridge-state-page/bridge-state.vue' //桥梁状态页面
+import Devices from '@/views/SubPage/devices-page/devices.vue' //设备页面
+import Alarms from '@/views/SubPage/alarms-page/alarms.vue' //告警页面
 
 
 //测试页
@@ -79,6 +80,16 @@ export default new Router({
       path: '/BridgeState',
       name: "BridgeState",
       component: BridgeState
+    },
+    {
+      path: '/Devices',
+      name: 'Devices',
+      component: Devices
+    },
+    {
+      path: '/Alarms',
+      name: 'Alarms',
+      component: Alarms
     },
     {
       path:'/BridgeManage',

@@ -12,7 +12,6 @@ import 'font-awesome/css/font-awesome.css'
 
 //字体引入
 import $ from 'jquery'
-import echarts from 'echarts'
 import '../theme/index.css'
 import axios from 'axios'
 //vuex
@@ -21,7 +20,7 @@ import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Ta
   XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
   VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
   Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
-  CheckIcon, Grid, GridItem
+  CheckIcon, Grid, GridItem, Card 
 } from 'vux'
 
 
@@ -87,6 +86,7 @@ Vue.component('datetime', Datetime)
 Vue.component('check-icon', CheckIcon)
 Vue.component('grid', Grid)
 Vue.component('grid-item', GridItem)
+Vue.component('card', Card)
 
 
 //给它设置一个timeout = 8000

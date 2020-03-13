@@ -60,7 +60,7 @@
                 <!-- <span slot="label">故障</span> -->
               </grid-item>
             </grid>
-            <div class="icon-link"  @click.stop="toBridgeState"></div>
+            <div class="icon-link"  @click.stop="toBridgeState(item)"></div>
           </div>
           
         </cell-box>

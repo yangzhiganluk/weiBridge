@@ -1,9 +1,6 @@
 import publicapi from '../../assets/js/publicapi.js'
 let management_url = publicapi.proxy.management_url;
 export default {
-    props: {
-
-    },
     data() {
         return {
             username: '',

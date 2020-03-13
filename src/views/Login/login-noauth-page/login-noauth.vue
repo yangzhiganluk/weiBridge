@@ -74,7 +74,7 @@
         openid: ''
       }
     },
-    mounted() {
+    created() {
       this.openid = Date.parse(new Date()) //用户的唯一标识
       localStorage.setItem("openid", this.openid);
     },
