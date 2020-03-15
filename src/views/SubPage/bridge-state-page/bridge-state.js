@@ -13,21 +13,23 @@ import ViewCard12 from '@/components/bridge-state-card/viewcard12/viewcard12.vue
 import ViewCard13 from '@/components/bridge-state-card/viewcard13/viewcard13.vue'
 import api from '@/api'
 export default {
-    props: {
-
-    },
     data() {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : [],
-            projectViewCard: [],//项目可用的视图卡
+            projectViewCard: [], //项目可用的视图卡
+            allAccessType: [],  //所有的评估类型
         };
     },
     mounted() {
         this.getAllViewCardByStructure()
+        this.getAllAccessType()
     },
     methods: {
+        /**
+         * @description 获取项目视图卡
+         */
         getAllViewCardByStructure() {
-            let scope = this;
+            const scope = this;
             scope.$http.get( `${api.management_url}/viewcard/getAllViewCardByStructure`, {
                 params: {
                     scode: scope.bridgeInfo.code
@@ -55,13 +57,33 @@ export default {
                                 case 'V013': data[i].cardname = 'ViewCard13'; break;
                             }
                         });
-                        this.projectViewCard = data;
+                        scope.projectViewCard = data;
                     }
                 } else {
                     scope.$vux.toast.text(resData.msg);
                 }
             })
-        }
+        },
+        /**
+         * @description 获取所有的评估类型
+         */
+        getAllAccessType() {
+            const scope = this;
+            scope.$http.get(`${api.acquisition_url}/weight/getAllWeightSet`, {
+                params: {
+                    scode: scope.bridgeInfo.code,
+                }
+            }).then(res=> {
+                let resData = res.data;
+                if(resData.resultCode == 1) {
+                    if(resData.data && resData.data.length > 1) {
+                        scope.$store.dispatch('getAllAccessType', resData.data)
+                    }
+                } else {
+                    scope.$vux.toast.text(resData.msg);
+                }
+            })
+        },
     },
     components: {
         switchTab,

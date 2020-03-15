@@ -227,7 +227,7 @@
       },
       /*加载图表数据*/
       initMycharsDataAssociation(type) {
-        var scope=this;
+        const scope = this;
         function setTime(arr){
           //截取时间戳
           var outArr=[];

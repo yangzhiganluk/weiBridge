@@ -1,17 +1,41 @@
-<!--桥梁总体评估(实时)--环形图-->
 <template>
+<!-- 桥梁总体评估(实时) -->
   <div>
-      V001
       <card>
-        <div slot="content">
-          <div v-if="viewcardDataFlag">
-            {{scoreInfo}}
-          </div>
-          <div v-else></div>
-        </div>
-        <p slot="footer">
-          {{struc.vname}}
+        <p slot="header">
+          <divider>{{struc.vname}}</divider>
         </p>
+        <div slot="content">
+          <div v-if="viewcardDataFlag"  class="viewcard-content">
+            <flexbox style="width: 100%; height: 100%;">
+              <flexbox-item style="height: 100%;">
+                <div class="circle-bg">
+                  <img src="~assets/images/circle_10s.png" alt="">
+                </div>
+                <div class="circle-txt">
+                  <h4 class="score">{{scoreInfo}}</h4>
+                  <p class="name">桥梁主体</p>
+                </div>
+              </flexbox-item>
+              <flexbox-item style="height: 100%;">
+                <ul v-if="weightInfo.length>0" class="weight-list">
+                  <li v-for="(item, index) in weightInfo" :key='index'>
+                    <span class="name">{{item.name}}</span>
+                    <span class="score">{{item.scoreBean}}</span>
+                  </li>
+                </ul>
+                <div v-else><spinner type="ripple" size="40px"></spinner></div>
+              </flexbox-item>
+            </flexbox>
+          </div>
+          <div v-else class="no-data">
+            <p>
+              暂无数据
+              <spinner type="ripple" size="40px"></spinner>
+            </p>
+          </div>
+        </div>
+        
       </card>
   </div>
 </template>

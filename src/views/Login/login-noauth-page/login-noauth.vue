@@ -91,7 +91,7 @@
 
       /*调用*/
       loginSubmit(){
-        var scope=this;
+        const scope = this;
         scope.$vux.loading.show({
           text: '正在验证...'
         })

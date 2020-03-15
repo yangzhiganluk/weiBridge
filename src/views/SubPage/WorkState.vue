@@ -369,7 +369,7 @@
 
       //获取扫一扫的签名
       loadSign() {
-        let scope = this;
+        const scope = this;
 
         this.$http.get(management_url + '/user/getSignByJsApiTicket', {
           // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
@@ -413,7 +413,7 @@
 
       //扫一扫
       scan(){
-        let scope=this;
+        const scope = this;
         wx.error(function (res) {
           if (res.errMsg && res.errMsg == 'config:invalid signature') {
             scope.$vux.alert.show({
@@ -498,7 +498,7 @@
       /*已废弃*/
       scan111(){
 
-        let scope=this;
+        const scope = this;
 
         this.$http.get(management_url + '/user/getSignByJsApiTicket', {
           // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{

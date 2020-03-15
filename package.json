@@ -12,6 +12,7 @@
     "start-devtools": "vue-devtools"
   },
   "dependencies": {
+    "@antv/f2": "^3.6.0-alpha.5",
     "axios": "0.16.2",
     "babel-polyfill": "^6.26.0",
     "echarts": "^3.6.2",

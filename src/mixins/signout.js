@@ -9,7 +9,7 @@ export default {
       //退出登录
       signOut(){
         console.log('退出登录...')
-        let scope = this;
+        const scope = this;
         scope.$vux.confirm.show({
             title: "提示",
             content: "是否确定退出登录?",

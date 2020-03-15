@@ -208,7 +208,7 @@ export default {
 
     /*渲染地图*/
     renderMap(){
-      var scope=this;
+      const scope = this;
         let map =new BMap.Map("allmap"); // 创建Map实例
         map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);// 初始化地图,设置中心点坐标和地图级别
         map.addControl(new BMap.MapTypeControl({//添加地图类型控件
@@ -318,7 +318,7 @@ export default {
     /*================桥梁列表组件结束=============*/
     //获取扫一扫的签名
     loadSign() {
-      let scope = this;
+      const scope = this;
 
       this.$http.get(management_url + '/user/getSignByJsApiTicket', {
         // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
@@ -361,7 +361,7 @@ export default {
     },
     //扫一扫
     scan(){
-      let scope=this;
+      const scope = this;
       if(!this.bridgeList || this.bridgeList.length==0){
         scope.$vux.alert.show({
           title: '提示',

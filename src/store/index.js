@@ -5,6 +5,7 @@ import actions from './actions'
 import getusername from "./modules/getusername"
 import getmsgcount from "./modules/getmsgcount"
 import changecode from "./modules/changecode"
+import viewcard from "./modules/viewcard"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,6 +14,7 @@ export default new Vuex.Store({
 	modules:{
 		getusername,
 		getmsgcount,
-		changecode
+		changecode,
+		viewcard
 	}
 })

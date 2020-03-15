@@ -49,7 +49,7 @@ export default {
         * @description 获取验证码
         */
        judgeTelExist() {
-        let scope = this
+        const scope = this
         let useraparam = scope.phone.replace(/\s+/g,"")
         scope.$http.get(`${api.management_url}/user/validateUserInfoIsTrue`, {
             params: {
@@ -68,7 +68,7 @@ export default {
         * @description 获取验证码
         */
        getAuthcode() {
-        let scope = this;
+        const scope = this;
         let phoneNumber = scope.phone.replace(/\s+/g,"");
         scope.$http.get(`${api.management_url}/user/getFindPasswordAuthcodeByMsg`, {
             params: {
@@ -89,7 +89,7 @@ export default {
         * @description 倒计时
         */
        resetAuthcodeTime() {
-            let scope = this;
+            const scope = this;
             scope.authcodeDisabled = true;
             scope.authcodeText = `${scope.authcodeTime}s`
             let timer = setInterval(function() {
@@ -121,7 +121,7 @@ export default {
        },
        /**修改密码 */
        toChangePwd() {
-        let scope = this
+        const scope = this
         if(!scope.codeFlag) {
             scope.$vux.toast.text('验证码输入错误')
             return

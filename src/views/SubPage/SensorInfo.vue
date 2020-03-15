@@ -748,7 +748,7 @@
       },
       //删除数据项
       deleteDataItem(index) {
-        var scope = this;
+        const scope = this;
   /*      this.$confirm('此操作将删除该数据项, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

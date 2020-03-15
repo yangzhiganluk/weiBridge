@@ -86,7 +86,7 @@
       },
       /*渲染地图*/
       renderMap(){
-        var scope=this;
+        const scope = this;
         let map =new BMap.Map("allmap"); // 创建Map实例
         map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);// 初始化地图,设置中心点坐标和地图级别
         map.addControl(new BMap.MapTypeControl({//添加地图类型控件

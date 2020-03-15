@@ -14,13 +14,14 @@ import 'font-awesome/css/font-awesome.css'
 import $ from 'jquery'
 import '../theme/index.css'
 import axios from 'axios'
+
 //vuex
 import store from './store/index.js'
 import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
   XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
   VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
   Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
-  CheckIcon, Grid, GridItem, Card 
+  CheckIcon, Grid, GridItem, Card, Spinner
 } from 'vux'
 
 
@@ -30,6 +31,9 @@ import ViewUI from 'view-design';
 // import style
 import 'view-design/dist/styles/iview.css';
 Vue.use(ViewUI);
+
+// 全局样式
+import '@/styles/index.scss';
 
 
 let management_url='http://www.qiaohaoba.net/platform_management';
@@ -87,6 +91,7 @@ Vue.component('check-icon', CheckIcon)
 Vue.component('grid', Grid)
 Vue.component('grid-item', GridItem)
 Vue.component('card', Card)
+Vue.component('spinner', Spinner)
 
 
 //给它设置一个timeout = 8000
@@ -107,7 +112,7 @@ axios.interceptors.request.use(
       if (accessToken&&loginInfo) {  // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
         config.headers.accessToken  = accessToken;
       }else if(refreshToken&&loginInfo&&loginInfo!=""){
-        var scope=this;
+        const scope = this;
         /**
          * @description 刷新请求接口accessToken
          */
@@ -191,10 +196,15 @@ FastClick.attach(document.body)
  * 全局变量或全局方法
  */
 import custom from './utils/custom'
+import getuuid from './utils/getuuid'
+
 Vue.use({
   install(Vue, options) {
     for(let key in custom) {
       Vue.prototype['$$' + key] = custom[key]
+    }
+    for(let key in getuuid) {
+      Vue.prototype['$$' + key] = getuuid[key]
     }
   }
 })

@@ -41,7 +41,9 @@ a:hover {
   text-decoration: none;
   font-size:14px;
 }
-
+ol,ul{
+  list-style:none;
+}
 .clearfix {
   &:after {
     visibility: hidden;
@@ -108,7 +110,7 @@ a:hover {
 .showAlarm {
   width: 16px;
   height: 16px;
-  background: url("assets/images/Sigh.png") no-repeat;
+  background: url("~assets/images/Sigh.png") no-repeat;
   display: inline-block;
   float: right;
 }
@@ -123,15 +125,6 @@ a:hover {
 
 /*顶部导航栏*/
 .vux-header{
-  /*background: url("assets/images/head_bg.jpg");*/
-  /*  background: -moz-linear-gradient(top, #000000 0%, #ffffff 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000000), color-stop(100%,#ffffff));
-    background: -webkit-linear-gradient(top, #000000 0%,#ffffff 100%);
-    background: -o-linear-gradient(top, #000000 0%,#ffffff 100%);
-    background: -ms-linear-gradient(top, #000000 0%,#ffffff 100%);*/
-  /*background: linear-gradient(to right, #3DA8B9 0%,#2FC3BC 50%, #2ACDBC 100%);*/
-  /*background: url("assets/images/header_bg.jpg");*/
-  /*background-size:100% 100%;*/
   background: #5BCBC9 !important;
   font-size:16px;
   display: none;
@@ -347,4 +340,21 @@ a:hover {
 /*状态页 故障页 告警页*/
 .panel-content {
   background-color: #fff;
+}
+
+.viewcard-content {
+  padding: 10px 15px;
+  height: 160px;
+  background-image: url('~assets/images/viewcard_bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.no-data {
+  text-align: center; 
+  line-height: 40px;
+  span {
+    margin-left: 10px;
+  }
 }

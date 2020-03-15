@@ -63,7 +63,7 @@ export default {
                this.openid= resData.data.openid;
                this.loginSubmit(resData.data.openid);
            }else{
-            //  var scope=this;
+            //  const scope = this;
             //  scope.$vux.alert.show({
             //    title: '提示',
             //    content: "拉取授权失败，请退出重新进入！",
@@ -85,7 +85,7 @@ export default {
         // window.location.href=url;
       }else{
         this.$vux.loading.hide();
-        // var scope=this;
+        // const scope = this;
         // scope.$vux.alert.show({
         //   title: '提示',
         //   content: "拉取授权失败，请退出重新进入！",
@@ -111,7 +111,7 @@ export default {
 
     /*调用*/
     loginSubmit(id) {
-      var scope = this;
+      const scope = this;
       scope.$vux.loading.show({
         text: '正在验证...'
       });

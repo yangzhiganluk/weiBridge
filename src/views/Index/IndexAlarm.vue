@@ -399,7 +399,7 @@
     },
     /*忽略功能*/
     toIgnore(item) {
-      var scope = this;
+      const scope = this;
       scope.$vux.confirm.show({
         title: "提示",
         content: "是否确定删除?",
@@ -444,7 +444,7 @@
 
     //设置全部已读
     setAllHand(){
-      var scope = this;
+      const scope = this;
       scope.$vux.confirm.show({
         title: "提示",
         content: "是否全部设为已读，该操作无法撤销!",
@@ -485,7 +485,7 @@
     },
       //退出登录
       signOut(){
-        var scope = this;
+        const scope = this;
         scope.$vux.confirm.show({
           title: "提示",
           content: "是否确定退出登录?",
@@ -540,7 +540,7 @@
 
       //获取扫一扫的签名
       loadSign() {
-        let scope = this;
+        const scope = this;
 
         this.$http.get(management_url + '/user/getSignByJsApiTicket', {
           // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
@@ -583,7 +583,7 @@
       },
       //扫一扫
       scan(){
-        let scope=this;
+        const scope = this;
         if(!this.bridgeList || this.bridgeList.length==0){
           scope.$vux.alert.show({
             title: '提示',

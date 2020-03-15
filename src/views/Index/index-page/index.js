@@ -68,7 +68,7 @@ export default {
      * @decription 打开桥梁简介
      */
     showToggleBrief(item) { //高阶函数
-      let scope = this;
+      const scope = this;
       return ()=> {
         scope.briefId = item.code
       }
@@ -89,14 +89,13 @@ export default {
       * @description 进入桥梁状态页面
       */
      toBridgeState(item) {
-       console.log(item)
       localStorage.setItem("bridgeInfo", JSON.stringify(item));
       this.$router.push('/BridgeState')
      },
     /*================桥梁列表组件结束=============*/
     //获取扫一扫的签名
     loadSign() {
-      let scope = this;
+      const scope = this;
 
       this.$http.get(`${api.management_url}/user/getSignByJsApiTicket`, {
         params: {
@@ -138,7 +137,7 @@ export default {
     },
     //扫一扫
     scan(){
-      let scope=this;
+      const scope = this;
       if(!this.bridgeList || this.bridgeList.length==0){
         scope.$vux.alert.show({
           title: '提示',

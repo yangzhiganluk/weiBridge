@@ -1,0 +1,54 @@
+@keyframes anicircle {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(100deg);
+    }
+}
+.vux-flexbox-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin verticalcenter {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.circle-bg {
+    @include verticalcenter;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: anicircle 10s infinite linear;
+}
+.circle-txt {
+    text-align: center;
+    h4 {
+        color: #12d4ef;
+        font-size: 26px;
+    }
+    p {
+        font-size: 16px;
+        color: #d8d9e1;
+    }
+}
+.weight-list {
+    li {
+        font-size: 16px;
+        line-height: 26px;
+        .name {
+            padding-right: 10px;
+            color: #d8d9e1;
+        }
+        .score {
+            color: #0fbb55;
+        }
+    }
+}

@@ -202,7 +202,7 @@
 
       /*监测是否填写记录*/
       toCheck(){
-        var scope=this;
+        const scope = this;
         if(scope.interruptContent&&scope.interruptContent!=""){
           scope.post_monitor();
         }else{
@@ -236,7 +236,7 @@
         }).then((res) => {
           if (res.data.resultCode == 1) {
               this.$vux.toast.text('提交成功');
-              var scope=this;
+              const scope = this;
               setTimeout(function() { scope.$router.go(-1)},1500)
           } else if (res.data.resultCode == 0) {
             this.$vux.toast.text(res.data.msg);
@@ -262,7 +262,7 @@
 
       //添加关注
       toAddAttention(){
-        var scope = this;
+        const scope = this;
         scope.$vux.confirm.show({
           title: "提示",
           content: "是否确定添加关注?",
@@ -277,7 +277,7 @@
       },
       //取消关注
       toCancelAttention(){
-        var scope = this;
+        const scope = this;
         scope.$vux.confirm.show({
           title: "提示",
           content: "是否确定取消关注?",
@@ -292,7 +292,7 @@
       },
       /*忽略功能*/
       toIgnore() {
-        var scope = this;
+        const scope = this;
         scope.$vux.confirm.show({
           title: "提示",
           content: "是否确定忽略?",

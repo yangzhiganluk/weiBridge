@@ -90,7 +90,7 @@ export default {
         * @description 获取验证码
         */
        getAuthcode() {
-        let scope = this
+        const scope = this
         let phoneNumber = scope.phone.replace(/\s+/g,"")
         scope.$http.get(`${management_url}/user/getRegisterAuthcodeByMsg`, {
             params: {
@@ -109,7 +109,7 @@ export default {
         * @description 倒计时
         */
        resetAuthcodeTime() {
-            let scope = this;
+            const scope = this;
             scope.authcodeDisabled = true;
             scope.authcodeText = `${scope.authcodeTime}s`
             let timer = setInterval(function() {
@@ -148,7 +148,7 @@ export default {
         * @description 注册协议
         */
        goSignUp() {
-        let scope = this
+        const scope = this
         let params = new FormData();
         params.append('username', scope.username);
         params.append('nickname', scope.username);
