@@ -8,15 +8,6 @@
     <flexbox>
       <flexbox-item>
         <div class="flex-photo">
-          <!--    <el-upload
-                class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <i v-else class="el-icon-picture avatar-uploader-icon"></i>
-              </el-upload>-->
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
         </div>
       </flexbox-item>

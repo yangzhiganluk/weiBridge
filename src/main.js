@@ -9,11 +9,18 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css'
 //样式重置
 import 'font-awesome/css/font-awesome.css'
+//引入weui.js weui样式
+import weui from 'weui.js'
+import 'weui'
+Vue.prototype.$weui = weui
 
 //字体引入
 import $ from 'jquery'
 import '../theme/index.css'
 import axios from 'axios'
+
+import VCalendar from 'v-calendar';
+Vue.use(VCalendar);
 
 //vuex
 import store from './store/index.js'
@@ -21,7 +28,7 @@ import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Ta
   XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
   VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
   Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
-  CheckIcon, Grid, GridItem, Card, Spinner
+  CheckIcon, Grid, GridItem, Card, Spinner, XSwitch 
 } from 'vux'
 
 
@@ -34,6 +41,8 @@ Vue.use(ViewUI);
 
 // 全局样式
 import '@/styles/index.scss';
+
+
 
 
 let management_url='http://www.qiaohaoba.net/platform_management';
@@ -92,6 +101,7 @@ Vue.component('grid', Grid)
 Vue.component('grid-item', GridItem)
 Vue.component('card', Card)
 Vue.component('spinner', Spinner)
+Vue.component('x-switch', XSwitch)
 
 
 //给它设置一个timeout = 8000
@@ -197,6 +207,7 @@ FastClick.attach(document.body)
  */
 import custom from './utils/custom'
 import getuuid from './utils/getuuid'
+import toFixed from './utils/toFixed'
 
 Vue.use({
   install(Vue, options) {
@@ -205,6 +216,9 @@ Vue.use({
     }
     for(let key in getuuid) {
       Vue.prototype['$$' + key] = getuuid[key]
+    }
+    for(let key in toFixed) {
+      Vue.prototype['$$' + key] = toFixed[key]
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
     <div class="myContainer">
         <!-- 注册部分开始 -->
-        <group class="register-box">
+        <group gutter="0" label-align="justify" label-width="5.5em">
             <x-input 
                 title="用户名" 
                 :min="6" 

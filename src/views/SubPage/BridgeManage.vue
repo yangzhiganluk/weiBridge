@@ -5,7 +5,6 @@
     <flexbox>
       <flexbox-item>
         <div class="flex-photo">
-          <!--<img v-if="imageUrl" :src="imageUrl" class="avatar">-->
           <div id="allmap" ref="allmap" style="height:100%;width:100%;"></div>
         </div>
       </flexbox-item>

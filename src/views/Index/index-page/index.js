@@ -1,5 +1,6 @@
-import {mapGetters} from 'vuex'
+
 import signout from '@/mixins/signout';
+import collapseItem from './collapse-item'
 import api  from '@/api'
 export default {
   mixins: [signout],
@@ -13,12 +14,9 @@ export default {
       bridgeInfo:localStorage.getItem("bridgeInfo")?JSON.parse(localStorage.getItem("bridgeInfo")):[],
       currentPage: 1,//页码
       visible: false,
-      briefId: '',
     }
   },
-  computed: {
-    ...mapGetters(['imgUrl']),
-  },
+  
   created() {
     this.judgeLogin();  //获取登录状态
     sessionStorage.removeItem("scanData");
@@ -64,34 +62,18 @@ export default {
       });
     },
 
-    /**
-     * @decription 打开桥梁简介
-     */
-    showToggleBrief(item) { //高阶函数
-      const scope = this;
-      return ()=> {
-        scope.briefId = item.code
-      }
-    },
-    /**
-     * @description 进入告警页面
-     */
-    toAlarm() {
-      console.log('alarm')
-    },
      /**
-      * @description 进入故障页面
-      */
-     toFault() {
-       console.log('fault')
-     },
-     /**
-      * @description 进入桥梁状态页面
-      */
-     toBridgeState(item) {
-      localStorage.setItem("bridgeInfo", JSON.stringify(item));
-      this.$router.push('/BridgeState')
-     },
+     * @description 控制longpress子组件显隐变量
+     */
+    cut(childId) {
+      this.$children.forEach(el=> {
+        el.$children.forEach(child=> {
+          if(child._uid != childId) {
+            child.show = false;
+          }
+        })
+      })
+    },
     /*================桥梁列表组件结束=============*/
     //获取扫一扫的签名
     loadSign() {
@@ -229,5 +211,9 @@ export default {
         });
       });
     },
+    
+  },
+  components: {
+    collapseItem
   }
 }

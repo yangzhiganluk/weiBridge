@@ -17,5 +17,4 @@ export default bridgestate
 </script>
 
 <style scoped lang="scss">
- @import './bridge-state.scss'
 </style>

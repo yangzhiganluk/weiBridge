@@ -1,0 +1,31 @@
+.vux-button-group {
+    & > a {
+        height: 60px;
+        line-height: 61px;
+    }
+    & > a.vux-button-group-current {
+        background: rgb(109, 221, 209);
+    }
+    
+    & > a.vux-button-tab-item-first:after {
+        border-color: rgb(109, 221, 209);
+        color: rgb(109, 221, 209);
+    }
+    & > a.vux-button-tab-item-middle:after,
+    & > a.vux-button-tab-item-last:after {
+        border-right-color: rgb(109, 221, 209);
+        border-top-color: rgb(109, 221, 209);
+        border-bottom-color: rgb(109, 221, 209);
+        color: rgb(109, 221, 209);
+    }
+    & > a.vux-button-tab-item-first,
+    & > a.vux-button-tab-item-last,
+    & > a.vux-button-tab-item-first:after,
+    & > a.vux-button-tab-item-last:after {
+        border-radius: 0;
+    }
+}
+
+.vux-tab .vux-tab-item.vux-tab-selected {
+    color: rgb(109, 221, 209);
+}

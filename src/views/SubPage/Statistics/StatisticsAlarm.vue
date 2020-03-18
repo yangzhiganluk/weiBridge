@@ -15,20 +15,7 @@
         </flexbox>
       </div>
 
-
       <div class="space_10"></div>
-      <!--      <flexbox>
-              <flexbox-item :span="2">数据粒度</flexbox-item>
-              <flexbox-item :span="10">
-                <el-radio-group   v-model="radioCheck" @change="getRadioCheck" @click.native="clearDate">
-                  <el-radio label="1">5分钟</el-radio>
-                  <el-radio label="2">1小时</el-radio>
-                  <el-radio label="3">1天</el-radio>
-                  <el-radio label="4">1月</el-radio>
-                </el-radio-group>
-
-              </flexbox-item>
-            </flexbox>-->
 
       <!--饼图的内容开始-->
       <div class="myChartData">

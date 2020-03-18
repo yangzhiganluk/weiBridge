@@ -25,13 +25,7 @@
       </flexbox>
       <!--显示头像-->
 
-
       <!--显示tab切换开始-->
-      <!-- <tab :line-width="1" custom-bar-width="60px" active-color="#169BD5" class="indexTab">
-         <tab-item selected >桥梁<span style="margin-left: 5px">{{bridgeList.length}}</span></tab-item>
-         <tab-item @click.native="selectTab('alarm')">告警<span style="margin-left:5px;">{{alarmCount}}</span></tab-item>
-         <tab-item disabled>处置</tab-item>
-       </tab>-->
       <flexbox class="indexTab">
         <flexbox-item @click.native="selectTab('bridge')" :span="1/3"><span><img :src="iconBridge"/></span><span>桥梁</span></flexbox-item>
         <flexbox-item @click.native="selectTab('alarm')" :span="1/3"><span><img :src="iconAlarm"/><i v-if="alarmCount">{{alarmCount}}</i></span><span style="color:#6DDDD1">告警</span></flexbox-item>

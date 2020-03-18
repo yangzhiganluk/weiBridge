@@ -30,16 +30,6 @@
 
       <flexbox style="height:calc(100% - 70px);overflow-y: auto;margin-top: 30px">
         <flexbox-item style="height:100%">
-         <!-- <el-tree
-            :data="modelTreeDatas"
-            node-key="id"
-            :default-expand-all =false
-            @node-click="getCurrentNode"
-            :highlight-current=true
-            class="trees"
-            :render-content="renderContent"
-           ref="trees">
-          </el-tree>-->
           <div v-for="(item,index) in modelTreeDatas" :key="index">
             <div class="cellTop">{{item.name}}</div>
             <group class="cellBox" v-if="item.children">
@@ -215,8 +205,6 @@
       getCurrentNode(data){
         if(data.isLeaf){
           localStorage.setItem("sensorInfo",JSON.stringify(data));
-
-
           if(this.loginInfo.type=='3'){
             this.$http.get(management_url + '/sub/findSubaccountById', {
               headers:{
@@ -289,7 +277,6 @@
       navdatas(){  //左边树获取公共方法
         /*查询位置*/
         this.$http.get(acquisition_url+'/acquisiteEquipment/findAllSensorByType',{
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params:{
             accessToken:this.accessToken,
             structureCode:this.bridgeInfo.code,
@@ -307,9 +294,7 @@
         });
 
         /*查询类型*/
-        // this.$http.get(acquisition_url+'/structureModel/findAllSensorAndSectionByScode',{
         this.$http.get(acquisition_url+'/acquisiteEquipment/findAllSensorByType',{
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params:{
             accessToken:this.accessToken,
             structureCode:this.bridgeInfo.code,
@@ -322,10 +307,7 @@
             this.modelTreeDatasByType=resData.data;
             this.modelTreeDatas=this.modelTreeDatasByType;
             this.conversionDatas('type') ;
-
           }
-          // this.conversionDatas() ;
-
         },(error) =>{
           scope.$vux.toast.text('连接失败！');
         });

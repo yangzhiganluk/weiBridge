@@ -39,7 +39,6 @@ a:hover {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-  font-size:14px;
 }
 ol,ul{
   list-style:none;
@@ -152,17 +151,18 @@ ol,ul{
   padding: 15px 15px;
 }
 
-/*工作状态页面*/
-.vux-tab-wrap .vux-tab-container{
-  border-top: 1px solid #eee;
-  border-radius: 10px;
-  box-shadow: 0px 5px 5px #ccc;
-  height:50px;
-}
+
 
 .workStateInfo{
   width:100%;
   height:100%;
+  /*工作状态页面*/
+  .vux-tab-wrap .vux-tab-container{
+    border-top: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px #ccc;
+    height:50px;
+  }
   .vux-tab{
     height:50px;
   }
@@ -356,5 +356,96 @@ ol,ul{
   line-height: 40px;
   span {
     margin-left: 10px;
+  }
+}
+
+.myContainer {
+  /*桥梁内容展示*/
+  .common-box {
+    position: relative;
+    &:before {
+      content: " ";
+      position: absolute;
+      left: 15px;
+      top: 0;
+      right: 0;
+      height: 1px;
+      border-top: 1px solid #D9D9D9;
+      color: #D9D9D9;
+      transform-origin: 0 0;
+      transform: scaleY(0.5);
+    }
+  }
+  
+  .common-box-hd {
+    margin-right: 10px;
+    width: 50px;
+    
+    img {
+      width: 50px;
+      height: 40px;
+      max-height: 100%;
+      vertical-align: middle;
+    }
+  }
+  .common-box-bd {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    .title {
+      font-weight: 400;
+      font-size: 16px;
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+    img {
+      vertical-align: middle;
+    }
+    
+    .weui-grids:before {
+        display: none;
+    }
+    .weui-grid:after {
+      display: none;
+    }
+    .icon-link {
+      position: absolute;
+      top: 50%;
+      margin-top: -15px;
+      right: 2px;
+      width: 30px;
+      height: 30px;
+      &:after {
+        content: " ";
+        display: inline-block;
+        height: 6px;
+        width: 6px;
+        border-width: 2px 2px 0 0;
+        border-color: #c8c8cd;
+        border-style: solid;
+        transform: matrix(.71,.71,-.71,.71,0,0);
+        top: -2px;
+        position: absolute;
+        top: 50%;
+        margin-top: -4px;
+        right: 17px;
+    }
+    }
+  }
+  .common-brief {
+    padding: 10px 15px;
+    background-color: #F4F4FA;
+    font-size: 14px;
+    color: #90acd4;
+    .vux-flexbox-item {
+      line-height: 20px;
+    }
+    span {
+      color: #515a6e;
+    }
   }
 }

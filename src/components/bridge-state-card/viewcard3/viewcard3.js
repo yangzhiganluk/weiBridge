@@ -89,11 +89,6 @@ export default {
             // Step 2: 载入数据源
             chart.source(data, defs);
 
-            chart.scale('count', {
-                type: 'linear',
-                tickInterval: 5
-            })
-
             chart.axis('name', {
                 grid: (text, index, total) => {
                     if (text === '0%') {
@@ -106,19 +101,6 @@ export default {
                       stroke: '#f7f7f7',
                     };
                 },
-                // label: (text, index, total) => {
-                //     const cfg = {
-                //       textAlign: 'center',
-                //     };
-                //     // 第一个点左对齐，最后一个点右对齐，其余居中，只有一个点时左对齐
-                //     if (index === 0) {
-                //       cfg.textAlign = 'start';
-                //     }
-                //     if (index > 0 && index === total - 1) {
-                //       cfg.textAlign = 'end';
-                //     }
-                //     return cfg;
-                // },
             });
             
             // Step 3：创建图形语法

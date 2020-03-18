@@ -32,9 +32,8 @@ import BridgeState from '@/views/SubPage/bridge-state-page/bridge-state.vue' //�
 import Devices from '@/views/SubPage/devices-page/devices.vue' //设备页面
 import Alarms from '@/views/SubPage/alarms-page/alarms.vue' //告警页面
 
+import SensorEdit from '@/views/SubPage/sensor-edit-page/sensor-edit.vue' //
 
-//测试页
-// import one from '@/views/1'
 Vue.use(Router)
 
 export default new Router({
@@ -90,6 +89,11 @@ export default new Router({
       path: '/Alarms',
       name: 'Alarms',
       component: Alarms
+    },
+    {
+      path: '/SensorEdit',
+      name: 'SensorEdit',
+      component: SensorEdit
     },
     {
       path:'/BridgeManage',

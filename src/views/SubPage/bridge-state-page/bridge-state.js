@@ -30,6 +30,9 @@ export default {
          */
         getAllViewCardByStructure() {
             const scope = this;
+            scope.$vux.loading.show({
+                text: '正在加载...'
+            })
             scope.$http.get( `${api.management_url}/viewcard/getAllViewCardByStructure`, {
                 params: {
                     scode: scope.bridgeInfo.code
@@ -62,6 +65,9 @@ export default {
                 } else {
                     scope.$vux.toast.text(resData.msg);
                 }
+                scope.$vux.loading.hide()
+            }, (error) => {
+                scope.$vux.loading.hide()
             })
         },
         /**

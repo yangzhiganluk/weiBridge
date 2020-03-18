@@ -4,7 +4,6 @@
     <div class="AlarmInfo">
       <div class="cellTop" style="margin:10px auto"></div>
       <div class="sensorInfo createSensorModal">
-
         <div class="content">
          <!-- <div class="subTitle">
             <label>传感器</label>
@@ -81,8 +80,6 @@
             </el-form-item>
           </el-form>
 
-
-
           <div class="subContent" v-if="showCreateSensor_data">
             <div class="subTitle">
               <label>数据项</label>
@@ -143,32 +140,19 @@
 
                   </el-form-item>
                 </div>
-
               </div>
-
               <div class="saveBtn" v-if="">
                 <el-button type="primary" @click.native="saveSensorInfoDataItem()"><i class="fa fa-floppy-o" aria-hidden="true" style="margin-right: 10px"></i>保存</el-button>
               </div>
-
             </el-form>
           </div>
         </div>
-
-
-
-
       </div>
-
     </div>
-
-
   </div>
 </template>
 <script>
   import {setCookie, getCookie, delCookie} from '../../assets/js/cookie.js'
-  import echarts from 'echarts/lib/echarts'
-  import 'echarts/lib/chart/line'
-
   var publicapi = require('../../assets/js/publicapi.js')
   var api = publicapi.proxy.monitoring_url;
   var acquisition_url = publicapi.proxy.acquisition_url;  //
@@ -178,10 +162,7 @@
   import {getNowFormatDate} from '../../assets/js/transfromTime';
   import {getPastFormatDate} from '../../assets/js/transfromTime';
   import {getFormatDateBySelect} from '../../assets/js/transfromTime';
-
   import $ from 'jquery'
-
-
 
   export default {
     data() {
@@ -202,20 +183,13 @@
       return {
         accessToken: getCookie("accessToken"),
         sensorInfo: [],//传感器信息
-
         selectTimeType:'datetime',//时间选择器的类型
-
         structureInfo:'',
         loginInfo:localStorage.getItem("loginInfo")&&typeof localStorage.getItem("loginInfo") !="object"?JSON.parse(localStorage.getItem("loginInfo")):"",//获取登录权限
         bridgeList: localStorage.getItem("bridgeList")?JSON.parse(localStorage.getItem("bridgeList")):[], //桥梁列表
-
         routerType:"",//路由器传过来的类型，是从告警信息详情里面的单个数据项还是传感器信息的数据项组
-
         scanData:"",//扫一扫的数据
-
-
         rules: {
-
           sensorname:[
             {required: true, message: '请输入设备名称', trigger: 'blur'},
           ],
@@ -244,18 +218,11 @@
           position: "",//安装位置
           installTime:moment(new Date()).format('YYYY-MM-DD HH:ss:mm'),//安装时间
           // installTime:new Date(),//安装时间
-
           sensorId:"",//需要修改的传感器的ID
         },
-
-
-
-
         createSensorModal: false,//新增传感器的模态框
         sensorSwitch: true,
-
         judgeRebuildSensor:false,//判断是否是新增传感器的状态
-
         brandFrom:[],//品牌库
         qlmodel:[],//型号库
         qlmodelTotal:[],//全部的型号库
@@ -266,7 +233,6 @@
         sensorExtend:{
           sensorExtend_dataList:[{serialnumber:1,name:"",monitorInfo:"",accuracy:2}],//传感器下的数据项
         },
-
         sensorExtend_dataInfo:{
           name:"",
           source:"",
@@ -276,12 +242,8 @@
         },
         monitorList:[],//监测因素
         dataSourceList:[],//数据来源
-
-
         showDeviceModelInput:false,//是否显示设备型号文本框
         showMonitorsTypeInput:false,//是否显示生产厂家输入框
-
-
         sensorTableList:[],//传感器
         sensorCount:0,//传感器列表的数目
         dataItemCount:0,//数据项数量
@@ -289,22 +251,15 @@
         classifiedData:[],//按类型分类的数据
         classifiedDataIndex:"",//按类型分类的数据下标
         clickedDataInfo:{},//当前选择的数据项信息
-
         editSensorInfo:true,//是否是编辑传感器的状态
-
         editSensorData:[],//编辑的传感器信息
       }
     },
     computed: {
-      // ...mapGetters(['username']),
-      ...mapGetters(['count', 'moreBridgePageUrl', '']),
+      ...mapGetters(['count', 'moreBridgePageUrl']),
     },
     beforeCreate() {
       this.$store.dispatch('initcount')
-    },
-    created() {
-
-
     },
     mounted(){
       this.scanData=sessionStorage.getItem("scanData")?JSON.parse(sessionStorage.getItem("scanData")):"";
@@ -378,14 +333,12 @@
 
       },
 
-      //修改传感器
+      //查询单个传感器设备
       getEditSensorInfo(rows){
-
         this.editSensorData="";
         this.sensorSwitch=true;
 
         this.$http.get(acquisition_url+'/acquisiteEquipment/findSensorEquipmentList', {
-          // this.$http.get('api/acquisiteEquipment/findSensorEquipmentList', {
           params: {
             structureCode:this.structureInfo.code,
             currentPage:1,
@@ -397,8 +350,6 @@
           if(res.data.resultCode==1){
             if(res.data.data&&res.data.data.length>0){
               let row=res.data.data[0];
-
-
               this.editSensorData=row;
               // this.createSensorform=row;
               // this.createSensorform.structureName = row.structureName;
@@ -410,7 +361,6 @@
               this.createSensorform.installTime=row.sensor_create_time;
               // this.createSensorform.sensorId=row.id;
               this.sensorSwitch=row.isenable==1?true:false;
-
               this.qlmodel = [];
               if (this.qlmodelTotal && this.qlmodelTotal.length > 0) {
                 for (let i = 0; i < this.qlmodelTotal.length; i++) {
@@ -420,8 +370,6 @@
                   }
                 }
               }
-
-
               for(let i=0;i<row.dataItemInfo.length;i++){
                 let datas=row.dataItemInfo[i];
                 datas.monitorInfo=datas.paramcode;
@@ -432,16 +380,10 @@
             }
           }else if (res.data.resultCode == 0) {
             this.$vux.toast.text(res.data.msg, 'middle')
-
-
           } else {
             this.$vux.toast.text(res.data.msg, 'middle')
-
           }
-
         });
-
-
       },
 
 
@@ -453,7 +395,6 @@
           structureCode=this.structureInfo.code;
         }
         this.$http.get(acquisition_url + '/item/autoGenerationCodeByType', {
-          // this.$http.get('api/equipmentModel/findAllEquipmentModel', {
           params: {
             accessToken: getCookie('accessToken'),
             type:type,
@@ -492,7 +433,6 @@
       getAllBrandFromEqpModel() {
         this.brandFrom = [];
         this.$http.get(acquisition_url + '/equipmentModel/getAllBrandFromEqpModel', {
-          // this.$http.get('api/equipmentModel/findAllEquipmentModel', {
           params: {
             accessToken: getCookie('accessToken'),
           }
@@ -500,17 +440,13 @@
           if (res.data.resultCode == 1) {
             if (res.data.data && res.data.data.length > 0) {
               this.brandFrom = res.data.data;
-              // this.brandFrom.push({brand: "手动输入"})
-              // this.createSensorform.monitorsType = this.brandFrom[0].brand;
             }
           } else if (res.data.resultCode == 0) {
             this.$vux.toast.text(res.data.msg, 'middle')
 
           } else {
             this.$vux.toast.text(res.data.msg, 'middle')
-
           }
-
           this.findALLmsg1();
         });
       },
@@ -519,7 +455,6 @@
         this.qlmodel = [];
         this.qlmodelTotal = [];
         this.$http.get(acquisition_url + '/equipmentModel/findAllEquipmentModel', {
-          // this.$http.get('api/equipmentModel/findAllEquipmentModel', {
           params: {
             accessToken: getCookie('accessToken'),
           }
@@ -536,28 +471,11 @@
                     this.qlmodel.push(parents)
                   }
                 }
-                /*      if (this.qlmodel.length > 0) {
-                        this.createSensorform.deviceModel = this.qlmodel[0].model;
-                        let obj = {};
-                        obj.model = this.qlmodel[0].model ? this.qlmodel[0].model : "";
-                        obj.brand = this.createSensorform.monitorsType ? this.createSensorform.monitorsType : "";
-                        this.findEquipmentModelInfo(obj);
-                      }*/
               } else {
                 this.qlmodel = res.data.data;
                 this.createSensorform.deviceModel = this.qlmodel[0].model;
-
-                /* let obj = {};
-                 obj.model = this.qlmodel[0].model ? this.qlmodel[0].model : "";
-                 obj.brand = this.createSensorform.monitorsType ? this.createSensorform.monitorsType : "";
-                 this.findEquipmentModelInfo(obj);*/
               }
-              /*this.qlmodel.push({
-                brand: "",
-                description: "",
-                id: 68,
-                model: "手动输入",
-              });*/
+              
             }
           } else if (res.data.resultCode == 0) {
             this.$vux.toast.text(res.data.msg, 'middle')
@@ -581,9 +499,7 @@
       //查找型号里面的数据项
       findEquipmentModelInfo(data) {
         this.loading=false;
-        // this.sensorExtend.sensorExtend_dataList = [{serialnumber:1,name:'数据项-01'}];
         this.$http.get(acquisition_url + '/equipmentModel/findEquipmentModelInfo', {
-          // this.$http.get('api/equipmentModel/findEquipmentModelInfo', {
           params: {
             currentPage: 1,
             model: data.model,
@@ -634,7 +550,6 @@
       getMonitorInfoByType() {
         this.monitorList = [];
         this.$http.get(acquisition_url + '/item/getMonitorInfoByType', {
-          // this.$http.get('api/equipmentModel/findAllEquipmentModel', {
           params: {
             type: this.structureInfo.tpye,
           }
@@ -657,10 +572,6 @@
 
       //厂家（品牌下拉框改变事件）
       monitorsTypeSelect() {
-        /*   if(this.current==1){
-             this.$refs['sensorExtend'].resetFields();
-           }*/
-
         this.qlmodel = [];
         if (this.qlmodelTotal && this.qlmodelTotal.length > 0) {
           for (let i = 0; i < this.qlmodelTotal.length; i++) {
