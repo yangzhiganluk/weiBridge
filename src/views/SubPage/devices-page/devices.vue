@@ -1,14 +1,6 @@
 <template>
     <div class="myContainer">
-       <switch-tab :bridgeInfo="bridgeInfo"></switch-tab>
-       
-        <!-- 
-        <button-tab>
-            <button-tab-item selected>设备</button-tab-item>
-            <button-tab-item>类型</button-tab-item>
-            <button-tab-item>位置</button-tab-item>
-        </button-tab> 
-        -->
+        <switch-tab :bridgeInfo="bridgeInfo"></switch-tab>
         <tab 
             :line-width="1" 
             bar-active-color="#6dddd1" 
@@ -16,7 +8,7 @@
             prevent-default
             @on-before-index-change="switchTabItem"
         >
-            <tab-item selected>设备</tab-item>
+            <tab-item>设备</tab-item>
             <tab-item>类型</tab-item>
             <tab-item>位置</tab-item>
         </tab>
@@ -39,8 +31,9 @@
                         <div class="common-box-bd">
                             <div class="title">{{el.name}}</div>
                             <grid :show-lr-borders="false" :show-vertical-dividers="false">
-                                <grid-item @on-item-click="toFault" v-if="el.faultFlag">
+                                <grid-item @on-item-click="toFault" v-if="el.faultNum > 0">
                                     <img slot="icon" src="~assets/images/fault.png">
+                                    <badge :text="String(el.faultNum)"></badge>
                                 </grid-item>
                             </grid>
                             <div class="icon-link" @click="getPermissionById(el)"></div>

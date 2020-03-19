@@ -55,7 +55,6 @@ export default {
                                 case 'V008': data[i].cardname = 'ViewCard8'; break;
                                 case 'V009': data[i].cardname = 'ViewCard9'; break;
                                 case 'V010': data[i].cardname = 'ViewCard10'; break;
-                                case 'V011': data[i].cardname = 'ViewCard11'; break;
                                 case 'V012': data[i].cardname = 'ViewCard12'; break;
                                 case 'V013': data[i].cardname = 'ViewCard13'; break;
                             }

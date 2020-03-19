@@ -9,14 +9,28 @@ export default {
             currentPage: 1, //当前页
             pageSize: 2000, //每页数量
             equList: [],    //设备列表
-            tabIndex: 0,
+            tabIndex: 1,
             sensorList: [], //传感器列表
         };
     },
     mounted() {
-        this.getTransmissionEquipmentList()
+        this.switchTabItem(this.tabIndex)
     },
     methods: {
+        switchTabItem(index) {
+            this.$vux.loading.show({
+              text: 'loading'
+            })
+            setTimeout(() => {
+              this.$vux.loading.hide()
+              this.tabIndex = index
+              switch(index) {
+                  case 0: this.getTransmissionEquipmentList(); break;
+                  case 1: this.getSensorByFactorPosition('factor'); break;
+                  case 2: this.getSensorByFactorPosition('position'); break;
+              }
+            }, 1000)
+        },
         /**
          * @description 传输设备列表
          */
@@ -49,19 +63,7 @@ export default {
               })
             })
         },
-        switchTabItem(index) {
-            this.$vux.loading.show({
-              text: 'loading'
-            })
-            setTimeout(() => {
-              this.$vux.loading.hide()
-              this.tabIndex = index
-              switch(index) {
-                  case 1: this.getSensorByFactorPosition('factor'); break;
-                  case 2: this.getSensorByFactorPosition('position'); break;
-              }
-            }, 1000)
-        },
+       
         /**
          * @descrition 按监测类型或者传感器位置分类获取传感器信息
          */
@@ -95,7 +97,10 @@ export default {
             // } else {
                 scope.$router.push('/SensorEdit')
             // }
-        }
+        },
+        toFault() {
+            console.log('fault')
+        },
     },
     components: {
         switchTab,

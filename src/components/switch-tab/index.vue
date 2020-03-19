@@ -74,13 +74,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .bridge-name {
-        background-color: #fff;
-        .vux-divider {
-            font-size: 18px;
-            font-weight: 600;
-        }
-    }
+    
     .switch-tab {
         margin: 0 auto 20px;
         width: 90%;

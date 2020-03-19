@@ -5,12 +5,6 @@
       <div class="cellTop" style="margin:10px auto"></div>
       <div class="sensorInfo createSensorModal">
         <div class="content">
-         <!-- <div class="subTitle">
-            <label>传感器</label>
-          </div> -->
-          <!-- <div class="subTitle">
-            <label>{{createSensorform.structureName}}</label>
-          </div> -->
           <el-form ref="createSensorform" :model="createSensorform"  :rules="rules"  label-width="80px">
             
             <el-form-item label="设备名称" prop="sensorname">
@@ -21,7 +15,6 @@
 
             <el-form-item label="设备编码" prop="deviceCode" class="disabledStyle">
               <el-input v-model="createSensorform.deviceCode" disabled placeholder="请填写设备编码"></el-input>
-              <!--<el-button type="primary" plain @click.native="generateCode('sensor')" :disabled="editSensorInfo">系统生成</el-button>-->
             </el-form-item>
 
             <el-form-item label="生产厂家" style="position:relative;" prop="cmonitorsType" >
@@ -104,7 +97,7 @@
                   >
                     <el-input v-model="item.name" placeholder="请输入名称"></el-input>
                   </el-form-item>
-
+                  
                   <el-form-item label="监测参数"
                                 :prop="'sensorExtend_dataList.' + index + '.monitorInfo'"
                                 :rules="{required: true, message: '监测参数不能为空', trigger: 'change'}"
@@ -141,7 +134,7 @@
                   </el-form-item>
                 </div>
               </div>
-              <div class="saveBtn" v-if="">
+              <div class="saveBtn">
                 <el-button type="primary" @click.native="saveSensorInfoDataItem()"><i class="fa fa-floppy-o" aria-hidden="true" style="margin-right: 10px"></i>保存</el-button>
               </div>
             </el-form>
@@ -233,13 +226,6 @@
         sensorExtend:{
           sensorExtend_dataList:[{serialnumber:1,name:"",monitorInfo:"",accuracy:2}],//传感器下的数据项
         },
-        sensorExtend_dataInfo:{
-          name:"",
-          source:"",
-          monitorInfo:"",
-          unit:"",
-          accuracy:""
-        },
         monitorList:[],//监测因素
         dataSourceList:[],//数据来源
         showDeviceModelInput:false,//是否显示设备型号文本框
@@ -264,13 +250,10 @@
     mounted(){
       this.scanData=sessionStorage.getItem("scanData")?JSON.parse(sessionStorage.getItem("scanData")):"";
       if(this.scanData && this.scanData!=""){
-        // this.getSensorData(this.scanData.id)
         this.getall();
-
       }else{
         var routerType=this.$route.params.type;//获取从路由传递过来的信息
-
-        if(routerType=='workstate'){   //表明是从工作状态那边传递过来的，是一个数据项的集合
+        // if(routerType=='workstate'){   //表明是从工作状态那边传递过来的，是一个数据项的集合
           this.structureInfo=localStorage.getItem("bridgeInfo")?JSON.parse(localStorage.getItem("bridgeInfo")):[];
 
           var sensorInfo=localStorage.getItem("sensorInfo")?JSON.parse(localStorage.getItem("sensorInfo")):[];
@@ -279,9 +262,9 @@
           rows.sensorcode=sensorInfo.code;
           this.getEditSensorInfo(rows);
           this.getMonitorInfoByType();//获取监测参数
-        }else{
-          this.$vux.toast.text('系统异常，请稍后再试', 'middle')
-        }
+        // }else{
+        //   this.$vux.toast.text('系统异常，请稍后再试', 'middle')
+        // }
       }
 
       this.getAllBrandFromEqpModel();//获取品牌
@@ -293,14 +276,12 @@
     methods: {
       /*点击返回*/
       goback(){
-        // this.$router.replace("/WorkState")
         this.$router.go(-1);
       },
 
       //查询全部结构物
       getall() {
         this.$http.get(management_url + '/sub/getStructureList', {
-          //  this.$http.get('api/structure/getList', {
           params: {
             accessToken: getCookie('accessToken'),
             user_id: this.loginInfo.id,
@@ -343,7 +324,6 @@
             structureCode:this.structureInfo.code,
             currentPage:1,
             pageSize:"20000",
-            // state:this.$route.params.state,
             code:rows.sensorcode,
           }
         }).then((res) => {
@@ -351,16 +331,14 @@
             if(res.data.data&&res.data.data.length>0){
               let row=res.data.data[0];
               this.editSensorData=row;
-              // this.createSensorform=row;
-              // this.createSensorform.structureName = row.structureName;
               this.createSensorform.sensorname=row.eqpName;
               this.createSensorform.monitorsType=row.sensorBrand;
               this.createSensorform.deviceModel=row.sensorModel;
               this.createSensorform.deviceCode=row.sensorcode;
               this.createSensorform.position=row.sensorPosition;
               this.createSensorform.installTime=row.sensor_create_time;
-              // this.createSensorform.sensorId=row.id;
               this.sensorSwitch=row.isenable==1?true:false;
+
               this.qlmodel = [];
               if (this.qlmodelTotal && this.qlmodelTotal.length > 0) {
                 for (let i = 0; i < this.qlmodelTotal.length; i++) {
@@ -370,6 +348,7 @@
                   }
                 }
               }
+
               for(let i=0;i<row.dataItemInfo.length;i++){
                 let datas=row.dataItemInfo[i];
                 datas.monitorInfo=datas.paramcode;
@@ -386,49 +365,6 @@
         });
       },
 
-
-      /*新增传感器的脚本开始*/
-      //生成设备编码
-      generateCode(type){
-        let structureCode="";
-        if(type=='sensor' || type=='dtu'){
-          structureCode=this.structureInfo.code;
-        }
-        this.$http.get(acquisition_url + '/item/autoGenerationCodeByType', {
-          params: {
-            accessToken: getCookie('accessToken'),
-            type:type,
-            structureCode:structureCode
-          }
-        }).then((res) => {
-          if (res.data.resultCode == 1) {
-            if (res.data.data) {
-              if(type=='structure'){
-                this.ruleForm.code=res.data.data;
-              }else if(type=='sensor' ){
-                this.createSensorform.deviceCode=res.data.data;
-              }else if(type=='dtu'){
-                this.createSensorform.dtuCode=res.data.data;
-              }
-            }
-          } else if (res.data.resultCode == 0) {
-            this.$vux.confirm.show({
-              title: '提示',
-              content: res.data.msg,
-              onCancel () {
-
-              },
-              onConfirm () {
-              }
-            })
-          } else {
-            this.$vux.toast.text(res.data.msg, 'middle')
-
-          }
-
-          this.findALLmsg1();
-        });
-      },
       //查询品牌
       getAllBrandFromEqpModel() {
         this.brandFrom = [];
@@ -487,10 +423,10 @@
         });
       },
       //生成数据项信息
-      generateDataInfo(){
-        if(this.createSensorform.sensorname!=""){
+      generateDataInfo() {
+        if(this.createSensorform.sensorname!="") {
           let sensorExtend_dataList=this.sensorExtend.sensorExtend_dataList;
-          for(let i=0;i<sensorExtend_dataList.length;i++){
+          for(let i=0;i<sensorExtend_dataList.length;i++) {
             this.sensorExtend.sensorExtend_dataList[i].name=this.createSensorform.sensorname+"-"+(i+1);
           }
         }
@@ -498,6 +434,7 @@
 
       //查找型号里面的数据项
       findEquipmentModelInfo(data) {
+        console.log(data)
         this.loading=false;
         this.$http.get(acquisition_url + '/equipmentModel/findEquipmentModelInfo', {
           params: {
@@ -508,8 +445,7 @@
             structureCode: this.structureInfo.code,
           }
         }).then((res) => {
-          //console.log('============')
-
+          console.log(res.data)
           if (res.data.resultCode == 1) {
             if (res.data.data && res.data.data.length > 0) {
               if (res.data.data[0].paramInfo && res.data.data[0].paramInfo.length>0) {
@@ -525,7 +461,7 @@
                         value[j].accuracy=value[j].accuracy && value[j].accuracy!=""? value[j].accuracy:2;
                       }
                       this.sensorExtend.sensorExtend_dataList=value;
-
+                      console.log(value)
                     }
                   }
                 }
@@ -621,7 +557,7 @@
       },
 
       //时间选择器的相关事件
-      handleTimeChange(e){
+      handleTimeChange(e) {
         if(e){
           $(".sensorContainer").addClass("sensorLocked")
         }else{
@@ -637,43 +573,23 @@
             this.sensorExtend.sensorExtend_dataList[i].name=this.createSensorform.sensorname+"-"+(i+1);
           }
         }
-
-
       },
       //添加数据项
       addDataItem() {
-        // this.sensorExtend.sensorExtend_dataList.unshift(this.sensorExtend_dataInfo);
         let index=this.sensorExtend.sensorExtend_dataList.length;
         let sensorExtend_dataList=this.sensorExtend.sensorExtend_dataList;
         this.sensorExtend.sensorExtend_dataList.push({
-          /*name: index<9?("数据项-0"+(index+1)):("数据项-"+(index+1)),
-          serialnumber:(index+1),*/
           name:"",
           serialnumber:sensorExtend_dataList[sensorExtend_dataList.length-1].serialnumber+1,
-          source: "",
           monitorInfo: "",
           unit: "",
           accuracy: 2
         });
-        // this.sensorExtend.sensorExtend_dataList.reverse();
       },
       //删除数据项
       deleteDataItem(index) {
         const scope = this;
-  /*      this.$confirm('此操作将删除该数据项, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          scope.sensorExtend.sensorExtend_dataList.splice(index, 1);
-          let sensorExtend_dataList=this.sensorExtend.sensorExtend_dataList;
-          for(let i=0;i<sensorExtend_dataList.length;i++){
-            this.sensorExtend.sensorExtend_dataList[i].serialnumber=i+1
-          }
-        }).catch(() => {
-
-        });*/
-        this.$vux.confirm.show({
+        scope.$vux.confirm.show({
           title: '提示',
           content: '此操作将删除该数据项, 是否继续?',
           onCancel () {
@@ -689,47 +605,10 @@
         })
       },
 
-
-
-
-      //取消新增传感器
-      cancelCreateSensor() {
-        this.createSensorform = {
-          sensorname: "",//设备名称
-          monitorsType: "",//生产厂家
-          deviceCode: "",//设备编码
-          deviceModel: "",//设备型号
-          position:"",//位置
-          installTime: moment(new Date()).format('YYYY-MM-DD HH:ss:mm'),//安装时间
-        };
-        this.sensorExtend = {
-          sensorExtend_dataList: [{name:""}],//传感器下的数据项
-        };
-        this.createSensorModal = false;
-
-
-        this.editSensorInfo=false;
-
-        this.$refs['createSensorform'].resetFields();
-        this.$refs['sensorExtend'].resetFields();
-      },
-      //再建一个传感器
-      rebuildSensor() {
-        this.judgeRebuildSensor=true;
-        // this.cancelCreateSensor();
-        // this.createSensorModal = false,
-        //   setTimeout((res) => {
-        //   this.createSensorModal = true;
-        // }, 500)
-        this.saveSensorInfoDataItem();
-      },
-
       /*验证数据项传感器信息*/
       saveSensorInfoDataItem() {
         this.$refs['createSensorform'].validate((valid) => {
           if (valid) {
-            /*this.$Message.success('Success!');*/
-            // this.addSensor();
             this.$refs['sensorExtend'].validate((valid) => {
               if (valid) {
 
@@ -778,12 +657,8 @@
                     }
                   }
                 }
-                // this.$refs['createSensorform'].resetFields();
-                this.updateSensorAndDataInfo(sensorInfo,dataInfo)
-
-
+                this.updateSensorAndDataInfo(sensorInfo, dataInfo)
               } else {
-                // this.$Message.error('您有必输项未填写或填写有误');
                 this.$vux.toast.text('您有必输项未填写或填写有误', 'middle')
 
               }
@@ -798,29 +673,19 @@
       updateSensorAndDataInfo(sensorInfo,dataInfo){
         let params = new FormData();
         params.append('structureCode', this.structureInfo.code);
-        // params.append('code', this.formValidate.code);
         params.append('sensorInfo', JSON.stringify(sensorInfo));
         params.append('dataInfo', JSON.stringify(dataInfo));
 
-        // this.$http.post('api/item/addDataItem',params,{
         this.$http.post(acquisition_url + '/acquisiteEquipment/v3/updateSensorAndDataInfo', params, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         }).then((res) => {
-
           if (res.data.resultCode == 1) {
-
-
             this.getAllBrandFromEqpModel();//获取品牌
-
-
-            // this.$refs['createSensorform'].resetFields();
-
             this.$vux.toast.show({
               text: res.data.msg
             })
-
           } else if (res.data.resultCode == 0) {
             this.$vux.confirm.show({
               title: '提示',

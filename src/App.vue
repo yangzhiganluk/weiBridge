@@ -8,11 +8,6 @@
 export default {
   name: 'app'
 }
-
-/*var publicapi = require('assets/js/publicapi.js')
-var api = publicapi.proxy.monitoring_url;
-var acquisition_url = publicapi.proxy.acquisition_url;
-var management_url = publicapi.proxy.management_url;*/
 </script>
 
 

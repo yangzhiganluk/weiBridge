@@ -3,16 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 //这里是elementUI引入
+
 import 'normalize.css/normalize.css'
 //样式重置
 import 'font-awesome/css/font-awesome.css'
-//引入weui.js weui样式
-import weui from 'weui.js'
-import 'weui'
-Vue.prototype.$weui = weui
 
 //字体引入
 import $ from 'jquery'
@@ -22,14 +21,7 @@ import axios from 'axios'
 import VCalendar from 'v-calendar';
 Vue.use(VCalendar);
 
-//vuex
-import store from './store/index.js'
-import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
-  XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
-  VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
-  Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
-  CheckIcon, Grid, GridItem, Card, Spinner, XSwitch 
-} from 'vux'
+
 
 
 
@@ -42,18 +34,19 @@ Vue.use(ViewUI);
 // 全局样式
 import '@/styles/index.scss';
 
+//vuex
+import store from './store/index.js'
+import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
+  XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
+  VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
+  Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
+  CheckIcon, Grid, GridItem, Card, Spinner, XSwitch, Swipeout, SwipeoutItem, SwipeoutButton, Box
+} from 'vux'
 
 
 
-let management_url='http://www.qiaohaoba.net/platform_management';
-import {setCookie, getCookie, delCookie,clearAllCookie} from './assets/js/cookie.js'
-Vue.prototype.$getCookie = getCookie;
-Vue.prototype.$setCookie = setCookie;
-Vue.prototype.$delCookie = delCookie;
-
-Vue.prototype.$http = axios;
 Vue.config.productionTip = false
-Vue.use(ElementUI);
+
 /* eslint-disable no-new */
 
 /*引入vux的组件，按需加载*/
@@ -102,8 +95,18 @@ Vue.component('grid-item', GridItem)
 Vue.component('card', Card)
 Vue.component('spinner', Spinner)
 Vue.component('x-switch', XSwitch)
+Vue.component('swipeout', Swipeout)
+Vue.component('swipeout-item', SwipeoutItem)
+Vue.component('swipeout-button', SwipeoutButton)
+Vue.component('box', Box)
 
 
+
+
+let management_url='http://www.qiaohaoba.net/platform_management';
+import {setCookie, getCookie, delCookie,clearAllCookie} from './assets/js/cookie.js'
+
+Vue.prototype.$http = axios;
 //给它设置一个timeout = 8000
 axios.defaults.timeout =  8000;
 
@@ -226,6 +229,11 @@ Vue.use({
 //自定义长按指令引入
 import longpress  from'@/utils/longpress.js'
 Vue.use(longpress)
+
+//引入weui.js weui样式
+import weui from 'weui.js'
+import 'weui'
+Vue.prototype.$weui = weui
 
 /**
  * 微信 jssdk

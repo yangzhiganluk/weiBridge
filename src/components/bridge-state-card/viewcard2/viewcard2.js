@@ -56,9 +56,8 @@ export default {
                 if(resData.resultCode == 1) {
                     if(resData.data && resData.data.length > 0) {
                         scope.viewcardDataFlag = true;
-                        let score_info = resData.data[0].score_info;
                         scope.$nextTick(function() {
-                            this.renderChart(score_info)
+                            this.renderChart(resData.data[0].score_info)
                         })
                     }
                 } else {
