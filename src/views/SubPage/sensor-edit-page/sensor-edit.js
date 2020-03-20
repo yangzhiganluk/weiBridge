@@ -6,6 +6,7 @@ export default {
             sensorInfo: localStorage.getItem("sensorInfo") ? JSON.parse(localStorage.getItem("sensorInfo")) : {},
             currentPage: 1, //当前页
             pageSize: 2000, //每页数量
+            sensorId: '',   //传感器id
             eqpName: '',    //设备名称
             sensorcode: '', //设备编码
             sensorBrand: '',    //生产厂家
@@ -23,7 +24,8 @@ export default {
                     unit: '',    //单位
                     accuracy: 2,   //精度
                     paramcode: '', //用来和数据项对比控制监测参数 
-                    fcode: ''   //用来和数据项对比控制监测参数
+                    fcode: '',   //用来和数据项对比控制监测参数
+                    id: ''
                 }
             ],   
             monitoritem: '',    //监测参数
@@ -58,7 +60,8 @@ export default {
                     scope.sensorPosition = data.sensorPosition;
                     scope.sensor_create_time = data.sensor_create_time;
                     scope.enableFlag = data.isenable == 1 ? true : false;
-                    
+                    scope.sensorId = data.id;
+
                     scope.getModelList(data.sensorBrand)
                     
                     scope.dataItemInfo = data.dataItemInfo;
@@ -193,12 +196,7 @@ export default {
             })
             scope.brandModelList = tempList;
         },
-         /**
-         * @description 输入框值改变事件
-         */
-        handleChange(type) {
-            console.log('输入框值改变事件', type)
-        },
+        
         /**
          * @description weui 模拟下拉框事件
          */
@@ -227,7 +225,6 @@ export default {
                 scope.$weui.picker(scope.monitorList, {
                     defaultValue: [scope.monitoritem],
                     onConfirm: function (result) {
-                        console.log(result[1].label)
                         scope.monitoritem = result[1].label
                     },
                 });
@@ -275,11 +272,91 @@ export default {
         },
        
         /**
-         * @description 验证表单输入
+         * @description 验证表单输入 整合数据
          */
         checkSaveSensorInfo() {
+            // 设置标志位
+            let flag = false
+            for(let x in this.$refs) {
+                if (this.$refs[x].validate) {
+                    this.$refs[x].validate();
+                    let valid = this.$refs[x].valid;
+                    if(!valid) {
+                        this.$refs[x].focus();
+                        this.$refs[x].blur();
+                        flag = true
+                    }
+                }
+                if(x == 'dataItemRef') {
+                    this.$refs[x].forEach(el=> {
+                        el.$children.forEach(item=> {
+                            if(item.validate) {
+                                item.validate();
+                                let itemvalid = item.valid;
+                                if(!itemvalid) {
+                                    item.focus();
+                                    item.blur();
+                                    flag = true
+                                }
+                            }
+                        })
+                    })
+                }
+            }
+            // if(flag) return
+            let sensorInfo = {};
+            const scope = this
+            sensorInfo.name = scope.eqpName
+            sensorInfo.model = scope.sensorModel
+            sensorInfo.brand = scope.sensorBrand
+            sensorInfo.position = scope.position
+            sensorInfo.create_time = scope.sensor_create_time
+            sensorInfo.sensorCode = scope.sensorcode
+            sensorInfo.sensorId = scope.sensorId
+            sensorInfo.isenable = scope.enableFlag ? 1 : 0
 
+            let dataInfo = [];
+            // 遍历数据项
+            scope.dataItemInfo.forEach(el=> {
+                let tempObj = {}
+                tempObj.name= el.name
+                tempObj.fcode= el.fcode
+                tempObj.paramCode= el.paramCode
+                tempObj.unit= el.unit
+                tempObj.accuracy= el.accuracy
+                tempObj.serialnumber= el.serialnumber
+                tempObj.dataId= el.id
+
+                dataInfo.push(tempObj)
+            })
+            scope.updateSensorandDataInfo(sensorInfo, dataInfo)
         },
+
+        /**
+         * @description 更新传感器
+         */
+        updateSensorandDataInfo(sensorInfo, dataInfo) {
+            const scope = this;
+            let params = new FormData();
+            params.append('structureCode', scope.bridgeInfo.code);
+            params.append('sensorInfo', JSON.stringify(sensorInfo));
+            params.append('dataInfo', JSON.stringify(dataInfo));
+            this.$http.post(`${api.acquisition_url}/acquisiteEquipment/v3/updateSensorAndDataInfo`, params, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+            }).then(res=> {
+                let resData = res.data;
+                if(resData.resultCode == 1) {
+                    scope.$vux.toast.show({
+                        type: 'success',
+                        text: resData.msg
+                    })
+                } else {
+                    scope.$vux.toast.text(resData.msg)
+                }
+            })
+        }
        
     }
 }

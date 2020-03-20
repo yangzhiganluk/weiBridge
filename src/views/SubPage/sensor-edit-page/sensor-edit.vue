@@ -9,7 +9,6 @@
                 title="设备名称" 
                 :max="20" 
                 v-model="eqpName" 
-                @on-change="handleChange('eqpName')"
                 ref="eqpNameRef"
                 placeholder="请输入设备名称" 
                 placeholder-align="right"
@@ -56,11 +55,10 @@
                 title="是否启用" 
                 inline-desc="设备禁用后将不采集、不告警、不参与计算" 
                 v-model="enableFlag"
-                ref="enableFlagRef" 
             ></x-switch>
       </group>
       <div v-if="dataItemInfo.length > 0">
-            <group title="数据项" v-for="(item, index) in dataItemInfo" :key="index">
+            <group ref="dataItemRef" title="数据项" v-for="(item, index) in dataItemInfo" :key="index">
                 <x-input
                     title="序号"
                     :value="item.serialnumber" 
@@ -72,7 +70,7 @@
                     title="名称" 
                     :max="6" 
                     v-model="item.name" 
-                    ref="dataItemInfoNameRef"
+                    
                     placeholder="请输入名称" 
                     placeholder-align="right"
                     text-align="right"
@@ -91,7 +89,6 @@
                     title="单位" 
                     :max="20" 
                     v-model="item.unit" 
-                    ref="unitRef"
                     placeholder="请输入单位" 
                     placeholder-align="right"
                     text-align="right"
@@ -101,10 +98,10 @@
                     title="精度" 
                     :max="2" 
                     v-model="item.accuracy" 
-                    ref="accuracyRef"
                     placeholder="请输入精度" 
                     placeholder-align="right"
                     text-align="right"
+                    required
                 >
                 </x-input>
                 <swipeout>

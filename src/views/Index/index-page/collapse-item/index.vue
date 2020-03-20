@@ -46,6 +46,14 @@ import collapseitem from './collapse-item.js'
 export default collapseitem
 </script>
 
-<style>
+<style lang="scss" scoped>
 
+    .common-box-bd {
+       .title {
+        width: 50%;
+       }
+      .weui-grid {
+        padding: 20px 10px;
+      }
+    }
 </style>
