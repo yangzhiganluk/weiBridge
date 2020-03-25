@@ -149,7 +149,6 @@
       //这个方法只取未读的数量，不受已读等其他因素的影响
       getalarmCount(){
         this.$http.get(acquisition_url + '/acquisiteEquipment/findSensorByType', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           headers: {
             accessToken: this.accessToken,
           },
@@ -207,7 +206,6 @@
           onConfirm() {
             if(scope.localopenid){
               scope.$http.get(management_url + '/user/unbindWeChatUser', {
-                // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
                 params: {
                   openid:scope.localopenid
                 }
@@ -253,7 +251,6 @@
         const scope = this;
 
         this.$http.get(management_url + '/user/getSignByJsApiTicket', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params: {
             noncestr: '7x5P8sI4DuKdODVv',
             timestamp: 1551691785,
@@ -350,9 +347,9 @@
                           if(structures[i].code==JSON.parse(result).structureCode){
                             let role=structures[i].role;
                             if(role.indexOf("manage")!=-1){
-                              scope.$router.push("/SensorInfo");
+                              scope.$router.push("/SensorEdit");
                             }else{
-                              scope.$router.push("/SensorInfoView");
+                              scope.$router.push("/SensorReadonly");
                             }
 
                             return;
@@ -375,7 +372,7 @@
                 for(let i=0;i<scope.bridgeList.length;i++){
                   if(scope.bridgeList[i].code==JSON.parse(result).structureCode){
                     localStorage.setItem("bridgeInfo", JSON.stringify(scope.bridgeList[i]));
-                    scope.$router.push("/SensorInfo");
+                    scope.$router.push("/SensorEdit");
                   }
                 }
 

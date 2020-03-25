@@ -338,14 +338,12 @@
     methods: {
       /*点击返回*/
       goback(){
-        // this.$router.replace("/WorkState")
         this.$router.go(-1);
       },
 
       //查询全部结构物
       getall() {
         this.$http.get(management_url + '/sub/getStructureList', {
-          //  this.$http.get('api/structure/getList', {
           params: {
             accessToken: getCookie('accessToken'),
             user_id: this.loginInfo.id,
@@ -817,8 +815,6 @@
       saveSensorInfoDataItem() {
         this.$refs['createSensorform'].validate((valid) => {
           if (valid) {
-            /*this.$Message.success('Success!');*/
-            // this.addSensor();
             this.$refs['sensorExtend'].validate((valid) => {
               if (valid) {
 

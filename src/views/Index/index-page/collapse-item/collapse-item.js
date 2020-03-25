@@ -28,13 +28,18 @@ export default {
          * @description 进入告警页面
          */
         toAlarm() {
-            console.log('alarm')
+            this.$router.push({
+                path: '/Alarms',
+            })
         },
         /**
         * @description 进入故障页面
         */
         toFault() {
             console.log('fault')
+            this.$router.push({
+                path: '/Devices',
+            })
         },
        /**
         * @description 进入桥梁状态页面

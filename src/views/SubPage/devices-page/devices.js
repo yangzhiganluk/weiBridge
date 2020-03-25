@@ -9,12 +9,12 @@ export default {
             currentPage: 1, //当前页
             pageSize: 2000, //每页数量
             equList: [],    //设备列表
-            tabIndex: 1,
+            tabIndex: 0,
             sensorList: [], //传感器列表
         };
     },
     mounted() {
-        this.switchTabItem(this.tabIndex)
+        this.switchTabItem(this.tabIndex);
     },
     methods: {
         switchTabItem(index) {
@@ -88,18 +88,38 @@ export default {
         /**
          * @descrition 查询账号信息
          */
-        getPermissionById(data) {
+        toSensorInfo(data) {
             const scope = this;
             // 将传感器信息存储到本地
             localStorage.setItem("sensorInfo", JSON.stringify(data));
-            // if(scope.loginInfo.id == 3) {
-                
-            // } else {
+            if(scope.loginInfo.type == 3) {
+                let structures = JSON.parse(localStorage.getItem("structures"));
+                structures.forEach(el=> {
+                    // 如果结构物的code和当前桥的code一致
+                    if(el.code == scope.bridgeInfo.code) {
+                        // 获取role
+                        let role = el.role
+                        // 判断当前子账号是否有管理权限
+                        if(role.indexOf("manage")!=-1) {
+                            scope.$router.push('/SensorEdit')
+                        } else {
+                            scope.$router.push('/SensorReadonly')
+                        }
+
+                    }
+                })
+            } else {
                 scope.$router.push('/SensorEdit')
-            // }
+            }
         },
-        toFault() {
-            console.log('fault')
+        toFault(code) {
+            this.$router.push({
+                path: '/FaultList',
+                query: {
+                    type: 'sensorEqp',
+                    sensorCode: code
+                }
+            })
         },
     },
     components: {

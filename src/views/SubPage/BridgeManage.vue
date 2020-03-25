@@ -72,7 +72,6 @@
         if(type=='workState'){
            this.$router.push("/WorkState")
         }else if(type=='runState'){
-           // this.$router.push("/RunState")
         }else if(type=='YB'){
 
         }else if(type=='WD'){

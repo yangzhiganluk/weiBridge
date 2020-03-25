@@ -30,7 +30,13 @@ export default {
         * @description 进入故障页面
         */
         toFault() {
-            console.log('fault')
+            this.$router.push({
+                path: '/FaultList',
+                query: {
+                    type: 'transmissionEqp',
+                    tranEqpCode: this.item.code
+                }
+            })
         },
         
     }

@@ -184,7 +184,6 @@
         })
         /*调用接口取值*/
         this.$http.get(acquisition_url + '/alarm/piechart/style/getRatioRunInfo', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params: {
             scode:this.bridgeInfo.code,
             startTime: this.selectStartTime,
@@ -238,7 +237,6 @@
         }
         /*调用接口取值*/
         this.$http.get(acquisition_url + '/alarm/columnchart/style/getRatioRunInfo', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           headers:{
             accessToken:getCookie("accessToken")
           },

@@ -107,7 +107,6 @@ let management_url='http://www.qiaohaoba.net/platform_management';
 import {setCookie, getCookie, delCookie,clearAllCookie} from './assets/js/cookie.js'
 
 Vue.prototype.$http = axios;
-//给它设置一个timeout = 8000
 axios.defaults.timeout =  8000;
 
 /****************** axios拦截器设置请参考这部分(开始)******************/
@@ -149,18 +148,10 @@ axios.interceptors.request.use(
               setCookie("refreshToken",resData.data.refreshToken,Infinity);
 
               scope.$vux.loading.hide();
-              // scope.$vux.toast.text('登录成功,即将跳转...', 'middle');
-
               scope.$router.go(0);
-           /*   setTimeout(function () {
-                 scope.$router.replace("/Index");
-                scope.$router.go(0);
-              }, 1500)*/
             }
           } else if (res.data.resultCode == 0) {
-            // scope.$vux.toast.text(res.data.msg)
           } else {
-            // scope.$vux.toast.text(res.data.msg)
           }
           scope.$vux.loading.hide()
         }, (error) => {
@@ -180,22 +171,18 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     if(response.data.resultCode=='-2'&&(response.data.msg=="该账号已过期或被其他设备登陆，请重新登陆"||response.data.msg=="accessToken不能为空")){
-       // window.location.href='http://www.qiaohaoba.net/#/'
       delCookie("accessToken");
       delCookie("refreshToken");
       clearAllCookie();
       localStorage.clear();
       router.push("/Oauth");
     }
-
     return response;
-
-
   },
   error => {
+    console.log(error)
     if (error.response) {
     }
-
     return Promise.reject(error.response.data)
   });
 
@@ -230,10 +217,16 @@ Vue.use({
 import longpress  from'@/utils/longpress.js'
 Vue.use(longpress)
 
+// scroller全局组件
+import BetterScroll from '@/components/better-scroll'
+Vue.component('BetterScroll', BetterScroll);
+
 //引入weui.js weui样式
 import weui from 'weui.js'
 import 'weui'
 Vue.prototype.$weui = weui
+
+
 
 /**
  * 微信 jssdk

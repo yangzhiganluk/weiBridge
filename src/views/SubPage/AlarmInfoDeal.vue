@@ -4,19 +4,8 @@
 
     <!--告警信息的内容开始-->
     <div  class="AlarmInfo" >
-<!--      <panel header="告警信息"></panel>
-      <flexbox >
-        <flexbox-item>
-          <div class="alarmContent">
-            <p><span >{{item.structure_name}}</span></p>
-            <p><span >{{item.name}}</span></p>
-            <p><span >告警阈值：</span><span>{{item.level}}</span><span>{{item.scope}}</span></p>
-            <p><span >告警值：</span><span>{{item.value_scale}}</span></p>
-          </div>
-        </flexbox-item>
-      </flexbox>-->
       <div class="cellTop" style="margin:10px auto" >告警信息</div>
-      <flexbox v-for="(item,index) in alarmData" :key="item">
+      <flexbox v-for="(item, index) in alarmData" :key="index">
         <flexbox-item >
           <div class="alarmContent">
             <p><span style="width:30%">{{item.structure_name}}</span><span style="width:70%">&nbsp;&nbsp;{{item.name}}</span></p>
@@ -32,33 +21,14 @@
 
     <!--传感器信息-->
     <div class="AlarmInfo">
-      <!--<panel header="传感器信息"></panel>
-      <flexbox >
-        <flexbox-item >传感器编号：{{item.sensorCode}}</flexbox-item>
-        <flexbox-item >传感器类型：{{item.factor_name}}</flexbox-item>
-      </flexbox>
-      <flexbox >
-        <flexbox-item >当前状态：{{item.status}}</flexbox-item>
-        <flexbox-item >测量单位：{{item.unit}}</flexbox-item>
-      </flexbox>
-      <flexbox >
-        <flexbox-item >当前值：{{item.value}} <span style="margin-left: 10px">{{item.time}}</span></flexbox-item>
-      </flexbox>-->
-
       <div class="cellTop" style="margin:10px auto" >数据项信息</div>
       <div class="sensorInfo" v-for="item in alarmData" :key="item"  @click="toSensorInfoView(item)">
-        <!--<flexbox >
-          <flexbox-item >数据项名称：{{item.dataItemName}}</flexbox-item>
-        </flexbox>-->
         <flexbox >
           <flexbox-item >数据项编号：{{item.dataItemCode}}</flexbox-item>
         </flexbox>
         <flexbox>
           <flexbox-item>数据项类型：{{item.factor_type}}</flexbox-item>
         </flexbox>
-<!--        <flexbox>
-          <flexbox-item>当前状态：{{item.isNormal?"正常":"异常"}}</flexbox-item>
-        </flexbox>-->
         <flexbox>
           <flexbox-item>测量单位：{{item.unit}}</flexbox-item>
         </flexbox>
@@ -74,12 +44,9 @@
         <flexbox  v-for="(item,index) in suggestionList" :key="index">
           <flexbox-item >
             <div class="alarmContent suggestionInfo" style="padding: 0;width:100%;">
-              <p><span>处理人：{{item.username?item.username:"--"}}</span></p>
-              <p><span >处理时间：{{item.time?item.time:"--"}}</span></p>
+              <p><span>处理人：{{item.username ? item.username : "--" }}</span></p>
+              <p><span >处理时间：{{item.time ? item.time : "--" }}</span></p>
               <p><span >处理意见：{{item.suggestion}}</span></p>
-              <!-- <p><span style="width:30%">{{item.structure_name}}</span><span style="width:70%">&nbsp;&nbsp;{{item.name}}</span></p>
-               <p><span >告警阈值&nbsp;:&nbsp;{{item.level}}{{item.scope}}</span></p>
-               <p><span >告警值&nbsp;:&nbsp;{{item.value_scale}}</span></p>-->
             </div>
           </flexbox-item>
 
@@ -99,7 +66,6 @@
     <!--告警信息的内容结束-->
     <div class="space_30"></div>
 
-    <!--<x-button plain  :gradients="['#1D62F0', '#19D5FD']"  @click.native="toCheck">提交</x-button>-->
     <x-button plain    @click.native="toCheck" v-if="alarmData&&alarmData.length>0" >确认</x-button>
     <x-button plain    @click.native="toAddAttention"  class="attentionBtn" v-if="alarmData&&alarmData.length>0&&showAttention" >添加关注</x-button>
     <x-button plain    @click.native="toCancelAttention"  class="attentionBtn" v-if="alarmData&&alarmData.length>0&&!showAttention" >取消关注</x-button>
@@ -124,16 +90,13 @@
         sensorData:[],//传感器信息
         accessToken:getCookie("accessToken"),
         interruptContent:'',//中断原因
-
         suggestionList:[],//已阅用户
         loginInfo: localStorage.getItem("loginInfo") ? JSON.parse(localStorage.getItem("loginInfo")) : "", //登录成功，存储在本地的信息
-
         showAttention:true,//是否展示关注
         showIgnore:true,//是否显示忽略
       }
     },
     computed: {
-      // ...mapGetters(['username']),
       ...mapGetters(['count', 'moreBridgePageUrl','imgUrl']),
     },
     beforeCreate() {
@@ -142,12 +105,10 @@
     created() {
         //得到告警信息的本地数据
       this.getAlarmData();
-
     },
     methods: {
       /*点击返回*/
       goback(){
-        /*this.$router.re;*/
         this.$router.replace("/Index")
       },
       /*得到告警信息*/
@@ -165,9 +126,7 @@
               }
             }
           }
-
           //得到本地数据之后，再通过ID查询详细信息
-          // this.getSensorData();
       },
       /*得到传感器信息*/
       getSensorData(){
@@ -176,7 +135,6 @@
         })
         /*调用接口取值*/
         this.$http.get(acquisition_url+'/acquisiteEquipment/findSensorDetailForWindow',{
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params:{
             id:this.alarmData[0].sensorId,
             accessToken:this.accessToken,
@@ -399,10 +357,7 @@
           margin-bottom: 0;
         }
         span{
-        /*  display: inline-block;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;*/
+        
           font-size: 13px;
           font-weight: 200;
           color: #343F65;

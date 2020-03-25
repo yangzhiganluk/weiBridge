@@ -11,7 +11,6 @@ export default {
       bridgeList: [], //桥梁列表
       accessToken: accessToken,//鉴权码
       loginInfo: localStorage.getItem("loginInfo") ? JSON.parse(localStorage.getItem("loginInfo")) : "", //登录成功，存储在本地的信息
-      bridgeInfo:localStorage.getItem("bridgeInfo")?JSON.parse(localStorage.getItem("bridgeInfo")):[],
       currentPage: 1,//页码
       visible: false,
     }
@@ -30,6 +29,9 @@ export default {
       if(this.accessToken && this.loginInfo && this.loginInfo!=""){
         /*加载桥梁列表*/
         this.getList();
+        if(this.loginInfo.type ==3) {
+          this.getPermissionById();
+        }
       }else{
         this.$router.push("Oauth")
       }
@@ -50,7 +52,6 @@ export default {
         if (resData.resultCode == 1) {
           if (resData.data && resData.data.length > 0) {
             localStorage.setItem("bridgeList",JSON.stringify(resData.data))
-            localStorage.setItem("bridgeInfo",JSON.stringify(resData.data[0]))
             this.bridgeList = resData.data;
           }
         } else {
@@ -73,6 +74,29 @@ export default {
           }
         })
       })
+    },
+    /**
+     * @description 判断账号权限
+     */
+    getPermissionById() {
+      const scope = this;
+      scope.$http.get(`${api.management_url}/sub/findSubaccountById`, {
+        params: {
+          id: scope.loginInfo.id,
+        }
+      }).then(res=> {
+        let resData = res.data;
+        if(resData.resultCode == 1) {
+          let data = resData.data
+          if(data.structures && data.structures.length > 0) {
+            let structures = data.structures;
+            localStorage.setItem("structures", JSON.stringify(structures));
+          }
+        } else {
+          scope.$vux.toast.text(resData.msg);
+        }
+      })
+      
     },
     /*================桥梁列表组件结束=============*/
     //获取扫一扫的签名
@@ -120,15 +144,13 @@ export default {
     //扫一扫
     scan(){
       const scope = this;
-      if(!this.bridgeList || this.bridgeList.length==0){
+      if(!scope.bridgeList || scope.bridgeList.length==0){
         scope.$vux.alert.show({
           title: '提示',
           content: '请先创建监测物',
           onShow() {
-
           },
           onHide() {
-
           }
         })
         return;
@@ -153,10 +175,7 @@ export default {
           scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
           success: function (res) {
             var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-
             sessionStorage.setItem("scanData",result);
-
-
             if(scope.loginInfo.type=='3'){
               scope.$http.get(management_url + '/sub/findSubaccountById', {
                 headers:{
@@ -166,7 +185,6 @@ export default {
                   id:scope.loginInfo.id,
                 }
               }).then((subres) => {
-
                 if (subres.data.resultCode == 1) {
                   /*判断是否有结构物，是否存在多桥和单桥*/
                   if (subres.data.data) {
@@ -176,23 +194,19 @@ export default {
                         if(structures[i].code==JSON.parse(result).structureCode){
                           let role=structures[i].role;
                           if(role.indexOf("manage")!=-1){
-                            scope.$router.push("/SensorInfo");
+                            scope.$router.push("/SensorEdit");
                           }else{
-                            scope.$router.push("/SensorInfoView");
+                            scope.$router.push("/SensorReadonly");
                           }
-
                           return;
                         }
-
                       }
                     }
                   }
                 } else if (subres.data.resultCode == 0) {
                   scope.$vux.toast.text(subres.data.data.msg);
-
                 } else {
                   scope.$vux.toast.text(subres.data.data.msg);
-
                 }
               }, (error) => {
 
@@ -201,7 +215,7 @@ export default {
               for(let i=0;i<scope.bridgeList.length;i++){
                 if(scope.bridgeList[i].code==JSON.parse(result).structureCode){
                   localStorage.setItem("bridgeInfo", JSON.stringify(scope.bridgeList[i]));
-                  scope.$router.push("/SensorInfo");
+                  scope.$router.push("/SensorEdit");
                 }
               }
 

@@ -41,46 +41,12 @@
     <panel header="告警信息" style="margin-top: 0;background: transparent" v-if="showPannel=='alarm'"></panel>
 
     <div class="AlarmInfo" >
-
-      <div class="selectOption" style="display: none">
-         <el-select v-model="currentBridge" placeholder="请选择"  @change="changeBridge">
-           <el-option
-             v-for="(item,index) in bridgeList"
-             :key="index"
-             :label="item.project_name"
-             :value="item.project_name"
-           >
-           </el-option>
-         </el-select>
-
-
-      </div>
-
-
-
-
-
       <div class="AlarmInfoTop" v-if="alarmList&&alarmList.length>0">
         告警信息
         <div class="AlarmTab" @change="changeRead">
           <el-checkbox v-model="checked" >显示已读</el-checkbox>
         </div>
       </div>
-      <!-- <flexbox v-for="(item,index) in alarmList" :key="item">
-         <flexbox-item :span="13/20">
-           <div class="alarmContent">
-             <p><span style="width:40%">{{item.structure_name}}</span><span style="width:60%">&nbsp;&nbsp;{{item.name}}</span></p>
-             <p><span >告警阈值&nbsp;:&nbsp;{{item.level}}&nbsp;{{item.scope}}</span></p>
-             <p><span >告警值&nbsp;:&nbsp;{{item.value_scale}}</span></p>
-           </div>
-         </flexbox-item>
-         <flexbox-item :span="7/20">
-           <div class="alarmContent">
-             <x-button mini type="primary" @click.native="toAlarmDeal(item)">处理</x-button>
-             <x-button mini type="primary" @click.native="toIgnore(item)">忽略</x-button>
-           </div>
-         </flexbox-item>
-       </flexbox>-->
 
       <group class="alarmList">
         <scroller use-pullup :pullup-config="pullupDefaultConfig" @on-pullup-loading="loadMore"
@@ -270,7 +236,6 @@
 
         /*调用接口取值*/
         this.$http.get(acquisition_url + '/acquisiteEquipment/findSensorByType', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           headers: {
             accessToken: this.accessToken,
           },
@@ -278,7 +243,6 @@
             state: this.checked ? "" : 'waitHand',
             platform: this.checked ? "wechat" : "",
             type:'alarm',
-            // structureCode: this.bridgeList[this.currentBridgeIndex].code,
             currentPage: this.currentPage,
             pageSize: 40
           }
@@ -298,21 +262,16 @@
                 this.$refs.scrollerBottom.reset({
                   top:230
                 })
-               /* this.$refs.scrollerBottom.reset({
-                  top:40
-                })*/
               })
 
               this.$vux.toast.text('没有更多数据');
             }
 
           } else if (resData.resultCode == 0) {
-            // this.$vux.toast.text(resData.msg);
             if(resData.msg!="accessToken不能为空"){
               this.$vux.toast.text(resData.msg);
             }
           } else {
-            // this.$vux.toast.text(resData.msg);
             if(resData.msg!="accessToken不能为空"){
               this.$vux.toast.text(resData.msg);
             }
@@ -329,14 +288,12 @@
     //这个方法只取未读的数量，不受已读等其他因素的影响
     getalarmCount(){
       this.$http.get(acquisition_url + '/acquisiteEquipment/findSensorByType', {
-        // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
         headers: {
           accessToken: this.accessToken,
         },
         params: {
           state:'waitHand',
           type:'alarm',
-          // structureCode: this.bridgeList[this.currentBridgeIndex].code,
           currentPage: 1,
           pageSize: 1
         }
@@ -362,17 +319,6 @@
       this.$router.push("/AlarmInfoDeal")
     },
 
-    //下拉框改变的事件
-    changeBridge(e){
-      for(var i=0;i<this.bridgeList.length;i++){
-        let datas=this.bridgeList[i];
-        if(e==datas.shortname){
-          localStorage.setItem("bridgeInfo",JSON.stringify(datas))
-          this.currentBridgeIndex=i;
-          this.getAlarm();
-        }
-      }
-    },
     //显示已读的复选框
     changeRead(){
         this.alarmList=[];
@@ -489,7 +435,6 @@
           onConfirm() {
             if(scope.localopenid){
               scope.$http.get(management_url + '/user/unbindWeChatUser', {
-                // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
                 params: {
                   openid:scope.localopenid
                 }
@@ -537,7 +482,6 @@
         const scope = this;
 
         this.$http.get(management_url + '/user/getSignByJsApiTicket', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params: {
             noncestr: '7x5P8sI4DuKdODVv',
             timestamp: 1551691785,
@@ -634,9 +578,9 @@
                           if(structures[i].code==JSON.parse(result).structureCode){
                             let role=structures[i].role;
                             if(role.indexOf("manage")!=-1){
-                              scope.$router.push("/SensorInfo");
+                              scope.$router.push("/SensorEdit");
                             }else{
-                              scope.$router.push("/SensorInfoView");
+                              scope.$router.push("/SensorReadonly");
                             }
 
                             return;
@@ -659,7 +603,7 @@
                 for(let i=0;i<scope.bridgeList.length;i++){
                   if(scope.bridgeList[i].code==JSON.parse(result).structureCode){
                     localStorage.setItem("bridgeInfo", JSON.stringify(scope.bridgeList[i]));
-                    scope.$router.push("/SensorInfo");
+                    scope.$router.push("/SensorEdit");
                   }
                 }
 

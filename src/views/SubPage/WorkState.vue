@@ -36,8 +36,6 @@
               <cell-box is-link @click.native="getCurrentNode(itemSub)" v-for="(itemSub,index) in item.children" :key="index">{{itemSub.name}}</cell-box>
             </group>
           </div>
-
-
         </flexbox-item>
       </flexbox>
     </div>
@@ -71,8 +69,6 @@
         modelTreeDatas:[],   //3d结构树数组改
         modelTreeDatasByType:[],//3D结构树数组按照类型来划分
         modelTreeDatasByLocation:[],//3D结构树数组按照位置来划分
-
-
       }
     },
     computed: {
@@ -90,8 +86,6 @@
       this.loadSign();
     },
     methods: {
-
-
       /*=============通用组件开始================*/
       /*tab切换*/
       onItemClick(item) {
@@ -224,7 +218,6 @@
                       if(structures[i].code==this.bridgeInfo.code){
                         let role=structures[i].role;
                         if(role.indexOf("manage")!=-1){
-                          // scope.$router.push("/SensorInfo");
                           this.$router.push({
                             name:"传感器信息",
                             params:{
@@ -238,7 +231,6 @@
                               type:'workstate'
                             }
                           })
-                          // scope.$router.push("/SensorInfoView");
                         }
 
                         return;
@@ -261,7 +253,6 @@
             for(let i=0;i<this.bridgeList.length;i++){
               if(this.bridgeList[i].code==this.bridgeInfo.code){
                 localStorage.setItem("bridgeInfo", JSON.stringify(this.bridgeList[i]));
-                // this.$router.push("/SensorInfo");
                 this.$router.push({
                   name:"传感器信息",
                   params:{
@@ -354,7 +345,6 @@
         const scope = this;
 
         this.$http.get(management_url + '/user/getSignByJsApiTicket', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params: {
             noncestr: '7x5P8sI4DuKdODVv',
             timestamp: 1551691785,
@@ -439,9 +429,9 @@
                           if(structures[i].code==scope.bridgeInfo.code){
                             let role=structures[i].role;
                             if(role.indexOf("manage")!=-1){
-                              scope.$router.push("/SensorInfo");
+                              scope.$router.push("/SensorEdit");
                             }else{
-                              scope.$router.push("/SensorInfoView");
+                              scope.$router.push("/SensorReadonly");
                             }
 
                             return;
@@ -462,7 +452,7 @@
                 });
               }else{
                 if(JSON.parse(result).structureCode==scope.bridgeInfo.code){
-                  scope.$router.push("/SensorInfo");
+                  scope.$router.push("/SensorEdit");
                 }else{
                   scope.$vux.alert.show({
                     title: "提示",
@@ -483,7 +473,6 @@
         const scope = this;
 
         this.$http.get(management_url + '/user/getSignByJsApiTicket', {
-          // this.axios.get('acquisition_url/acquisiteEquipment/findAllSensorByType',{
           params: {
             noncestr:'7x5P8sI4DuKdODVv',
             timestamp:1551691785,
@@ -551,9 +540,9 @@
                                 if(structures[i].code==scope.bridgeInfo.code){
                                   let role=structures[i].role;
                                   if(role.indexOf("manage")!=-1){
-                                    scope.$router.push("/SensorInfo");
+                                    scope.$router.push("/SensorEdit");
                                   }else{
-                                    scope.$router.push("/SensorInfoView");
+                                    scope.$router.push("/SensorReadonly");
                                   }
 
                                   return;
@@ -574,7 +563,7 @@
                       });
                     }else{
                       if(JSON.parse(result).structureCode==scope.bridgeInfo.code){
-                        scope.$router.push("/SensorInfo");
+                        scope.$router.push("/SensorEdit");
                       }else{
                         scope.$vux.alert.show({
                           title: "提示",
