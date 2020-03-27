@@ -8,8 +8,12 @@ export default {
         };
     },
     filters: {
-        number: function(data){
-            return parseFloat(data).toFixed(3)
+        number: function(num){
+            if(typeof(num)=='undefined'){
+                return num
+            }else{
+                return Number(parseFloat(num).toFixed(3))
+            }
         }
     },
     mounted() {

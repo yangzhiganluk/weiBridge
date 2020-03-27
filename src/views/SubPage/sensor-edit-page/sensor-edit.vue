@@ -23,16 +23,16 @@
                 text-align="right"
             >
             </x-input>
-            <!-- <cell title="生产厂家" @click.native="handleBrand" value-align="right" is-link>{{sensorBrand}}</cell> -->
-            <div class="weui-cell weui-cell_active weui-cell_access weui-cell_select weui-cell_select-after">
+            <popup-picker title="生产厂家" :data="brandList" v-model="sensorBrand" @on-change="handleChange"></popup-picker>
+            <!-- <div class="weui-cell weui-cell_active weui-cell_access weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__hd"><label class="weui-label">生产厂家</label></div>
                 <div class="weui-cell__bd" @click="handleClick('brand')">{{sensorBrand}}</div>
-            </div>
-            <!-- <cell title="设备型号" @click.native="handleModel" value-align="right" is-link>{{sensorModel}}</cell> -->
-            <div class="weui-cell weui-cell_active weui-cell_access weui-cell_select weui-cell_select-after">
+            </div> -->
+            <popup-picker title="设备型号" :data="brandModelList" v-model="sensorModel"></popup-picker>
+            <!-- <div class="weui-cell weui-cell_active weui-cell_access weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__hd"><label class="weui-label">设备型号</label></div>
                 <div class="weui-cell__bd" @click="handleClick('model')">{{sensorModel}}</div>
-            </div>
+            </div> -->
             <x-input 
                 title="安装位置" 
                 :max="20" 
@@ -77,6 +77,7 @@
                     required
                 >
                 </x-input>
+                <!-- 
                 <div v-if="monitoritem" class="weui-cell weui-cell_active weui-cell_access weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd"><label class="weui-label">监测参数</label></div>
                     <div class="weui-cell__bd" @click="handleClick('monitor')">{{monitoritem}}</div>
@@ -85,6 +86,11 @@
                     <div class="weui-cell__hd"><label class="weui-label">监测参数</label></div>
                     <div class="weui-cell__bd"><spinner type="ripple" size="40px"></spinner></div>
                 </div>
+                 -->
+                <popup-picker v-if="monitorVaule.length > 0" title="监测参数" :data="monitors" :columns="2" v-model="monitorVaule" :display-format="format"></popup-picker>
+                <cell v-else title="监测参数">
+                    <spinner type="ripple" size="40px"></spinner>
+                </cell>
                 <x-input 
                     title="单位" 
                     :max="20" 

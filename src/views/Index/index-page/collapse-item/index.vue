@@ -16,7 +16,7 @@
                 <img slot="icon" src="~assets/images/fault.png">
                 </grid-item>
             </grid>
-            <div class="icon-link"  @click.stop="toBridgeState(item)"></div>
+            <div class="icon-link" @click.stop="toBridgeState(item)"></div>
         </div>
         
     </cell-box>
@@ -53,7 +53,7 @@ export default collapseitem
         width: 50%;
        }
       .weui-grid {
-        padding: 20px 10px;
+        padding: 0 10px;
       }
     }
 </style>

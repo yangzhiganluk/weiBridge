@@ -37,10 +37,10 @@ export default {
     getOpenId() {
       
       /*获取地址栏参数*/
-      function GetQueryString(name) {
-        let reg = new RegExp('(^|&)'+name+'=[^&](&|$)*');
-        let r = window.location.search.substr(1).match(reg);
-        if(r!=null) return decodeURIComponent(r[2])
+      function  GetQueryString(name){
+        var  reg =  new  RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var  r = window.location.search.substr(1).match(reg); 
+        if(r!=null)  return  unescape(r[2]);  return  null;
       }
       let code = GetQueryString("code");
          this.$vux.loading.show({

@@ -197,7 +197,6 @@ FastClick.attach(document.body)
  */
 import custom from './utils/custom'
 import getuuid from './utils/getuuid'
-import toFixed from './utils/toFixed'
 
 Vue.use({
   install(Vue, options) {
@@ -206,9 +205,6 @@ Vue.use({
     }
     for(let key in getuuid) {
       Vue.prototype['$$' + key] = getuuid[key]
-    }
-    for(let key in toFixed) {
-      Vue.prototype['$$' + key] = toFixed[key]
     }
   }
 })
@@ -221,12 +217,10 @@ Vue.use(longpress)
 import BetterScroll from '@/components/better-scroll'
 Vue.component('BetterScroll', BetterScroll);
 
-//引入weui.js weui样式
-import weui from 'weui.js'
-import 'weui'
-Vue.prototype.$weui = weui
-
-
+// 引入weui.js weui样式
+// import weui from 'weui.js'
+// import 'weui'
+// Vue.prototype.$weui = weui
 
 /**
  * 微信 jssdk

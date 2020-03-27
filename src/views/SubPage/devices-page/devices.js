@@ -46,6 +46,9 @@ export default {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
                     scope.equList = resData.data
+                            .concat(resData.data).concat(resData.data).concat(resData.data)
+                            .concat(resData.data).concat(resData.data).concat(resData.data)
+                            .concat(resData.data).concat(resData.data).concat(resData.data)
                 } else {
                     scope.$vux.toast.text(resData.msg);
                 }

@@ -41,12 +41,13 @@ var webpackConfig = merge(baseWebpackConfig, {
     $: "jquery",
      "window.jQuery": "jquery"
   }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      sourceMap: true
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   },
+    //   sourceMap: true
+    // }),
+    
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
@@ -107,7 +108,8 @@ var webpackConfig = merge(baseWebpackConfig, {
     ])
   ]
 })
-
+const uglifyjs = require('uglifyjs-webpack-plugin');
+webpackConfig.plugins.push(new uglifyjs())
 if (config.build.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
 

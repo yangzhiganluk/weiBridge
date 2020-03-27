@@ -8,7 +8,7 @@
         
         <grid :show-lr-borders="false" :show-vertical-dividers="false">
             <grid-item @on-item-click="toFault" v-if="item.faultNum > 0">
-                <img slot="icon" src="~assets/images/fault.png">
+                <!-- <img slot="icon" src="~assets/images/fault.png"> -->
                 <badge :text="String(item.faultNum)"></badge>
             </grid-item>
         </grid>

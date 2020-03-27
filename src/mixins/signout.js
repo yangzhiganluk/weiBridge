@@ -2,13 +2,11 @@ import api  from '@/api'
 export default {
     data() {
         return {
-
         }
     },
     methods: {
       //退出登录
       signOut(){
-        console.log('退出登录...')
         const scope = this;
         scope.$vux.confirm.show({
             title: "提示",
@@ -16,6 +14,8 @@ export default {
             onCancel() {},
             onConfirm() {
                 if(scope.localopenid){
+                    console.log(scope.localopenid)
+
                     scope.$http.get(api.management_url + '/user/unbindWeChatUser', {
                         params: {
                             openid: scope.localopenid

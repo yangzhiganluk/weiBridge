@@ -29,10 +29,10 @@
                 <group v-for="(item, index) in sensorList" :key="index">
                         <cell-box v-for="(el, i) in item.children" :key="i">
                             <div class="common-box-bd">
-                                <div class="title">{{el.name}}</div>
+                                <div class="title" @click="toSensorInfo(el)">{{el.name}}</div>
                                 <grid :show-lr-borders="false" :show-vertical-dividers="false">
                                     <grid-item @on-item-click="toFault(el.code)" v-if="el.faultNum > 0">
-                                        <img slot="icon" src="~assets/images/fault.png">
+                                        <!-- <img slot="icon" src="~assets/images/fault.png"> -->
                                         <badge :text="String(el.faultNum)"></badge>
                                     </grid-item>
                                 </grid>

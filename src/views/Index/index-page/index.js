@@ -11,6 +11,7 @@ export default {
       bridgeList: [], //桥梁列表
       accessToken: accessToken,//鉴权码
       loginInfo: localStorage.getItem("loginInfo") ? JSON.parse(localStorage.getItem("loginInfo")) : "", //登录成功，存储在本地的信息
+      localopenid: localStorage.getItem("openid"),
       currentPage: 1,//页码
       visible: false,
     }
@@ -24,6 +25,7 @@ export default {
     this.loadSign();
   },
   methods: {
+ 
     /*验证登录*/
     judgeLogin(){
       if(this.accessToken && this.loginInfo && this.loginInfo!=""){
@@ -225,7 +227,6 @@ export default {
         });
       });
     },
-    
   },
   components: {
     collapseItem

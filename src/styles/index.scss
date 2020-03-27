@@ -406,7 +406,7 @@ ol,ul{
       vertical-align: middle;
     }
     .weui-grid {
-      padding: 0;
+      // padding: 0;
     }
     .weui-grids:before {
         display: none;
@@ -457,7 +457,4 @@ ol,ul{
       font-size: 18px;
       font-weight: 600;
   }
-}
-.weui-btn {
-  line-height: 1 !important ;
 }

@@ -21,7 +21,7 @@ let webpackConfig = {
     app: ["babel-polyfill", "./src/main.js"]
   },
   externals: {
-    "BMap": "BMap"
+    "BMap": "BMap",
   },
   output: {
     path: config.build.assetsRoot,
@@ -59,22 +59,8 @@ let webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/v-calendar/lib')]
       },
-      // {
-      //   test:/\.scss$/,
-      //   use: [
-      //       {
-      //           loader: 'style-loader' // creates style nodes from JS strings
-      //       },
-      //       {
-      //           loader: 'css-loader' // translates CSS into CommonJS
-      //       },
-      //       {
-      //           loader: 'sass-loader' // compiles Sass to CSS
-      //       }
-      //   ]
-      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',

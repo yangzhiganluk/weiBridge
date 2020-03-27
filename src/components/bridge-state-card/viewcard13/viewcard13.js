@@ -61,7 +61,14 @@ export default {
                        return prev.count + current.count
                     })
                     status_info.forEach((el, i) => {
-                        status_info[i].percent = scope.$$toFixed(el.count / sum, 3);
+                        function toFix(num, unit){
+                            if(typeof(num)=='undefined'){
+                                return num
+                            }else{
+                                return Number(parseFloat(num).toFixed(unit))
+                            }
+                        }
+                        status_info[i].percent = toFix(el.count / sum, 3);
                     });
                     scope.$nextTick(function() {
                         this.renderChart(pieMap, status_info)

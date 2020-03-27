@@ -1,4 +1,5 @@
 import api from '@/api'
+import weui from 'weui.js'
 export default {
     data() {
         return {
@@ -9,10 +10,12 @@ export default {
             sensorId: '',   //传感器id
             eqpName: '',    //设备名称
             sensorcode: '', //设备编码
-            sensorBrand: '',    //生产厂家
+            sensorBrand: [''],    //生产厂家
             brandList: [],  //厂家列表
-            sensorModel: '',    //设备型号
+            
+            sensorModel: [''],    //设备型号
             modelList: [], //所有厂家所有型号列表
+           
             brandModelList: [], //指定厂家型号列表
             sensorPosition: '', //安装位置
             sensor_create_time: '', //安装时间
@@ -30,6 +33,11 @@ export default {
             ],   
             monitoritem: '',    //监测参数
             monitorList: [],   //监测参数列表
+            monitorVaule: [],
+            monitors: [],
+            format: function (value, name) {
+                return `${name}`
+            }
         }
     },
     mounted() {
@@ -55,8 +63,8 @@ export default {
                     let data = resData.data[0];
                     scope.eqpName = data.eqpName;
                     scope.sensorcode = data.sensorcode;
-                    scope.sensorBrand = data.sensorBrand;
-                    scope.sensorModel = data.sensorModel;
+                    scope.sensorBrand = [data.sensorBrand];
+                    scope.sensorModel = [data.sensorModel];
                     scope.sensorPosition = data.sensorPosition;
                     scope.sensor_create_time = data.sensor_create_time;
                     scope.enableFlag = data.isenable == 1 ? true : false;
@@ -87,42 +95,36 @@ export default {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
                     if(resData.data && resData.data.length > 0) {
-                        let tempList = []
                         let data = resData.data;
-                        data.forEach((el, i)=> {
-                            let tempObj = {
-                                label: el.fname,
+                        let parentList = []
+                        data.forEach(el=> {
+                            let parentObj = {
+                                name: el.fname,
                                 value: el.fcode,
-                                children: []
+                                parent: 0,
                             }
-                           el.paramInfo.forEach((item, index)=> {
-                                tempObj.children.push(
-                                    {
-                                        label: item.pname,
-                                        value: item.pcode
-                                    }
-                                ) 
+                            parentList.push(parentObj)
+                            el.paramInfo.forEach((item)=> {
+                                let childObj = {
+                                        name: item.pname,
+                                        value: item.pcode,
+                                        parent: item.fcode,
+                                }
+                                
+                                parentList.push(childObj)
                            })
-                           tempList.push(tempObj)
                         })
-                        
-                        scope.monitorList = tempList;
+                        scope.monitors = JSON.parse(JSON.stringify(parentList));
                         this.$nextTick(function() {
                             // 设置监测参数
                             dataItemInfo.forEach(el=> {
-                                tempList.forEach(item=> {
-                                    if(item.value == el.fcode) {
-                                        item.children.forEach(child=> {
-                                            if(child.value == el.paramcode) {
-                                                scope.monitoritem = child.label;
-                                            }
-                                        })
+                                JSON.parse(JSON.stringify(parentList)).forEach(item=> {
+                                    if(item.value == el.paramcode) {
+                                        scope.monitorVaule.push(item.value);
                                     }
                                 })
                             })
-                            
                         })
-                       
                     }
                     
                 } else {
@@ -143,14 +145,9 @@ export default {
                         let data = resData.data;
                         let tempList = []
                         data.forEach((el, i)=> {
-                            let tempObj = {
-                                label: el.brand,
-                                value: i
-                            }
-
-                            tempList.push(tempObj)
+                            tempList.push(el.brand)
                         })
-                        scope.brandList = tempList
+                        scope.brandList = [tempList]
                     } else {
                         scope.$vux.toast.text(resData.msg);
                     }
@@ -176,62 +173,32 @@ export default {
                     }
                 })
         },
+        
         /**
-         * @description 更新modelList
+         * @description 更新brandModelList
          */
         refleshBrandModelList(sensorBrand) {
             const scope = this;
             let tempList = []
-            scope.modelList.forEach((el, i)=> {
+            scope.modelList.forEach((el)=> {
                 if(el.brand == sensorBrand) {
-                    let tempObj = {
-                        label: el.model,
-                        value: el.id
-                    }
-                    tempList.push(tempObj);
-                   if(scope.brandModelList.indexOf(tempObj.label) == -1) {
-                    scope.sensorModel = tempList[0].label
+                    let temp =  el.model
+                    tempList.push(temp);
+                   if(scope.brandModelList.indexOf(temp) == -1) {
+                        scope.sensorModel = [JSON.parse(JSON.stringify(tempList))[0]]
                    }
                 }
             })
-            scope.brandModelList = tempList;
-        },
-        
-        /**
-         * @description weui 模拟下拉框事件
-         */
-        handleClick(name) {
-            const scope = this;
-            if(name == 'brand') {
-                scope.$weui.picker(scope.brandList, {
-                    defaultValue: [scope.sensorBrand],
-                    onConfirm: function (result) {
-                        console.log(result[0].label)
-                        scope.sensorBrand = result[0].label;
-                        scope.refleshBrandModelList(scope.sensorBrand);
-                    },
-                });
-            }
-            if(name == 'model') {  
-                scope.$weui.picker(scope.brandModelList, {
-                    defaultValue: [scope.sensorModel],
-                    onConfirm: function (result) {
-                        console.log(result[0].label)
-                        scope.sensorModel = result[0].label
-                    },
-                });
-            }
-            if(name == 'monitor') {
-                scope.$weui.picker(scope.monitorList, {
-                    defaultValue: [scope.monitoritem],
-                    onConfirm: function (result) {
-                        scope.monitoritem = result[1].label
-                    },
-                });
-                
-            }
+            
+            scope.brandModelList = [JSON.parse(JSON.stringify(tempList))];
         },
 
+        handleChange(value) {
+            const scope = this;
+            scope.refleshBrandModelList(value[0]);
+            console.log(scope.sensorModel[0])
+        },
+        
         onButtonClick (type, index) {
             const scope = this;
             let dataItemInfo = scope.dataItemInfo
@@ -307,8 +274,8 @@ export default {
             let sensorInfo = {};
             const scope = this
             sensorInfo.name = scope.eqpName
-            sensorInfo.model = scope.sensorModel
-            sensorInfo.brand = scope.sensorBrand
+            sensorInfo.model = scope.sensorModel[0]
+            sensorInfo.brand = scope.sensorBrand[0]
             sensorInfo.position = scope.position
             sensorInfo.create_time = scope.sensor_create_time
             sensorInfo.sensorCode = scope.sensorcode
