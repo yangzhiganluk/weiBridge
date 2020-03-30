@@ -1,28 +1,34 @@
 import api from '@/api'
 export default {
-    
     data() {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : {},
-            faultLogInfo: null
+            logInfo: null,
         };
     },
-    
+    filters: {
+        number: function(num){
+            if(typeof(num)=='undefined'){
+                return num
+            }else{
+                return Number(parseFloat(num).toFixed(3))
+            }
+        }
+    },
     mounted() {
         let id = this.$route.query.id
-        this.getFaultLogById(id)
+        this.getAlarmLogById(id)
     },
-  
     methods: {
         /**
-         * @description 查询设备故障日志详情
+         * @description 查询传感器告警日志详情
          */
-        getFaultLogById(id) {
+        getAlarmLogById(id) {
             const scope = this;
-            this.$http.get(`${api.acquisition_url}/eqp/log/fault/${id}`).then(res=> {
+            this.$http.get(`${api.acquisition_url}/eqp/log/alarm/${id}`).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
-                    scope.faultLogInfo = resData.data;
+                    scope.logInfo = resData.data;
                 } else {
                     scope.$vux.toast.text(resData.msg);
                 }

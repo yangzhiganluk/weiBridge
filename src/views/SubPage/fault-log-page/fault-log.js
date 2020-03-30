@@ -4,9 +4,7 @@ export default {
     data() {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : {},
-            name: '',
-            time: '',
-            content: '',
+            faultLogInfo: null,
             handleContent: ''
         };
     },
@@ -25,9 +23,7 @@ export default {
             this.$http.get(`${api.acquisition_url}/eqp/log/fault/${id}`).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
-                    scope.name = resData.data.name;
-                    scope.time = resData.data.time;
-                    scope.content = resData.data.content;
+                    scope.faultLogInfo = resData.data;
                     scope.handleContent = resData.data.handleContent
                 } else {
                     scope.$vux.toast.text(resData.msg);

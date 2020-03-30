@@ -13,7 +13,8 @@ import BridgeState from '@/views/SubPage/bridge-state-page/bridge-state.vue' //�
 import Devices from '@/views/SubPage/devices-page/devices.vue' //设备页面
 import Alarms from '@/views/SubPage/alarms-page/alarms.vue' //告警列表页面
 
-import AlarmLog from '@/views/SubPage/alarm-log-page/alarm-log.vue' //告警详情页面
+import AlarmLog from '@/views/SubPage/alarm-log-page/alarm-log.vue' //告警详情处理页面
+import AlarmLogReadonly from '@/views/SubPage/alarm-log-readonly-page/alarm-log-readonly.vue' //告警详情只读页面
 import FaultList from '@/views/SubPage/fault-list-page/fault-list.vue' //故障列表页面
 import FaultLog from '@/views/SubPage/fault-log-page/fault-log.vue' //故障处理详情页面
 import FaultLogReadonly from '@/views/SubPage/fault-log-readonly-page/fault-log-readonly.vue' //故障详情只读页面
@@ -94,6 +95,11 @@ export default new Router({
       path: '/AlarmLog',
       name: 'AlarmLog',
       component: AlarmLog
+    },
+    {
+      path: '/AlarmLogReadonly',
+      name: 'AlarmLogReadonly',
+      component: AlarmLogReadonly
     },
     {
       path: '/FaultList',

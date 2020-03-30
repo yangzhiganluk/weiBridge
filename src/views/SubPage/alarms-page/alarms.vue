@@ -1,22 +1,20 @@
 <template>
     <div>
        <switch-tab :bridgeInfo="bridgeInfo"></switch-tab>
-       <div v-if="loglist.length>0">
-            <!-- 
+       
+            
             <group gutter="0">
-                <cell-box class="check-box"> 
-                    <div>告警信息</div>
-                    <check-icon :value.sync="showread">显示已读</check-icon>
-                </cell-box>
+                <x-switch title="显示已处理" :value-map="[null, true]" v-model="handleFlag" @on-change="handleSwitch"></x-switch>
             </group> 
-            -->
+        <div v-if="loglist.length>0">   
             <BetterScroll :handlePullUp="handlePullUp" :handlePullDown="handlePullDown">
-                <group title="告警信息">
+                <group>
+                    <group-title slot="title">告警信息<span style="marginLeft: 10px; color: red;">{{totalcount}}</span></group-title>
                     <cell-box 
                         v-for="(item, index) in loglist" 
                         :key="index" 
                         is-link
-                        :link="{path:'/AlarmLog', query: {id: item.id}}"
+                        :link="handleFlag ? {path:'/AlarmLogReadonly', query: {id: item.id}} : {path:'/AlarmLog', query: {id: item.id}}"
                     >
                         <div class="alarm-item">
                             <div>传感器名称：<span>{{item.name}}</span></div>

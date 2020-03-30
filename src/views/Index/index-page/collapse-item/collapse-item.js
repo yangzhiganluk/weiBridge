@@ -27,7 +27,8 @@ export default {
         /**
          * @description 进入告警页面
          */
-        toAlarm() {
+        toAlarm(item) {
+            localStorage.setItem("bridgeInfo", JSON.stringify(item));
             this.$router.push({
                 path: '/Alarms',
             })
@@ -35,8 +36,8 @@ export default {
         /**
         * @description 进入故障页面
         */
-        toFault() {
-            console.log('fault')
+        toFault(item) {
+            localStorage.setItem("bridgeInfo", JSON.stringify(item));
             this.$router.push({
                 path: '/Devices',
             })

@@ -4,6 +4,7 @@
         <group gutter="0" label-align="justify" label-width="5.5em">
             <x-input 
                 title="用户名" 
+                text-align="right"
                 :min="6" 
                 :max="20" 
                 v-model="username" 
@@ -15,6 +16,7 @@
             ></x-input>
             <x-input 
                 title="设置密码" 
+                text-align="right"
                 :min="6" 
                 :max="20" 
                 type="password" 
@@ -27,6 +29,7 @@
             ></x-input>
             <x-input 
                 title="确认密码" 
+                text-align="right"
                 :min="6" 
                 :max="20" 
                 type="password" 
@@ -39,6 +42,7 @@
             ></x-input>
             <x-input 
                 title="手机号" 
+                text-align="right"
                 :max="13" 
                 mask="999 9999 9999" 
                 v-model="phone" 
@@ -52,6 +56,7 @@
             ></x-input>
             <x-input 
                 title="验证码" 
+                text-align="right"
                 class="weui-vcode" 
                 :min="6"
                 :max="6" 

@@ -158,10 +158,9 @@ export default {
         scope.$http.post(`${management_url}/user/registerAccountByPhone`
             , params, {
         }).then(res => {
-            // console.log(res.data)
             let resData = res.data;
-            if(resData.code == 1) {
-                scope.$vux.toast.text('注册成功')
+            if(resData.resultCode == 1) {
+                scope.$vux.toast.text(resData.msg)
                 scope.$router.push('/Oauth')
             } else {
                 scope.$vux.toast.text(resData.msg)

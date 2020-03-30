@@ -4,30 +4,43 @@
         <div class="bridge-name">
             <divider>{{bridgeInfo.fullname}}</divider>
         </div>
-        <div class="wrapper" ref="wrapper">
-            <div class="content" ref="content">
-                <group title="故障列表">
-                        <cell-box 
-                            v-for="(item, index) in loglist" 
-                            :key="index" 
-                            is-link
-                            @click.native="toFaultLog(item.id)"
-                            :link="{path:'/FaultLog', query: {id: item.id}}"
-                        >
-                            <div>
-                                <div class="">故障时间：<span>{{item.time}}</span></div>
-                                <div>故障说明：<span>{{item.content}}</span></div>
+        <group gutter="0">
+            <x-switch title="显示已处理" :value-map="[null, true]" v-model="handleFlag" @on-change="handleSwitch"></x-switch>
+        </group> 
+        <div v-if="loglist.length>0">   
+            <!-- <div class="wrapper" ref="wrapper">
+                <div class="content" ref="content"> -->
+            <BetterScroll :handlePullUp="handlePullUp" :handlePullDown="handlePullDown">
+                    <group>
+                            <group-title slot="title">故障列表<span style="marginLeft: 10px; color: red;">{{totalcount}}</span></group-title>
+                            <cell-box 
+                                v-for="(item, index) in loglist" 
+                                :key="index" 
+                                is-link
+                                @click.native="toFaultLog(item.id)"
+                            >
+                                <div>
+                                    <div>故障时间：<span>{{item.time}}</span></div>
+                                    <div>故障说明：<span>{{item.content}}</span></div>
+                                </div>
+                            </cell-box>
+                            <div v-if="isLoading" class="no-data">
+                                <p>
+                                {{loadingText}}
+                                <spinner type="ripple" size="40px"></spinner>
+                                </p>
                             </div>
-                        </cell-box>
-                        <div v-if="isLoading" class="no-data">
-                            <p>
-                            {{loadingText}}
-                            <spinner type="ripple" size="40px"></spinner>
-                            </p>
-                        </div>
-                </group>
-            </div>
+                    </group>
+            </BetterScroll>
+                <!-- </div>
+            </div> -->
         </div>
+        <div v-else class="no-data">
+            <p>
+                没有数据
+            <spinner type="ripple" size="40px"></spinner>
+            </p>
+        </div>    
     </div>
 </template>
 

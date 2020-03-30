@@ -125,7 +125,7 @@
       <box gap="10px 10px">
          <flexbox>
             <flexbox-item>
-            <x-button plain type="default" style="border-radius:99px;" @click.native="onButtonClick('add')">增加</x-button>
+            <x-button plain type="default" style="border-radius:99px;" @click.native="onButtonClick('add')">新增数据项</x-button>
             </flexbox-item>
             <flexbox-item>
             <x-button :gradients="['#1D62F0', '#19D5FD']" style="border-radius:99px;" @click.native="checkSaveSensorInfo">保存</x-button>

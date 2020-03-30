@@ -6,6 +6,8 @@ export default {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : {},
             loginInfo: localStorage.getItem("loginInfo") ? JSON.parse(localStorage.getItem("loginInfo")) : {},
+            handleFlag: null,
+            totalcount: 0,  //返回总数
             pageSize: 10,
             lastId: '', //当前页最后一条数据id
             loglist: [],
@@ -22,49 +24,68 @@ export default {
     },
     mounted() {
         this.setFaultLogParams(this.lastId)
-        this.initScroll();
+        // this.initScroll();
     },
    
     methods: {
-        initScroll() {
-            const scope = this;
-            scope.scroll = new BScroll(scope.$refs.wrapper, {
-                tap: true,
-                click: true,
-                probeTybe: 1,
-                bounceTime:700,      //回弹时间
-                pullUpLoad: {
-                    threshold: 50    
-                },
-                pullDownRefresh:{
-                    stop: 20,
-                    threshold: 50  
-                },
-                useTransition:false  // 防止iphone微信滑动卡顿
-            });
-            if (this.$refs.content) {
-                if (this.$refs.wrapper instanceof window.SVGElement) {
-                    let rect = this.$refs.wrapper.getBoundingClientRect();
-                    this.$refs.content.style.minHeight = `${rect.height + 1}px`
-                } else {
-                    this.$refs.content.style.minHeight = `${this.$refs.wrapper.offsetHeight + 1}px`
-                }
+        /**
+         * @description 显示已处理
+         */
+        handleSwitch() {
+            
+            this.params = {
+                structureCode: this.bridgeInfo.code,
+                pageSize: this.pageSize,
+                handleFlag: this.handleFlag
+            };
+            if(this.handleFlag) {
+                this.lastId = ''
+                this.setFaultLogParams('')
+            } else {
+                this.loglist = [];
+                this.setFaultLogParams(this.lastId)
             }
-            scope.scroll.on('pullingUp', (pos)=> {
-                scope.handlePullUp();
-                scope.$nextTick(() => {
-                    scope.scroll.refresh() // DOM 结构发生变化后，重新初始化BScroll
-                })
-                scope.scroll.finishPullUp() // 下拉刷新动作完成后调用此方法告诉BScroll完成一次上拉动作
-            })
-            scope.scroll.on('pullingDown', (pos)=> {
-                scope.handlePullDown();
-                scope.$nextTick(() => {
-                    scope.scroll.refresh() // DOM 结构发生变化后，重新初始化BScroll
-                })
-                scope.scroll.finishPullDown() // 上拉加载动作完成后调用此方法告诉BScroll完成一次下拉动作
-            })
+            
         },
+        // initScroll() {
+        //     const scope = this;
+        //     scope.scroll = new BScroll(scope.$refs.wrapper, {
+        //         tap: true,
+        //         click: true,
+        //         probeTybe: 1,
+        //         bounceTime:700,      //回弹时间
+        //         pullUpLoad: {
+        //             threshold: 50    
+        //         },
+        //         pullDownRefresh:{
+        //             stop: 20,
+        //             threshold: 50  
+        //         },
+        //         useTransition:false  // 防止iphone微信滑动卡顿
+        //     });
+        //     if (this.$refs.content) {
+        //         if (this.$refs.wrapper instanceof window.SVGElement) {
+        //             let rect = this.$refs.wrapper.getBoundingClientRect();
+        //             this.$refs.content.style.minHeight = `${rect.height + 1}px`
+        //         } else {
+        //             this.$refs.content.style.minHeight = `${this.$refs.wrapper.offsetHeight + 1}px`
+        //         }
+        //     }
+        //     scope.scroll.on('pullingUp', (pos)=> {
+        //         scope.handlePullUp();
+        //         scope.$nextTick(() => {
+        //             scope.scroll.refresh() // DOM 结构发生变化后，重新初始化BScroll
+        //         })
+        //         scope.scroll.finishPullUp() // 下拉刷新动作完成后调用此方法告诉BScroll完成一次上拉动作
+        //     })
+        //     scope.scroll.on('pullingDown', (pos)=> {
+        //         scope.handlePullDown();
+        //         scope.$nextTick(() => {
+        //             scope.scroll.refresh() // DOM 结构发生变化后，重新初始化BScroll
+        //         })
+        //         scope.scroll.finishPullDown() // 上拉加载动作完成后调用此方法告诉BScroll完成一次下拉动作
+        //     })
+        // },
         /**
          * @description 上拉加载
          */
@@ -121,6 +142,7 @@ export default {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
                     if(resData.data && resData.data.length > 0) {
+                        scope.totalcount = resData.count
                         if(!this.lastId) {
                             scope.loglist = resData.data;
                         } else {
@@ -132,6 +154,8 @@ export default {
                         console.log(scope.lastId)
                         console.log(scope.loglist.length)
                     } else {
+                        scope.totalcount = 0;
+                        scope.loglist= []
                         scope.loadingText = '没有更多了'
                     }
                 } else {
@@ -152,7 +176,7 @@ export default {
                         // 获取role
                         let role = el.role
                         // 判断当前子账号是否有管理权限
-                        if(role.indexOf("manage")!=-1) {
+                        if(role.indexOf("manage")!=-1 && !scope.handleFlag) {
                             scope.$router.push({path:'/FaultLog', query: {id: id}})
                         } else {
                             scope.$router.push({path:'/FaultLogReadonly', query: {id: id}})

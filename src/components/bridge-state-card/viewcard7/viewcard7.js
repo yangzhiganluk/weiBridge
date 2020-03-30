@@ -83,15 +83,15 @@ export default {
                     type: 'timeCat',//类型为日期
                     mask: 'MM-DD',//日期格式
                 },
+                score: {
+                    type: 'linear',
+                    tickInterval: 0.2,
+                    alias: '评分'
+                }
             };
             
             // Step 2: 载入数据源
             chart.source(data, defs);
-
-            chart.scale('score', {
-                type: 'linear',
-                tickInterval: 0.2
-            })
 
             chart.axis('time', {
                 grid: (text, index, total) => {

@@ -13,21 +13,7 @@
       </flexbox-item>
     </flexbox>
     <!--显示头像-->
-
-    <!--显示间隔开始-->
-    <div class="space_20"></div>
-    <!--显示间隔结束-->
-
-   <!-- <div style="width:100%;font-size:18px;text-align: center">
-      桥梁监测云平台
-    </div>-->
-    <!--显示间隔开始-->
     <div class="space_30"></div>
-    <!--显示间隔结束-->
-    <!--显示间隔开始-->
-    <div class="space_20"></div>
-    <!--显示间隔结束-->
-
     <!--登录部分开始-->
     <form action="#">
       <div class="loginInput">
@@ -44,20 +30,15 @@
         </div>
       </div>
     </form>
-
-
-
     <!--登录部分结束-->
-
-    <!--显示间隔开始-->
-    <div style="height:12vh"></div>
-    <!--显示间隔结束-->
-
+    <div class="space_30"></div>
     <!--登录按钮-->
-    <!--<x-button plain :gradients="['#1D62F0', '#19D5FD']" @click.native="checkLogin">登录</x-button>-->
-    <div class="button" @click="checkLogin">登录</div>
-
-    <div class="button" @click="goRegister">注册</div>
+    <box gap="10px 50px">
+      <x-button @click.native="checkLogin">登录</x-button>
+      <x-button @click.native="goRegister">注册</x-button>
+    </box>
+    <!-- <div class="button" @click="checkLogin">登录</div> -->
+    <!-- <div class="button" @click="goRegister">注册</div> -->
   </div>
 </template>
 

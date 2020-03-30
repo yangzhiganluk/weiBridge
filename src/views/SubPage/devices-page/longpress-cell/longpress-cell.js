@@ -21,12 +21,6 @@ export default {
             }
         },
         /**
-         * @description 进入告警页面
-         */
-        // toAlarm() {
-        //     console.log('alarm')
-        // },
-        /**
         * @description 进入故障页面
         */
         toFault() {

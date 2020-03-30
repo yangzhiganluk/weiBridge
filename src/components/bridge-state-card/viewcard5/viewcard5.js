@@ -79,14 +79,14 @@ export default {
                     type: 'timeCat',//类型为日期
                     mask: 'MM-DD',//日期格式
                 },
+                sum: {
+                    type: 'linear',
+                    alias: '告警数'
+                }
             };
             
             // Step 2: 载入数据源
             chart.source(data, defs);
-
-            chart.scale('sum', {
-                type: 'linear',
-            })
 
             chart.axis('time', {
                 grid: (text, index, total) => {

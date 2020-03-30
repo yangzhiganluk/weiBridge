@@ -36,7 +36,7 @@ import '@/styles/index.scss';
 
 //vuex
 import store from './store/index.js'
-import { Flexbox, FlexboxItem ,Cell, Group ,ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
+import { Flexbox, FlexboxItem ,Cell, Group, GroupTitle, ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
   XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
   VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
   Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
@@ -55,6 +55,7 @@ Vue.component('flexbox-item', FlexboxItem)
 Vue.component('cell', Cell)
 Vue.component('cell-box', CellBox)
 Vue.component('group', Group)
+Vue.component('group-title', GroupTitle)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 Vue.component('tab', Tab)

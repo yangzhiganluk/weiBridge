@@ -26,7 +26,7 @@
         <!-- 传感器类型、位置 -->
         <div v-if="tabIndex==1 || tabIndex==2">
             <div v-if="sensorList.length>0">
-                <group v-for="(item, index) in sensorList" :key="index">
+                <group :title="item.name" v-for="(item, index) in sensorList" :key="index">
                         <cell-box v-for="(el, i) in item.children" :key="i">
                             <div class="common-box-bd">
                                 <div class="title" @click="toSensorInfo(el)">{{el.name}}</div>

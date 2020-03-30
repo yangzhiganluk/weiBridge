@@ -6,8 +6,9 @@ export default {
     data() {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : [],
-            showread: false,
-            pageSize: 10,
+            handleFlag: null,
+            pageSize: 4,
+            totalcount: 0,  //返回总数
             lastId: '', //当前页最后一条数据id
             loglist: [],
             isLoading: false,
@@ -33,6 +34,25 @@ export default {
         this.setAlarmLogParams(this.lastId)
     },
     methods: {
+        /**
+         * @description 显示已处理
+         */
+        handleSwitch() {
+            
+            this.params = {
+                structureCode: this.bridgeInfo.code,
+                pageSize: this.pageSize,
+                handleFlag: this.handleFlag
+            };
+            if(this.handleFlag) {
+                this.lastId = ''
+                this.setAlarmLogParams('')
+            } else {
+                this.loglist = [];
+                this.setAlarmLogParams(this.lastId)
+            }
+            
+        },
         /**
          * @description 上拉加载
          */
@@ -72,6 +92,7 @@ export default {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
                     if(resData.data && resData.data.length > 0) {
+                        scope.totalcount = resData.count
                         if(!this.lastId) {
                             scope.loglist = resData.data;
                         } else {
@@ -83,6 +104,8 @@ export default {
                         console.log(scope.lastId)
                         console.log(scope.loglist.length)
                     } else {
+                        scope.totalcount = 0;
+                        scope.loglist= []
                         scope.loadingText = '没有更多了'
                     }
                 } else {

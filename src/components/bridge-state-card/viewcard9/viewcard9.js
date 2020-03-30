@@ -84,15 +84,15 @@ export default {
                 name: {
                     type: 'cat',
                 },
+                count: {
+                    type: 'linear',
+                    tickInterval: 2,
+                    alias: '告警数'
+                }
             };
             
             // Step 2: 载入数据源
             chart.source(data, defs);
-
-            chart.scale('count', {
-                type: 'linear',
-                tickInterval: 2
-            })
 
             chart.axis('name', {
                 grid: (text, index, total) => {
@@ -116,6 +116,12 @@ export default {
             // Step 3：创建图形语法
             chart.interval()
                 .position('name*count')
+                .size('name', name=> {
+                    if(data.length > 4) {
+                        return 10
+                    }
+                    return 50;
+                })
                 .color('l(90) 0:#1890ff 1:#70cdd0'); // 定义柱状图渐变色;
                 
             // Step 4: 渲染图表

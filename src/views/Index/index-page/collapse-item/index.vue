@@ -9,10 +9,10 @@
         <div class="common-box-bd">
             <div class="title">{{item.project_name}}</div>
             <grid :show-lr-borders="false" :show-vertical-dividers="false">
-                <grid-item @on-item-click="toAlarm" v-if="item.alarmFlag">
+                <grid-item @on-item-click="toAlarm(item)" v-if="item.alarmFlag">
                 <img slot="icon" src="~assets/images/alarm.png">
                 </grid-item>
-                <grid-item @on-item-click="toFault" v-if="item.faultFlag">
+                <grid-item @on-item-click="toFault(item)" v-if="item.faultFlag">
                 <img slot="icon" src="~assets/images/fault.png">
                 </grid-item>
             </grid>
@@ -50,7 +50,21 @@ export default collapseitem
 
     .common-box-bd {
        .title {
-        width: 50%;
+            word-break: break-all;
+
+            text-overflow: ellipsis;    /** 可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本  **/
+
+            display: -webkit-box; /** 必须结合的属性，将对象作为弹性伸缩盒子模型显示 **/
+
+            -webkit-box-orient: vertical; /** 必须结合的属性，设置或检索伸缩盒对象的子元素的排列方式 **/
+
+            line-clamp: 2;
+            
+            -webkit-line-clamp: 2; /** 显示的行数 **/
+
+            overflow: hidden;  /** 隐藏超出的内容 **/
+
+            width: 40%;
        }
       .weui-grid {
         padding: 0 10px;

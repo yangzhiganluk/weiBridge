@@ -142,17 +142,18 @@ export default {
                 },
                 normalCount: {
                     type: 'linear',
-                    tickInterval: 5
+                    tickInterval: 5,
+                    alias: '正常'
                 },
                 faultCount: {
                     type: 'linear',
-                    tickInterval: 5
+                    tickInterval: 5,
+                    alias: '异常'
                 },
             };
             
             // Step 2: 载入数据源
             chart.source(data, defs);
-
 
             chart.axis('name', {
                 grid: (text, index, total) => {
@@ -169,8 +170,18 @@ export default {
             });
             
             // Step 3：创建图形语法
-            chart.interval().position('name*normalCount').shape('left').size(10);
-            chart.interval().position('name*faultCount').color('#36B3C3').shape('right').size(10); 
+            chart.interval().position('name*normalCount').shape('left').size('name', name=> {
+              if(data.length > 4) {
+                  return 10
+              }
+              return 50;
+          });
+            chart.interval().position('name*faultCount').color('#36B3C3').shape('right').size('name', name=> {
+              if(data.length > 4) {
+                  return 10
+              }
+              return 50;
+          }); 
             
             // Step 4: 渲染图表
             chart.render();

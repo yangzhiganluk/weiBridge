@@ -16,20 +16,21 @@ export default {
                     }
                     console.warn(warn);
                 }
-                var startX, startY, startTime;
+                // var startX, startY, startTime;
                 // 定义变量
                 let pressTimer = null;
                 // 定义函数处理程序
                 // 创建计时器（ 1秒后执行函数 ）
                 let start = (e) => {
+                    // 如果是单击事件，我们不需要启动计时器
                     if (e.type === 'click' && e.button !== 0) {
                         return;
                     }
-                    e.preventDefault();
+                    // e.preventDefault();
                     // 记录下触发的坐标和时间
-                    startTime = (new Date()).getTime();
-                    startX = e.targetTouches[0].clientX;
-                    startY = e.targetTouches[0].clientY;
+                    // startTime = (new Date()).getTime();
+                    // startX = e.targetTouches[0].clientX;
+                    // startY = e.targetTouches[0].clientY;
                     /**
                     *  注意：此处处理长按震动效果，经测试IOS目前不支持震动
                     **/
@@ -50,20 +51,20 @@ export default {
                     }
             
                 };
-                // 取消计时器
+                // 取消计时器，一旦 mouseup 事件被触发，就会调用此函数。
                 let cancel = (e) => {
                   /**
                    *  注意：此处处理与click事件的冲突（小于300ms可以识别为点击事件的范围 然后判断触摸点的移动距离）
                    **/
-                    e.preventDefault();
-                    var now = (new Date()).getTime();
-                    if (now - startTime < 300) {
-                        var x = (Math.abs(startX - e.changedTouches[0].clientX) < 30);
-                        var y = (Math.abs(startY - e.changedTouches[0].clientY) < 30);
-                        if (x && y) {
-                            e.changedTouches[0].target.click();
-                        }
-                    }
+                    // e.preventDefault();
+                    // var now = (new Date()).getTime();
+                    // if (now - startTime < 300) {
+                    //     var x = (Math.abs(startX - e.changedTouches[0].clientX) < 30);
+                    //     var y = (Math.abs(startY - e.changedTouches[0].clientY) < 30);
+                    //     if (x && y) {
+                    //         e.changedTouches[0].target.click();
+                    //     }
+                    // }
                     // 检查计时器是否有值
                     if (pressTimer !== null) {
                         clearTimeout(pressTimer);
@@ -82,14 +83,14 @@ export default {
                     e.preventDefault();
                     return false;
                 };
-                // 添加事件监听器
+                // 将事件监听器添加到要添加长按效果的按钮上
                 el.addEventListener('mousedown', start);
                 el.addEventListener('touchstart', start);
                 // 取消计时器
+                el.addEventListener("click", cancel);
                 el.addEventListener('mouseout', cancel);
                 el.addEventListener('touchend', cancel);
                 el.addEventListener('touchcancel', cancel);
-
             }
         });
     }

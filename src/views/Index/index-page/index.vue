@@ -18,7 +18,7 @@
           <Dropdown trigger="click">
               <a href="javascript:void(0)" >
                 <div class="topInfo">
-                  <p>{{loginInfo.company}}</p>
+                  <p></p>
                   <span >{{loginInfo.nickname}}</span>
                   <Icon type="ios-arrow-down"></Icon>
                 </div>
