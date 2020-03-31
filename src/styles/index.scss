@@ -123,16 +123,18 @@ ol,ul{
 }
 
 /*顶部导航栏*/
-.vux-header{
-  background: #5BCBC9 !important;
-  font-size:16px;
-  display: none;
+// .vux-header{
+//   background: #5BCBC9 !important;
+//   font-size:16px;
+//   display: none;
+// }
+// .vux-header .vux-header-left .left-arrow:before{
+//   border:1px solid #fff !important;
+//   border-width: 1px 0 0 1px !important;
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+  color: rgb(109, 221, 209) !important;
 }
-.vux-header .vux-header-left .left-arrow:before{
-  border:1px solid #fff !important;
-  border-width: 1px 0 0 1px !important;
-
-}
+// }
 /*BridgeManage 页面*/
 .cellBox .weui-cells{
   margin-top: 0 !important;
@@ -398,7 +400,6 @@ ol,ul{
       width: 60%;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
       word-wrap: break-word;
       word-break: break-all;
     }
@@ -424,8 +425,8 @@ ol,ul{
       &:after {
         content: " ";
         display: inline-block;
-        height: 6px;
-        width: 6px;
+        height: 12px;
+        width: 12px;
         border-width: 2px 2px 0 0;
         border-color: #c8c8cd;
         border-style: solid;

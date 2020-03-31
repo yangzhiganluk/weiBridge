@@ -8,14 +8,14 @@
         </div>
         <div class="common-box-bd">
             <div class="title">{{item.project_name}}</div>
-            <grid :show-lr-borders="false" :show-vertical-dividers="false">
-                <grid-item @on-item-click="toAlarm(item)" v-if="item.alarmFlag">
-                <img slot="icon" src="~assets/images/alarm.png">
-                </grid-item>
-                <grid-item @on-item-click="toFault(item)" v-if="item.faultFlag">
-                <img slot="icon" src="~assets/images/fault.png">
-                </grid-item>
-            </grid>
+            <div class="common-grid">
+                <div class="pull-left">
+                    <img @click="toAlarm(item)" v-if="item.alarmFlag" src="~assets/images/icon/icon_alarm.png">
+                </div>
+                <div class="pull-right">
+                    <img @click="toFault(item)" v-if="item.faultFlag" src="~assets/images/fault.png">
+                </div>
+            </div>
             <div class="icon-link" @click.stop="toBridgeState(item)"></div>
         </div>
         
@@ -58,16 +58,28 @@ export default collapseitem
 
             -webkit-box-orient: vertical; /** 必须结合的属性，设置或检索伸缩盒对象的子元素的排列方式 **/
 
-            line-clamp: 2;
-            
             -webkit-line-clamp: 2; /** 显示的行数 **/
 
             overflow: hidden;  /** 隐藏超出的内容 **/
 
-            width: 40%;
+            width: 50%;
        }
       .weui-grid {
         padding: 0 10px;
+      }
+      .common-grid {
+          width: 100px;
+          padding: 0 10px;
+          div {
+            width: 28px;
+            height: 28px;
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                vertical-align: middle;
+            }
+          }
       }
     }
 </style>

@@ -57,8 +57,16 @@ export default {
                 if(resData.resultCode == 1) {
                     if(resData.data && resData.data.length > 0) {
                         scope.viewcardDataFlag = true;
+                        let score_info = resData.data[0].score_info;
+                        let data = score_info.map(item=> {
+                            return {
+                                score: item.score,
+                                time: item.time,
+                                name: '评分'
+                            }
+                        })
                         scope.$nextTick(function() {
-                            this.renderChart(resData.data[0].score_info)
+                            this.renderChart(data)
                         })
                     }
                 } else {
@@ -76,20 +84,18 @@ export default {
                 pixelRatio: window.devicePixelRatio, // 指定分辨率
             });
 
-            const defs = {
-                time: {
-                    type: 'timeCat',//类型为日期
-                    mask: 'MM-DD',//日期格式
-                },
-                score: {
-                    type: 'linear',
-                    tickInterval: 5,
-                    alias: '评分'
-                }
-            };
-            
             // Step 2: 载入数据源
-            chart.source(data, defs);
+            chart.source(data);
+
+            chart.scale('time', {
+                type: 'timeCat',//类型为日期
+                mask: 'MM-DD',//日期格式
+            });
+            chart.scale('score', {
+                type: 'linear',
+                tickInterval: 5,
+                alias: '评分'
+            });
             
             chart.axis('time', {
                 grid: (text, index, total) => {
@@ -104,7 +110,33 @@ export default {
                     };
                 },
             });
-            
+
+            chart.tooltip({
+                showCrosshairs: true,
+                custom: true, // 自定义 tooltip 内容框
+                onChange: function onChange(obj) {
+                  const legend = chart.get('legendController').legends.top[0];
+                  const tooltipItems = obj.items;
+                  const legendItems = legend.items;
+                  const map = {};
+                  legendItems.forEach(function(item) {
+                    map[item.name] = _.clone(item);
+                  });
+                  tooltipItems.forEach(function(item) {
+                    const name = item.name;
+                    const value = item.value;
+                    if (map[name]) {
+                      map[name].value = value;
+                    }
+                  });
+                  legend.setItems(_.values(map));
+                },
+                onHide: function onHide() {
+                  const legend = chart.get('legendController').legends.top[0];
+                  legend.setItems(chart.getLegendItems().country);
+                }
+            });
+
             // Step 3：创建图形语法
             chart.area()
                 .position('time*score')
@@ -113,6 +145,7 @@ export default {
                 .position('time*score');
             chart.line()
                 .position('time*score')
+                .color('name')
                 .shape('smooth');
                 
             // Step 4: 渲染图表

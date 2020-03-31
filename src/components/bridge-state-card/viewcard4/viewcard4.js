@@ -168,20 +168,24 @@ export default {
                     };
                 },
             });
-            
+            chart.tooltip({
+              triggerOn: [ 'touchstart', 'touchmove' ], // tooltip 出现的触发行为，可自定义，用法同 legend 的 triggerOn
+              triggerOff: 'touchend', // 消失的触发行为，可自定义
+            })
             // Step 3：创建图形语法
             chart.interval().position('name*normalCount').shape('left').size('name', name=> {
               if(data.length > 4) {
                   return 10
               }
               return 50;
-          });
+            });
             chart.interval().position('name*faultCount').color('#36B3C3').shape('right').size('name', name=> {
               if(data.length > 4) {
                   return 10
               }
               return 50;
-          }); 
+            }); 
+            
             
             // Step 4: 渲染图表
             chart.render();

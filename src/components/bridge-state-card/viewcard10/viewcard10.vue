@@ -8,10 +8,7 @@
                     <canvas :id="uuid" height="200"></canvas>
                 </div>
                  <div v-else class="no-data">
-                    <p>
-                    暂无数据
-                    <spinner type="ripple" size="40px"></spinner>
-                    </p>
+                   <NoData/>
                 </div>
             </div>
         </card>

@@ -29,10 +29,7 @@
             </flexbox>
           </div>
           <div v-else class="no-data">
-            <p>
-              暂无数据
-              <spinner type="ripple" size="40px"></spinner>
-            </p>
+            <NoData/>
           </div>
         </div>
         

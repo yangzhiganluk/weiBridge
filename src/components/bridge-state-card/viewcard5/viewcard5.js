@@ -49,8 +49,16 @@ export default {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
                     if(resData.data && resData.data.length > 1) {
-                        let data = resData.data;
+                        
                         scope.viewcardDataFlag = true;
+                        let data = resData.data.map(item=> {
+                            return {
+                                sum: item.sum,
+                                time: item.time,
+                                name: '告警数'
+                            }
+                        });
+
                         // 根据传感器类型统计告警次数
                         scope.$nextTick(function() {
                             this.renderChart(data)
@@ -101,7 +109,32 @@ export default {
                     };
                 },
             });
-            
+            chart.tooltip({
+                showCrosshairs: true,
+                custom: true, // 自定义 tooltip 内容框
+                onChange: function onChange(obj) {
+                  const legend = chart.get('legendController').legends.top[0];
+                  const tooltipItems = obj.items;
+                  const legendItems = legend.items;
+                  const map = {};
+                  legendItems.forEach(function(item) {
+                    map[item.name] = _.clone(item);
+                  });
+                  tooltipItems.forEach(function(item) {
+                    const name = item.name;
+                    const value = item.value;
+                    if (map[name]) {
+                      map[name].value = value;
+                    }
+                  });
+                  legend.setItems(_.values(map));
+                },
+                onHide: function onHide() {
+                  const legend = chart.get('legendController').legends.top[0];
+                  legend.setItems(chart.getLegendItems().country);
+                }
+            });
+
             // Step 3：创建图形语法
             chart.area()
                 .position('time*sum')
@@ -110,6 +143,7 @@ export default {
                 .position('time*sum');
             chart.line()
                 .position('time*sum')
+                .color('name')
                 .shape('smooth');
                 
             // Step 4: 渲染图表

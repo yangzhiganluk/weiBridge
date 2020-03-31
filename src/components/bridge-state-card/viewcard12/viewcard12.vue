@@ -14,10 +14,7 @@
                     />
                 </div>
                  <div v-else class="no-data">
-                    <p>
-                    暂无数据
-                    <spinner type="ripple" size="40px"></spinner>
-                    </p>
+                    <NoData/>
                 </div>
             </div>
         </card>
@@ -30,6 +27,9 @@ export default viewcard12
 </script>
 
 <style scoped lang="scss">
+.weui-panel {
+    overflow: visible;
+}
 .vc-border {
     border: none;
 }

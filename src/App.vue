@@ -1,12 +1,38 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div style="padding-bottom: 55px;">
+      <router-view></router-view>
+    </div>
+    <tabbar v-if="tabbarFlag">
+        <tabbar-item link="/Index">
+            <span slot="label">桥梁列表</span>
+        </tabbar-item>
+        <tabbar-item link="/BridgeState">
+            <span slot="label">桥梁状态</span>
+        </tabbar-item>
+    </tabbar>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      bridgeInfo: localStorage.getItem("bridgeInfo")?JSON.parse(localStorage.getItem("bridgeInfo")):[],
+    }
+  },
+  computed: {
+      tabbarFlag: function() {
+        return this.bridgeInfo && 
+        (this.$route.path!='/' && 
+          this.$route.path!='/Index' && 
+          this.$route.path!='/BridgeState' && 
+          this.$route.path!='/Oauth' && 
+          this.$route.path!='/LoginNoAuth' &&
+          this.$route.path!='/Register')
+      }
+    }
 }
 </script>
 

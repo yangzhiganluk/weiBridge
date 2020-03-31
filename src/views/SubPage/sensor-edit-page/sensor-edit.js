@@ -1,5 +1,6 @@
 import api from '@/api'
 import weui from 'weui.js'
+import HistoryGraphs from '@/components/history-graphs/history-graphs.vue'
 export default {
     data() {
         return {
@@ -28,7 +29,8 @@ export default {
                     accuracy: 2,   //精度
                     paramcode: '', //用来和数据项对比控制监测参数 
                     fcode: '',   //用来和数据项对比控制监测参数
-                    id: ''
+                    id: '',
+                    code: '',   //数据项编码
                 }
             ],   
             monitoritem: '',    //监测参数
@@ -37,7 +39,8 @@ export default {
             monitors: [],
             format: function (value, name) {
                 return `${name}`
-            }
+            },
+            tabIndex: 0,
         }
     },
     mounted() {
@@ -45,6 +48,22 @@ export default {
         this.getBrandList();
     },
     methods: {
+        switchTabItem(index) {
+            this.$vux.loading.show({
+              text: 'loading'
+            })
+            setTimeout(() => {
+              this.$vux.loading.hide()
+              this.tabIndex = index
+              switch(index) {
+                  case 0: 
+                    this.getSingleSensorInfo();
+                    this.getBrandList();
+                    break;
+                  case 1: this.get; break;
+              }
+            }, 1000)
+        },
         /**
          * @description 查询单个传感器设备
          */
@@ -196,7 +215,6 @@ export default {
         handleChange(value) {
             const scope = this;
             scope.refleshBrandModelList(value[0]);
-            console.log(scope.sensorModel[0])
         },
         
         onButtonClick (type, index) {
@@ -325,5 +343,8 @@ export default {
             })
         }
        
+    },
+    components: {
+        HistoryGraphs
     }
 }

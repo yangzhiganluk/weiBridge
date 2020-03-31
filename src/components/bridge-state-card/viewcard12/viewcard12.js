@@ -59,6 +59,8 @@ export default {
                                 dates: item[0],
                                 popover: {
                                     label: item[1] == 0 ? '正常' : '异常',
+                                    placement: 'auto',
+                                    visibility: 'click'
                                 },
                             }
                         })

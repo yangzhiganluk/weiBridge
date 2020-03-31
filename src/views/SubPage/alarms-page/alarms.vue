@@ -6,7 +6,7 @@
             <group gutter="0">
                 <x-switch title="显示已处理" :value-map="[null, true]" v-model="handleFlag" @on-change="handleSwitch"></x-switch>
             </group> 
-        <div v-if="loglist.length>0">   
+        <!-- <div v-if="loglist.length>0">    -->
             <BetterScroll :handlePullUp="handlePullUp" :handlePullDown="handlePullDown">
                 <group>
                     <group-title slot="title">告警信息<span style="marginLeft: 10px; color: red;">{{totalcount}}</span></group-title>
@@ -22,6 +22,7 @@
                             <div>告警级别：<span>{{item.level}}</span></div>
                             <div>阈值范围：<span>{{item.thresholdRange}}</span></div>
                             <div>告警值：<span>{{item.value | number}}</span></div>
+                            <div>告警发生时间：<span>{{item.time}}</span></div>
                         </div>
                     </cell-box>
                     <div v-if="isLoading" class="no-data">
@@ -32,13 +33,13 @@
                     </div>
                 </group>
             </BetterScroll>
-        </div>
-        <div v-else class="no-data">
+        <!-- </div> -->
+        <!-- <div v-else class="no-data">
             <p>
                 没有数据
             <spinner type="ripple" size="40px"></spinner>
             </p>
-        </div>
+        </div> -->
     </div>
 </template>
 

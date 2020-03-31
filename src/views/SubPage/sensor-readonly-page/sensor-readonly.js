@@ -30,6 +30,7 @@ export default {
             ],   
             monitoritem: '',    //监测参数
             monitorList: [],   //监测参数列表
+            tabIndex: 0,
         }
     },
     mounted() {
@@ -37,6 +38,22 @@ export default {
         this.getBrandList();
     },
     methods: {
+        switchTabItem(index) {
+            this.$vux.loading.show({
+              text: 'loading'
+            })
+            setTimeout(() => {
+              this.$vux.loading.hide()
+              this.tabIndex = index
+              switch(index) {
+                  case 0: 
+                    this.getSingleSensorInfo();
+                    this.getBrandList();
+                    break;
+                  case 1: this.get; break;
+              }
+            }, 1000)
+        },
         /**
          * @description 查询单个传感器设备
          */

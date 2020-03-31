@@ -6,12 +6,12 @@ export default {
     data() {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : [],
-            handleFlag: null,
+            handleFlag: null,   //筛选已处理
             pageSize: 4,
             totalcount: 0,  //返回总数
             lastId: '', //当前页最后一条数据id
             loglist: [],
-            isLoading: false,
+            isLoading: false,   //是否正在加载
             loadingText: '正在加载'
         };
     },
@@ -38,7 +38,6 @@ export default {
          * @description 显示已处理
          */
         handleSwitch() {
-            
             this.params = {
                 structureCode: this.bridgeInfo.code,
                 pageSize: this.pageSize,
@@ -46,6 +45,7 @@ export default {
             };
             if(this.handleFlag) {
                 this.lastId = ''
+                this.isLoading = false
                 this.setAlarmLogParams('')
             } else {
                 this.loglist = [];
@@ -76,6 +76,7 @@ export default {
          * @description 获取地址栏参数生成参数对象
          */
         setAlarmLogParams(lastId) {
+            console.log('此时handleFlag：', this.handleFlag, '而loadingText', this.loadingText)
             let tempObj = {}
             tempObj = _.merge({}, this.params, {
             }, lastId ? { lastId } : {})
@@ -91,8 +92,8 @@ export default {
             }).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
+                    scope.totalcount = resData.count
                     if(resData.data && resData.data.length > 0) {
-                        scope.totalcount = resData.count
                         if(!this.lastId) {
                             scope.loglist = resData.data;
                         } else {
@@ -104,8 +105,6 @@ export default {
                         console.log(scope.lastId)
                         console.log(scope.loglist.length)
                     } else {
-                        scope.totalcount = 0;
-                        scope.loglist= []
                         scope.loadingText = '没有更多了'
                     }
                 } else {

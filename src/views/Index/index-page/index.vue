@@ -1,6 +1,5 @@
 <template>
   <div class="myContainer">
-    <x-header :left-options="{showBack: false}">桥梁健康监测云平台</x-header>
     <!-- 通用头部 -->
     <div class="top">
       <img src="~assets/images/scan.png" @click="scan()" class="scanStyle"/>

@@ -31,10 +31,7 @@
             </box>
         </div>
         <div v-else class="no-data">
-            <p>
-                没有数据
-            <spinner type="ripple" size="40px"></spinner>
-            </p>
+            <NoData/>
         </div>
     </div>
 </template>

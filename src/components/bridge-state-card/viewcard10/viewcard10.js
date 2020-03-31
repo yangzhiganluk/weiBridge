@@ -173,7 +173,10 @@ export default {
                   textBaseline: 'middle'
                 }
             });
-            
+            chart.tooltip({
+              triggerOn: [ 'touchstart', 'touchmove' ], // tooltip 出现的触发行为，可自定义，用法同 legend 的 triggerOn
+              triggerOff: 'touchend', // 消失的触发行为，可自定义
+            })
             // Step 3：创建图形语法
             chart.interval().position('name*normalCount').shape('left').size('name', name=> {
               if(data.length > 4) {

@@ -5,16 +5,16 @@
             <divider>{{bridgeInfo.fullname}}</divider>
         </div>
         <div class="space_20"></div>
-        <grid class="switch-tab" :show-vertical-dividers="false" :show-lr-borders="false">
-            <grid-item link="/BridgeState" @click.native="refresh('/BridgeState')">
+        <grid class="switch-tab" :show-lr-borders="false">
+            <grid-item link="/BridgeState">
                 <img slot="icon" :src="iconState">
                 <span slot="label" :style="{color: stateFlag ? '#6DDDD1' : '#000'}">状态</span>
             </grid-item>
-            <grid-item link="/Devices" @click.native="refresh('/Devices')">
+            <grid-item link="/Devices">
                 <img slot="icon" :src="iconDevices">
                 <span slot="label" :style="{color: devicesFlag ? '#6DDDD1' : '#000'}">设备</span>
             </grid-item>
-            <grid-item link="/Alarms" @click.native="refresh('/Alarms')">
+            <grid-item link="/Alarms">
                 <img slot="icon" :src="iconAlarms">
                 <span slot="label" :style="{color: alarmsFlag ? '#6DDDD1' : '#000'}">告警</span>
             </grid-item>
@@ -70,12 +70,7 @@ export default {
         }
     },
     methods:{
-        refresh (path) {
-            // 判断是否为当前页, 因为这种刷新页面的代价太高, 所以需做个判断
-            if (path === this.$route.path) {
-                this.$router.go(0)
-            }
-        }
+       
     }
 };
 </script>

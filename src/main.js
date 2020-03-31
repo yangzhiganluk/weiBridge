@@ -36,11 +36,12 @@ import '@/styles/index.scss';
 
 //vuex
 import store from './store/index.js'
-import { Flexbox, FlexboxItem ,Cell, Group, GroupTitle, ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
+import { Flexbox, FlexboxItem, Cell, Group, GroupTitle, ButtonTab, ButtonTabItem, Divider,Tab, TabItem,
   XInput, XButton, Panel, ToastPlugin, LoadingPlugin, XTextarea, ConfirmPlugin, CellBox,
   VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,Selector,
   Checker, CheckerItem, Datetime, XHeader, PopupPicker, AlertPlugin, Scroller,LoadMore,Loading,
-  CheckIcon, Grid, GridItem, Card, Spinner, XSwitch, Swipeout, SwipeoutItem, SwipeoutButton, Box
+  CheckIcon, Grid, GridItem, Card, Spinner, XSwitch, Swipeout, SwipeoutItem, SwipeoutButton, 
+  Box, PopupRadio, Tabbar, TabbarItem
 } from 'vux'
 
 
@@ -56,6 +57,7 @@ Vue.component('cell', Cell)
 Vue.component('cell-box', CellBox)
 Vue.component('group', Group)
 Vue.component('group-title', GroupTitle)
+Vue.component('popup-radio', PopupRadio)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 Vue.component('tab', Tab)
@@ -100,8 +102,8 @@ Vue.component('swipeout', Swipeout)
 Vue.component('swipeout-item', SwipeoutItem)
 Vue.component('swipeout-button', SwipeoutButton)
 Vue.component('box', Box)
-
-
+Vue.component('tabbar', Tabbar)
+Vue.component('tabbar-item', TabbarItem)
 
 
 let management_url='http://www.qiaohaoba.net/platform_management';
@@ -218,11 +220,9 @@ Vue.use(longpress)
 import BetterScroll from '@/components/better-scroll'
 Vue.component('BetterScroll', BetterScroll);
 
-// 引入weui.js weui样式
-// import weui from 'weui.js'
-// import 'weui'
-// Vue.prototype.$weui = weui
-
+// no-data全局组件
+import NoData from '@/components/no-data'
+Vue.component('NoData', NoData)
 /**
  * 微信 jssdk
  */
