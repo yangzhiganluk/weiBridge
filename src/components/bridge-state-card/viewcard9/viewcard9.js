@@ -48,7 +48,7 @@ export default {
             }).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
-                    if(resData.data && resData.data.length > 1) {
+                    if(resData.data && resData.data.length > 0) {
                         let data = resData.data;
                         scope.viewcardDataFlag = true;
                         // 根据传感器类型统计告警次数
@@ -86,7 +86,6 @@ export default {
                 },
                 count: {
                     type: 'linear',
-                    tickInterval: 2,
                     alias: '告警数'
                 }
             };
@@ -106,10 +105,12 @@ export default {
                       stroke: '#f7f7f7',
                     };
                 },
-                label: {    //
-                    rotate: -Math.PI / 2,
-                    textAlign: 'end',
-                    textBaseline: 'middle'
+                label: (text, index, total) => {
+                    const cfg = {
+                        textAlign: 'center'
+                    };
+                    cfg.text = text.split('').join('\n')
+                    return cfg;
                 }
             });
             chart.tooltip({
@@ -120,10 +121,7 @@ export default {
             chart.interval()
                 .position('name*count')
                 .size('name', name=> {
-                    if(data.length > 4) {
-                        return 10
-                    }
-                    return 50;
+                    return 10;
                 })
                 .color('l(90) 0:#1890ff 1:#70cdd0'); // 定义柱状图渐变色;
                 

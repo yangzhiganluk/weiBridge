@@ -92,7 +92,6 @@ export default {
                 },
                 score: {
                     type: 'linear',
-                    tickInterval: 0.2,
                     alias: '评分'
                 }
             };
@@ -141,12 +140,16 @@ export default {
             });
             
             // Step 3：创建图形语法
-            chart.area()
+            chart.area({
+                    sortable: false,
+                })
                 .position('time*score')
                 .shape('smooth');
             chart.point()
                 .position('time*score');
-            chart.line()
+            chart.line({
+                    sortable: false,
+                })
                 .position('time*score')
                 .color('name')
                 .shape('smooth');

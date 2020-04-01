@@ -17,14 +17,13 @@
                   <p class="name">桥梁主体</p>
                 </div>
               </flexbox-item>
-              <flexbox-item style="height: 100%;">
-                <ul v-if="weightInfo.length>0" class="weight-list">
+              <flexbox-item style="height: 100%;" v-if="weightInfo.length>0">
+                <ul class="weight-list">
                   <li v-for="(item, index) in weightInfo" :key='index'>
                     <span class="name">{{item.name}}</span>
                     <span class="score">{{item.scoreBean}}</span>
                   </li>
                 </ul>
-                <div v-else><spinner type="ripple" size="40px"></spinner></div>
               </flexbox-item>
             </flexbox>
           </div>

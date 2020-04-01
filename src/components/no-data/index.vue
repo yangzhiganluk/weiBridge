@@ -1,7 +1,7 @@
 <template>
     <div>
         <p>
-            7天内无告警
+            <slot>7天内无告警</slot>
             <spinner type="ripple" size="40px"></spinner>
         </p>
     </div>

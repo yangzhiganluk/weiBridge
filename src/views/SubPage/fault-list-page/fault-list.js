@@ -23,7 +23,7 @@ export default {
         }
     },
     mounted() {
-        this.setFaultLogParams(this.lastId)
+        this.setLogParams(this.lastId)
         // this.initScroll();
     },
    
@@ -32,18 +32,19 @@ export default {
          * @description 显示已处理
          */
         handleSwitch() {
-            
             this.params = {
                 structureCode: this.bridgeInfo.code,
                 pageSize: this.pageSize,
                 handleFlag: this.handleFlag
             };
+            // 置空loglist数组
+            this.loglist = [];
             if(this.handleFlag) {
                 this.lastId = ''
-                this.setFaultLogParams('')
+                this.setLogParams('')
             } else {
                 this.loglist = [];
-                this.setFaultLogParams(this.lastId)
+                this.setLogParams(this.lastId)
             }
             
         },
@@ -94,20 +95,21 @@ export default {
             console.log('....', scope.lastId)
             scope.isLoading = true
             scope.loadingText = '加载更多'
-            scope.setFaultLogParams(scope.lastId)
+            scope.setLogParams(scope.lastId)
         },
         /**
          * @description 下拉刷新
          */
         handlePullDown() {
+            const scope = this
             scope.isLoading = false
             scope.lastId = ''
-            scope.setFaultLogParams('')
+            scope.setLogParams('')
         },
         /**
          * @description 获取地址栏参数生成参数对象
          */
-        setFaultLogParams(lastId) {
+        setLogParams(lastId) {
                 const queryType = this.$route.query.type;
                 let tempObj = {}
                 switch(queryType) {
@@ -154,8 +156,6 @@ export default {
                         console.log(scope.lastId)
                         console.log(scope.loglist.length)
                     } else {
-                        scope.totalcount = 0;
-                        scope.loglist= []
                         scope.loadingText = '没有更多了'
                     }
                 } else {

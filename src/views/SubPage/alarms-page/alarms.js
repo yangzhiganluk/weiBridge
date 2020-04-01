@@ -31,7 +31,7 @@ export default {
         }
     },
     mounted() {
-        this.setAlarmLogParams(this.lastId)
+        this.setLogParams(this.lastId)
     },
     methods: {
         /**
@@ -43,13 +43,14 @@ export default {
                 pageSize: this.pageSize,
                 handleFlag: this.handleFlag
             };
+            // 置空loglist数组
+            this.loglist = [];
             if(this.handleFlag) {
                 this.lastId = ''
                 this.isLoading = false
-                this.setAlarmLogParams('')
+                this.setLogParams('')
             } else {
-                this.loglist = [];
-                this.setAlarmLogParams(this.lastId)
+                this.setLogParams(this.lastId)
             }
             
         },
@@ -61,7 +62,7 @@ export default {
             console.log('....', scope.lastId)
             scope.isLoading = true
             scope.loadingText = '加载更多'
-            scope.setAlarmLogParams(scope.lastId)
+            scope.setLogParams(scope.lastId)
         },
         /**
          * @description 下拉刷新
@@ -70,16 +71,19 @@ export default {
             const scope = this
             scope.isLoading = false
             scope.lastId = ''
-            scope.setAlarmLogParams('')
+            scope.setLogParams('')
         },
         /**
          * @description 获取地址栏参数生成参数对象
          */
-        setAlarmLogParams(lastId) {
-            console.log('此时handleFlag：', this.handleFlag, '而loadingText', this.loadingText)
+        setLogParams(lastId) {
+            
             let tempObj = {}
             tempObj = _.merge({}, this.params, {
             }, lastId ? { lastId } : {})
+            console.log('此时handleFlag：', this.handleFlag, 
+            '而loadingText', this.loadingText,
+            'tempObj值为：', tempObj)
             this.getAlarmList(tempObj)
         },
         /**

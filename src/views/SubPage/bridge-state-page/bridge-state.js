@@ -81,7 +81,7 @@ export default {
             }).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
-                    if(resData.data && resData.data.length > 1) {
+                    if(resData.data && resData.data.length > 0) {
                         scope.$store.dispatch('getAllAccessType', resData.data)
                     }
                 } else {

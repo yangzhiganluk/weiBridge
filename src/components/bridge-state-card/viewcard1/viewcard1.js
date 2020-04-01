@@ -44,7 +44,7 @@ export default {
             }).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
-                    if(resData.data && resData.data.length > 1) {
+                    if(resData.data && resData.data.length > 0) {
                         let data = resData.data;
                         data.forEach((el, i) => {
                             if(el.name == '桥梁总体') {
@@ -77,9 +77,11 @@ export default {
                     if(data.weightInfo && data.weightInfo.length > 0) {
                         let weightInfo = data.weightInfo
                         weightInfo.forEach((el, i)=> {
-                            weightInfo[i].name = el.name.substr(0, 2);
-                            // 评估列表
-                            scope.weightInfo.push(weightInfo[i])
+                            if(weightInfo[i].type == 'group') {
+                                weightInfo[i].name = el.name.substr(0, 2);
+                                // 评估列表
+                                scope.weightInfo.push(weightInfo[i])
+                            }
                         })
                     }
                     

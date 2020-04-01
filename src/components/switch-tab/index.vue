@@ -79,16 +79,14 @@ export default {
     
     .switch-tab {
         margin: 0 auto 20px;
-        width: 90%;
         background-color: #fff;
-        border-radius: 20px;
         .weui-grid {
             padding-top: 15px;
             padding-bottom: 15px;
         }
-        &:before,
-        &:after {
-            display: none;
-        }
+        // &:before,
+        // &:after {
+        //     display: none;
+        // }
     }
 </style>

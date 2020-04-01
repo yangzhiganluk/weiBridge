@@ -183,8 +183,15 @@ export default {
                     legend.setItems(chart.getLegendItems().country);
                 }
             });
-            chart.line().position('date*value').color('type').shape('smooth');;
+
+
+            chart.line({
+                    sortable: false,
+                }).position('date*value')
+                .color('type')
+                .shape('smooth');;
             chart.render();
+            
         }
     }
 }

@@ -49,7 +49,7 @@ export default {
             }).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
-                    if(resData.data && resData.data.length > 1) {
+                    if(resData.data && resData.data.length > 0) {
                         let data = resData.data;
                         scope.viewcardDataFlag = true;
                         // 根据传感器类型统计告警次数
@@ -142,12 +142,10 @@ export default {
                 },
                 normalCount: {
                     type: 'linear',
-                    tickInterval: 4,
                     alias: '正常'
                 },
                 faultCount: {
                     type: 'linear',
-                    tickInterval: 4,
                     alias: '异常'
                 },
             };
@@ -167,28 +165,31 @@ export default {
                       stroke: '#f7f7f7',
                     };
                 },
-                label: {    //
-                  rotate: -Math.PI / 2,
-                  textAlign: 'end',
-                  textBaseline: 'middle'
-                }
+                // label: {    //
+                //   rotate: -Math.PI / 2,
+                //   textAlign: 'end',
+                //   textBaseline: 'middle'
+                // }
+                label: (text, index, total) => {
+                  const cfg = {
+                    textAlign: 'center'
+                  };
+                  cfg.text = text.split('').join('\n')
+                  return cfg;
+              }
             });
             chart.tooltip({
               triggerOn: [ 'touchstart', 'touchmove' ], // tooltip 出现的触发行为，可自定义，用法同 legend 的 triggerOn
               triggerOff: 'touchend', // 消失的触发行为，可自定义
             })
             // Step 3：创建图形语法
-            chart.interval().position('name*normalCount').shape('left').size('name', name=> {
-              if(data.length > 4) {
-                  return 10
-              }
-              return 50;
+            chart.interval().position('name*normalCount').shape('left')
+            .size('name', name=> {
+              return 10;
           });
-            chart.interval().position('name*faultCount').color('#36B3C3').shape('right').size('name', name=> {
-              if(data.length > 4) {
-                  return 10
-              }
-              return 50;
+            chart.interval().position('name*faultCount').color('#36B3C3').shape('right')
+            .size('name', name=> {
+              return 10;
           }); 
             
             // Step 4: 渲染图表

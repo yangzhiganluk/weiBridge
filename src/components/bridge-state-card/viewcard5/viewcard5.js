@@ -48,7 +48,7 @@ export default {
             }).then(res=> {
                 let resData = res.data;
                 if(resData.resultCode == 1) {
-                    if(resData.data && resData.data.length > 1) {
+                    if(resData.data && resData.data.length > 0) {
                         
                         scope.viewcardDataFlag = true;
                         let data = resData.data.map(item=> {
@@ -136,12 +136,16 @@ export default {
             });
 
             // Step 3：创建图形语法
-            chart.area()
+            chart.area({
+                    sortable: false,
+                })
                 .position('time*sum')
                 .shape('smooth');
             chart.point()
                 .position('time*sum');
-            chart.line()
+            chart.line({
+                    sortable: false,
+                })
                 .position('time*sum')
                 .color('name')
                 .shape('smooth');

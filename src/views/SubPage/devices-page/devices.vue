@@ -41,6 +41,11 @@
                         </cell-box>
                 </group>
             </div>
+            <div v-else class="no-data">
+                <NoData>
+                    <slot>没有数据</slot>
+                </NoData>
+            </div>
         </div>
     </div>
 </template>
