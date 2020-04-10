@@ -1,8 +1,9 @@
 import api  from '@/api'
 import setTimer from '@/mixins/setTimer';
+import setIntersection from '@/mixins/setIntersection';
 const F2 = require('@antv/f2');
 export default {
-    mixins: [setTimer],
+    mixins: [setTimer, setIntersection],
     props: {
         bridgeInfo: {
             type: Object,
@@ -61,7 +62,7 @@ export default {
 
                         // 根据传感器类型统计告警次数
                         scope.$nextTick(function() {
-                            this.renderChart(data)
+                            scope.setIntersection('', data);
                         })
                     }
                 } else {
@@ -73,7 +74,7 @@ export default {
         /**
          * @description 渲染图表
          */
-        renderChart(data) {
+        renderChart(type, data) {
             const scope = this;
             // Step 1: 创建 Chart 对象
             const chart = new F2.Chart({

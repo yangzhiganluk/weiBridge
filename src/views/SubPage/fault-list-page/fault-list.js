@@ -6,7 +6,7 @@ export default {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : {},
             loginInfo: localStorage.getItem("loginInfo") ? JSON.parse(localStorage.getItem("loginInfo")) : {},
-            handleFlag: null,
+            handleFlag: false,
             totalcount: 0,  //返回总数
             pageSize: 10,
             lastId: '', //当前页最后一条数据id
@@ -20,6 +20,8 @@ export default {
         this.params = {
             structureCode: this.bridgeInfo.code,
             pageSize: this.pageSize,
+            status: 'EXCEPTION', //表示故障
+            handleFlag: this.handleFlag
         }
     },
     mounted() {
@@ -35,6 +37,7 @@ export default {
             this.params = {
                 structureCode: this.bridgeInfo.code,
                 pageSize: this.pageSize,
+                status: 'EXCEPTION', //表示故障
                 handleFlag: this.handleFlag
             };
             // 置空loglist数组
@@ -117,7 +120,7 @@ export default {
                         let sensorCode = this.$route.query.sensorCode;
                         tempObj = _.merge({}, this.params, {
                             type: 'sensorEqp',
-                            sensorCode,
+                            code: sensorCode,
                         }, lastId ? { lastId } : {})
                         this.getFaultList(tempObj)
                         break;
@@ -125,7 +128,7 @@ export default {
                         let tranEqpCode = this.$route.query.tranEqpCode; 
                         tempObj = _.merge({}, this.params, {
                             type: 'transmissionEqp',
-                            tranEqpCode,
+                            code: tranEqpCode,
                         }, lastId ? { lastId } : {})
                         this.getFaultList(tempObj)
                         break;
@@ -137,6 +140,7 @@ export default {
          * @description 分页查询设备故障日志
          */
         getFaultList(params) {
+            console.log(params)
             const scope = this;
             this.$http.get(`${api.acquisition_url}/eqp/log/fault`, {
                 params

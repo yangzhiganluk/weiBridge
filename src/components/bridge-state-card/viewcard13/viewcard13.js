@@ -1,8 +1,9 @@
 import api  from '@/api'
 import setTimer from '@/mixins/setTimer';
+import setIntersection from '@/mixins/setIntersection';
 import F2 from "@antv/f2/lib/index-all";
 export default {
-    mixins: [setTimer],
+    mixins: [setTimer, setIntersection],
     props: {
         bridgeInfo: {
             type: Object,
@@ -71,7 +72,7 @@ export default {
                         status_info[i].percent = toFix(el.count / sum, 3);
                     });
                     scope.$nextTick(function() {
-                        this.renderChart(pieMap, status_info)
+                        scope.setIntersection(pieMap, status_info);
                     })
                 } else {
                     scope.$vux.toast.text(resData.msg);

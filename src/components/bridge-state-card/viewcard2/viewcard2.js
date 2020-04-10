@@ -1,10 +1,11 @@
 import api  from '@/api'
 import setTimer from '@/mixins/setTimer';
+import setIntersection from '@/mixins/setIntersection';
 import { mapGetters } from 'vuex'
 import _ from 'lodash';
 const F2 = require('@antv/f2');
 export default {
-    mixins: [setTimer],
+    mixins: [setTimer, setIntersection],
     props: {
         bridgeInfo: {
             type: Object,
@@ -66,7 +67,7 @@ export default {
                             }
                         })
                         scope.$nextTick(function() {
-                            this.renderChart(data)
+                            scope.setIntersection('', data);
                         })
                     }
                 } else {
@@ -74,7 +75,8 @@ export default {
                 }
             })
         },
-        renderChart(data) {
+       
+        renderChart(type, data) {
             const scope = this;
             
             // Step 1: 创建 Chart 对象

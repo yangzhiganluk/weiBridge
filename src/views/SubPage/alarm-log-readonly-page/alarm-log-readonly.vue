@@ -14,7 +14,7 @@
                         <p>阈值范围：<span>{{logInfo.thresholdRange}}</span></p>
                         <p>告警内容：<span>{{logInfo.content}}</span></p>
                         <p>告警值：<span>{{logInfo.value | number}}</span></p>
-                        <p>故障发生时间：<span>{{logInfo.time}}</span></p>
+                        <p>告警发生时间：<span>{{logInfo.time}}</span></p>
                     </div>
                 </cell-box>
                 <x-textarea 

@@ -179,7 +179,7 @@ export default {
             var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
             sessionStorage.setItem("scanData",result);
             if(scope.loginInfo.type=='3'){
-              scope.$http.get(management_url + '/sub/findSubaccountById', {
+              scope.$http.get(`${api.management_url}/sub/findSubaccountById`, {
                 headers:{
                   accessToken: this.accessToken
                 },

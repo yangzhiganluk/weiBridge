@@ -69,6 +69,8 @@ export default {
                 scope.$vux.loading.hide()
             })
         },
+        
+        
         /**
          * @description 获取所有的评估类型
          */

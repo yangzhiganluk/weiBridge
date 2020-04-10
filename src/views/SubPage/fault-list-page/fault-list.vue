@@ -36,7 +36,9 @@
             </div> -->
         </div>
         <div v-else class="no-data">
-            <NoData/>
+            <NoData>
+                <slot>没有数据</slot>
+            </NoData>
         </div>    
     </div>
 </template>

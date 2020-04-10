@@ -1,7 +1,5 @@
 import api  from '@/api'
-import setTimer from '@/mixins/setTimer';
 export default {
-    mixins: [setTimer],
     props: {
         bridgeInfo: {
             type: Object,
@@ -21,11 +19,15 @@ export default {
             beginTime: moment().startOf('month').format('YYYY-MM-DD'),
             endTime: moment().endOf('month').format('YYYY-MM-DD'),
             attrs: [],  // bring v-calendar to life
+            timer: null,  //定义空的变量
         };
     },
-    mounted() {
+    created() {
         this.uuid = this.$$getuuid()
-        this.initViewCard()
+    },
+    mounted() {
+        this.setIntersection()
+        this.setTimer()
     },
     methods: {
         /**
@@ -82,5 +84,48 @@ export default {
             this.endTime =  d.endOf("month").format('YYYY-MM-DD'); //通过startOf函数指定取月份的末尾即最后一天
             this.initViewCard() 
         },
+        /**
+         * @description 懒加载
+         */
+        setIntersection() {
+            const io = new IntersectionObserver((entries)=> {
+                entries.forEach((item) => { // 遍历entries数组
+                    if(item.isIntersecting){ // 当前元素可见
+                        this.initViewCard()
+                        io.unobserve(item.target)  // 停止观察当前元素 避免不可见时候再次调用callback函数
+                    }   
+                })
+            }, {
+                threshold: [0]
+            })
+            const current = document.getElementById(`${this.uuid}`) 
+            // 监听
+            io.observe(current)
+        },
+        /**
+         * @description 创建定时器
+         */
+        setTimer: function() {
+            const scope = this;
+            scope.timer = setInterval(() => {
+                // do sth
+                scope.initViewCard()
+            }, 1000 * 60 * 5)
+        },
+        /**
+         * @description 清除定时器
+         */
+        clearTimer: function() {
+            const scope = this;
+            clearInterval(scope.timer);
+            scope.timer = null;
+        }
+    },
+    // 最后在beforeDestroy()生命周期内清除定时器, 销毁图表
+    beforeDestroy() {
+        if(this.timer) {
+            this.clearTimer();
+        }
+        
     }
 };

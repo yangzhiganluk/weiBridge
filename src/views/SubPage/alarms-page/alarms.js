@@ -6,7 +6,7 @@ export default {
     data() {
         return {
             bridgeInfo: localStorage.getItem("bridgeInfo") ? JSON.parse(localStorage.getItem("bridgeInfo")) : [],
-            handleFlag: null,   //筛选已处理
+            handleFlag: false,   //筛选已处理
             pageSize: 4,
             totalcount: 0,  //返回总数
             lastId: '', //当前页最后一条数据id
@@ -28,6 +28,7 @@ export default {
         this.params = {
             structureCode: this.bridgeInfo.code,
             pageSize: this.pageSize,
+            handleFlag: this.handleFlag
         }
     },
     mounted() {

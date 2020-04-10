@@ -167,17 +167,19 @@ export default {
                     const legendItems = legend.items;
                     const map = {};
                     legendItems.forEach(function(item) {
-                    map[item.name] = _.clone(item);
+                        map[item.name] = _.clone(item);
                     });
                     tooltipItems.forEach(function(item) {
-                    const name = item.name;
-                    const value = item.value;
-                    if (map[name]) {
-                        map[name].value = value;
-                    }
+                        const name = item.name;
+                        const value = item.value;
+                        if (map[name]) {
+                            map[name].value = value;
+                        }
                     });
                     legend.setItems(_.values(map));
                 },
+                showXTip: true, // 是否展示 X 轴的辅助信息
+                showYTip: true, // 是否展示 Y 轴的辅助信息
                 onHide: function onHide() {
                     const legend = chart.get('legendController').legends.top[0];
                     legend.setItems(chart.getLegendItems().country);

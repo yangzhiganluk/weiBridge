@@ -35,7 +35,9 @@ export default {
           this.$route.path!='/BridgeState' && 
           this.$route.path!='/Oauth' && 
           this.$route.path!='/LoginNoAuth' &&
-          this.$route.path!='/Register')
+          this.$route.path!='/Register' &&
+          this.$route.path!='/ChangePwd'
+        )
       }
   },
   watch:{

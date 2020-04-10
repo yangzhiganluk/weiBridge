@@ -3,10 +3,9 @@
     <div>
         <card>
             <p slot="header"><divider>{{struc.vname}}</divider></p>
-            <div slot="content">
+            <div slot="content" :id="uuid">
                 <div v-if="viewcardDataFlag">
                     <v-calendar 
-                        class="view-calendar"
                         is-expanded
                         :attributes='attrs'
                         :max-date='new Date()'
